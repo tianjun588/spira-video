@@ -20,7 +20,6 @@
 
   <!-- 顶部导航与算力账本 -->
   <header class="border-b border-slate-800 bg-slate-900/70 backdrop-blur sticky top-0 z-50 px-4 lg:px-8 py-3 flex items-center justify-between">
-    <!-- 点击品牌logo 5次可触发管理员暗门 -->
     <div onclick="handleLogoClick()" class="flex items-center space-x-3 cursor-pointer select-none">
       <div class="h-9 w-9 rounded-xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center shadow-lg shadow-indigo-500/20">
         <i class="ph-bold ph-video-camera text-xl text-white"></i>
@@ -158,26 +157,32 @@
         </div>
       </section>
 
-      <!-- 步骤 3：商品实拍图 -->
+      <!-- 步骤 3：商品实拍图 (点击直接调出手机相册) -->
       <section class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 lg:p-5 shadow-xl">
         <div class="flex items-center justify-between mb-3">
           <div class="flex items-center space-x-2">
             <span class="w-6 h-6 rounded-full bg-indigo-500/20 text-indigo-400 text-xs font-bold flex items-center justify-center border border-indigo-500/30">3</span>
             <h2 class="font-semibold text-sm text-slate-200">商品实拍图 (智能 3D 推镜轨)</h2>
           </div>
-          <span class="text-[11px] text-slate-400">支持 3~6 张</span>
+          <span class="text-[11px] text-slate-400" id="uploadCountText">支持 3~6 张</span>
         </div>
 
-        <div class="border-2 border-dashed border-slate-800 hover:border-indigo-500/50 rounded-xl p-4 text-center cursor-pointer transition bg-slate-950/60">
-          <i class="ph ph-images-square text-2xl text-slate-400 mb-1 inline-block"></i>
-          <p class="text-xs text-slate-300">点击上传商品高清主图 / 实拍图</p>
-          <p class="text-[10px] text-slate-500 mt-0.5">系统自动添加 Ken Burns 缓慢平移推镜，让静图秒变动态视频</p>
+        <!-- 真实文件选择器 -->
+        <input type="file" id="realImageInput" accept="image/*" multiple class="hidden" onchange="handleImageUpload(event)" />
+
+        <div onclick="triggerImagePicker()" class="border-2 border-dashed border-slate-800 hover:border-indigo-500 rounded-xl p-4 text-center cursor-pointer transition bg-slate-950/60 active:scale-[0.99]">
+          <i class="ph-bold ph-upload-simple text-2xl text-indigo-400 mb-1 inline-block"></i>
+          <p class="text-xs font-semibold text-slate-200">点击打开手机相册，选择 3~6 张商品图</p>
+          <p class="text-[10px] text-slate-400 mt-1">系统将自动为照片添加 3D 缓慢推镜动效，并同步更换右侧预览背景！</p>
         </div>
+
+        <!-- 选中的图片缩略图网格预览 -->
+        <div id="imageThumbnails" class="grid grid-cols-4 gap-2 mt-3 hidden"></div>
       </section>
 
       <!-- 启动合成按钮 (带扣点逻辑) -->
       <div>
-        <button onclick="realStartRender()" id="renderBtn" class="w-full py-3.5 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:opacity-95 text-white font-bold text-sm rounded-xl shadow-lg shadow-indigo-500/25 transition flex items-center justify-center space-x-2">
+        <button onclick="realStartRender()" id="renderBtn" class="w-full py-3.5 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:opacity-95 text-white font-bold text-sm rounded-xl shadow-lg shadow-indigo-500/25 transition flex items-center justify-center space-x-2 active:scale-[0.99]">
           <i class="ph-bold ph-play-circle text-lg"></i>
           <span>一键合成短视频 (扣除 1 点算力)</span>
         </button>
@@ -224,10 +229,10 @@
           <div class="relative z-10 space-y-2">
             <div class="bg-white/95 text-slate-900 rounded-lg p-1.5 flex items-center space-x-2 shadow-lg">
               <div class="w-8 h-8 rounded bg-slate-200 overflow-hidden flex-shrink-0">
-                <img src="https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=120&q=80" class="w-full h-full object-cover"/>
+                <img id="cardThumbImg" src="https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=120&q=80" class="w-full h-full object-cover"/>
               </div>
               <div class="flex-1 min-w-0">
-                <p class="text-[10px] font-bold truncate">316不锈钢锁温大容量杯</p>
+                <p id="cardProductTitle" class="text-[10px] font-bold truncate">316不锈钢锁温大容量杯</p>
                 <p class="text-[9px] text-red-600 font-black">券后仅需 ¥39.9</p>
               </div>
               <button class="bg-red-600 text-white text-[9px] px-2 py-1 rounded font-bold">领券</button>
@@ -272,7 +277,7 @@
         <div class="flex items-center space-x-2 text-[10px]">
           <span class="bg-slate-800 text-slate-300 px-2 py-0.5 rounded border border-slate-700">#好物推荐</span>
           <span class="bg-slate-800 text-slate-300 px-2 py-0.5 rounded border border-slate-700">#抖音商城好物节</span>
-          <span class="bg-slate-800 text-slate-300 px-2 py-0.5 rounded border border-slate-700">#保温杯实测</span>
+          <span class="bg-slate-800 text-slate-300 px-2 py-0.5 rounded border border-slate-700">#车载保温杯</span>
         </div>
       </section>
 
@@ -297,8 +302,7 @@
 
       <!-- 模块 A: 购买套餐自动发卡 -->
       <div class="space-y-2.5 mb-5">
-        <!-- 9.9 元体验包 -->
-        <a href="https://fk.example.com" target="_blank" onclick="mockAutoBuy('trial_9.9', 10)" class="border border-slate-800 hover:border-indigo-500 bg-slate-950 rounded-2xl p-3 flex items-center justify-between transition group">
+        <div onclick="mockAutoBuy('trial_9.9', 10)" class="border border-slate-800 hover:border-indigo-500 bg-slate-950 rounded-2xl p-3 flex items-center justify-between transition cursor-pointer group">
           <div class="flex items-center space-x-3">
             <span class="w-8 h-8 rounded-xl bg-slate-800 flex items-center justify-center text-slate-300 text-xs font-bold">10点</span>
             <div>
@@ -310,10 +314,9 @@
             <span class="text-sm font-black text-indigo-400">¥ 9.9</span>
             <span class="block text-[9px] text-slate-500">点击自动购买</span>
           </div>
-        </a>
+        </div>
 
-        <!-- 39 元专业月卡 (爆款推荐) -->
-        <a href="https://fk.example.com" target="_blank" onclick="mockAutoBuy('monthly_39', 40)" class="border-2 border-indigo-500 bg-indigo-950/20 rounded-2xl p-3 flex items-center justify-between transition relative group">
+        <div onclick="mockAutoBuy('monthly_39', 40)" class="border-2 border-indigo-500 bg-indigo-950/20 rounded-2xl p-3 flex items-center justify-between transition cursor-pointer relative group">
           <span class="absolute -top-2.5 right-4 bg-gradient-to-r from-pink-500 to-rose-500 text-white text-[9px] font-black px-2 py-0.5 rounded-full uppercase">
             店主最爱
           </span>
@@ -328,10 +331,9 @@
             <span class="text-sm font-black text-indigo-400">¥ 39.0</span>
             <span class="block text-[9px] text-indigo-400">点击自动购买</span>
           </div>
-        </a>
+        </div>
 
-        <!-- 99 元尊享季卡 -->
-        <a href="https://fk.example.com" target="_blank" onclick="mockAutoBuy('quarterly_99', 120)" class="border border-slate-800 hover:border-indigo-500 bg-slate-950 rounded-2xl p-3 flex items-center justify-between transition group">
+        <div onclick="mockAutoBuy('quarterly_99', 120)" class="border border-slate-800 hover:border-indigo-500 bg-slate-950 rounded-2xl p-3 flex items-center justify-between transition cursor-pointer group">
           <div class="flex items-center space-x-3">
             <span class="w-8 h-8 rounded-xl bg-slate-800 flex items-center justify-center text-slate-300 text-xs font-bold">120点</span>
             <div>
@@ -343,10 +345,10 @@
             <span class="text-sm font-black text-indigo-400">¥ 99.0</span>
             <span class="block text-[9px] text-slate-500">点击自动购买</span>
           </div>
-        </a>
+        </div>
       </div>
 
-      <!-- 模块 B: 卡密直接兑换框 (全自动核销核心) -->
+      <!-- 模块 B: 卡密直接兑换框 -->
       <div class="bg-slate-950 border border-slate-800 rounded-2xl p-3.5">
         <label class="block text-xs font-bold text-slate-300 mb-1.5 flex items-center gap-1">
           <i class="ph ph-key text-indigo-400"></i>
@@ -380,7 +382,6 @@
         </div>
       </div>
 
-      <!-- 数据看板小卡片 -->
       <div class="grid grid-cols-3 gap-3 mb-5">
         <div class="bg-slate-950 border border-slate-800 rounded-xl p-3 text-center">
           <p class="text-[10px] text-slate-400">当前活跃用户</p>
@@ -396,7 +397,6 @@
         </div>
       </div>
 
-      <!-- 快速增减任意用户算力 -->
       <div class="bg-slate-950 border border-slate-800 rounded-2xl p-4 mb-5">
         <h4 class="text-xs font-bold text-slate-200 mb-2 flex items-center gap-1.5">
           <i class="ph ph-user-gear text-indigo-400"></i>
@@ -413,7 +413,6 @@
         </div>
       </div>
 
-      <!-- 批量一键生成新卡密 -->
       <div class="bg-slate-950 border border-slate-800 rounded-2xl p-4">
         <div class="flex items-center justify-between mb-2">
           <h4 class="text-xs font-bold text-slate-200 flex items-center gap-1.5">
@@ -424,8 +423,7 @@
             + 一键生成 5 张新卡密
           </button>
         </div>
-        <div id="adminCardList" class="space-y-1.5 max-h-36 overflow-y-auto text-[11px] font-mono pr-1">
-        </div>
+        <div id="adminCardList" class="space-y-1.5 max-h-36 overflow-y-auto text-[11px] font-mono pr-1"></div>
       </div>
 
     </div>
@@ -458,9 +456,49 @@
       document.getElementById('adminTotalUsed').innerText = totalUsedCredits + ' 点';
     }
 
+    function triggerImagePicker() {
+      const input = document.getElementById('realImageInput');
+      if (input) input.click();
+    }
+
+    function handleImageUpload(e) {
+      const files = e.target.files;
+      if (!files || files.length === 0) return;
+
+      const thumbsContainer = document.getElementById('imageThumbnails');
+      thumbsContainer.innerHTML = '';
+      thumbsContainer.classList.remove('hidden');
+
+      document.getElementById('uploadCountText').innerText = `已选 ${files.length} 张图片`;
+
+      const readerFirst = new FileReader();
+      readerFirst.onload = function(evt) {
+        document.getElementById('previewBackground').style.backgroundImage = `url('${evt.target.result}')`;
+        const cardThumb = document.getElementById('cardThumbImg');
+        if (cardThumb) cardThumb.src = evt.target.result;
+      };
+      readerFirst.readAsDataURL(files[0]);
+
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+          const div = document.createElement('div');
+          div.className = "relative aspect-square rounded-lg overflow-hidden border border-indigo-500/50 shadow";
+          div.innerHTML = `<img src="${evt.target.result}" class="w-full h-full object-cover" />`;
+          thumbsContainer.appendChild(div);
+        };
+        reader.readAsDataURL(file);
+      }
+
+      alert(`✅ 成功从手机相册载入 ${files.length} 张商品图！\n右侧短视频预览背景已实时同步替换！`);
+    }
+
     function quickFillExample() {
       document.getElementById('productTitle').value = "高颜值316不锈钢车载保温杯，24小时长效锁温，单手一键弹盖不漏水";
       document.getElementById('targetAudience').value = "通勤上班族、宝妈、经常开车出行的车主";
+      const cardTitle = document.getElementById('cardProductTitle');
+      if (cardTitle) cardTitle.innerText = "高颜值316不锈钢车载保温杯";
     }
 
     function selectAvatar(el, name) {
@@ -677,7 +715,7 @@
     }
 
     function copyPublishInfo() {
-      const text = `🔥 家人们谁懂啊！24小时实测锁温杯，医用级316不锈钢内胆真的绝了！单手一键弹盖开车超方便，左下角赶紧薅羊毛！ #好物推荐 #高颜值水杯 #车载水杯 #秋冬必备`;
+      const text = `🔥 家人们谁懂啊！24小时实测锁温杯，医用级316不锈钢内胆真的绝了！单手一键弹盖开车超方便，真实体验绝了，左下角赶紧抢！ #好物推荐 #高颜值水杯 #车载水杯 #秋冬必备`;
       navigator.clipboard.writeText(text);
       alert('已复制抖音/视频号/小红书爆款带货文案与话题标签！');
     }
