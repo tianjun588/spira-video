@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Spira AI 带货云剪 - 一键生成电商短视频</title>
+  <title>Spira AI 带货云剪 - 全行业电商短视频生成</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
   <style>
@@ -26,22 +26,19 @@
       </div>
       <div>
         <h1 class="font-bold text-base lg:text-lg leading-tight bg-gradient-to-r from-white via-slate-200 to-indigo-300 bg-clip-text text-transparent">Spira 带货云剪</h1>
-        <p class="text-[10px] text-slate-400">已激活智谱 GLM 商业引擎</p>
+        <p class="text-[10px] text-slate-400">全行业 AI 爆款短视频生成引擎</p>
       </div>
     </div>
     
     <div class="flex items-center space-x-2">
-      <!-- 动态算力显示 -->
       <div class="flex items-center space-x-1.5 bg-slate-800/90 border border-slate-700/60 rounded-full px-3 py-1">
         <i class="ph-fill ph-lightning text-amber-400 text-xs"></i>
         <span class="text-xs text-slate-300">算力余额: <strong id="userCreditsDisplay" class="text-white font-mono text-sm">5</strong> 点</span>
       </div>
-      <!-- 全自动充值按钮 -->
       <button onclick="openRechargeModal()" class="px-3 py-1.5 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white rounded-lg text-xs font-semibold shadow-md shadow-indigo-500/10 transition flex items-center space-x-1">
         <i class="ph-bold ph-shopping-cart"></i>
         <span>充值 / 兑换</span>
       </button>
-      <!-- 管理员入口按钮 -->
       <button onclick="openAdminLogin()" class="px-2 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white rounded-lg text-xs font-semibold border border-slate-700 transition" title="管理后台">
         <i class="ph-bold ph-gear"></i>
       </button>
@@ -54,51 +51,79 @@
     <!-- 左侧：工作流编排 (7 cols) -->
     <div class="lg:col-span-7 space-y-5">
       
-      <!-- 步骤 1：输入商品与真实 AI 生成脚本 -->
+      <!-- 步骤 1：全行业商品输入与多维度痛点场景 -->
       <section class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 lg:p-5 shadow-xl">
-        <div class="flex items-center justify-between mb-3">
+        <div class="flex items-center justify-between mb-2">
           <div class="flex items-center space-x-2">
             <span class="w-6 h-6 rounded-full bg-indigo-500/20 text-indigo-400 text-xs font-bold flex items-center justify-center border border-indigo-500/30">1</span>
-            <h2 class="font-semibold text-sm text-slate-200">商品卖点输入</h2>
+            <h2 class="font-semibold text-sm text-slate-200">选择所属行业与商品特征</h2>
           </div>
-          <span class="text-xs text-indigo-400 cursor-pointer hover:underline flex items-center gap-1" onclick="quickFillExample()">
-            <i class="ph ph-magic-wand"></i> 填入热销保温杯示例
-          </span>
+          <span class="text-[11px] text-indigo-400">八大全行业现成痛点库</span>
+        </div>
+
+        <!-- 八大全行业快捷切换标签 -->
+        <div class="flex flex-wrap gap-1.5 mb-3.5">
+          <button onclick="switchCategory('clothes')" id="btn_cat_clothes" class="cat-pill px-2.5 py-1 rounded-lg bg-indigo-600 text-white text-[11px] font-medium transition">
+            👗 服饰鞋包
+          </button>
+          <button onclick="switchCategory('skincare')" id="btn_cat_skincare" class="cat-pill px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 text-[11px] transition">
+            🧴 美妆护肤
+          </button>
+          <button onclick="switchCategory('daily')" id="btn_cat_daily" class="cat-pill px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 text-[11px] transition">
+            🏠 家居家日用
+          </button>
+          <button onclick="switchCategory('digital')" id="btn_cat_digital" class="cat-pill px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 text-[11px] transition">
+            🎧 3C数码配件
+          </button>
+          <button onclick="switchCategory('car')" id="btn_cat_car" class="cat-pill px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 text-[11px] transition">
+            🚗 车品配件
+          </button>
+          <button onclick="switchCategory('baby')" id="btn_cat_baby" class="cat-pill px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 text-[11px] transition">
+            👶 母婴童装
+          </button>
+          <button onclick="switchCategory('food')" id="btn_cat_food" class="cat-pill px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 text-[11px] transition">
+            🥪 美食特产
+          </button>
+          <button onclick="switchCategory('office')" id="btn_cat_office" class="cat-pill px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 text-[11px] transition">
+            🏢 办公文具
+          </button>
         </div>
 
         <div class="space-y-3">
           <div>
-            <label class="block text-xs font-medium text-slate-400 mb-1">商品标题 / 核心卖点特征</label>
-            <input id="productTitle" type="text" placeholder="例如：德国工艺316车载保温杯，24小时长效锁温，单手一键弹盖不漏水" 
-                   class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition" />
+            <label class="block text-xs font-medium text-slate-400 mb-1">商品标题 / 核心卖点参数</label>
+            <input id="productTitle" type="text" value="暴雨级防水防风三合一冲锋衣，加厚可拆卸摇粒绒内胆，显瘦立裁版型" 
+                   class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition" />
           </div>
 
           <div class="grid grid-cols-2 gap-3">
             <div>
-              <label class="block text-xs font-medium text-slate-400 mb-1">目标人群 / 痛点场景</label>
-              <input id="targetAudience" type="text" placeholder="上班族、经常开车出行的车主" 
-                     class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition" />
+              <label class="block text-xs font-medium text-slate-400 mb-1">核心痛点场景库 (留人钩子)</label>
+              <select id="targetPainPointSelect" onchange="applyPainPoint(this.value)" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 transition">
+                <option value="怕冷又怕臃肿穿成球，下雨刮风湿透瑟瑟发抖">痛点：怕臃肿穿成球，下雨天容易湿透</option>
+                <option value="大牌冲锋衣动辄一两千，买普通款又不防风漏水">痛点：大牌太贵交智商税，便宜的又劣质</option>
+                <option value="户外徒步、骑电动车上班，风直往脖子里面灌">痛点：骑车通勤直灌风，冷风刺骨</option>
+              </select>
             </div>
             <div>
               <label class="block text-xs font-medium text-slate-400 mb-1">带货风格</label>
-              <select id="videoTone" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-indigo-500 transition">
+              <select id="videoTone" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 transition">
                 <option value="aggressive">激情促销带货（破价立减型）</option>
-                <option value="story">闺蜜种草安利（真情实感型）</option>
-                <option value="review">硬核测评拆解（专业严谨型）</option>
+                <option value="story">真诚闺蜜安利（走心痛点型）</option>
+                <option value="review">硬核实测拆解（暴力测评型）</option>
               </select>
             </div>
           </div>
 
           <div>
             <div class="flex items-center justify-between mb-1">
-              <label class="block text-xs font-medium text-slate-400">智谱 AI 实时生成的爆款带货分镜头脚本</label>
+              <label class="block text-xs font-medium text-slate-400">智谱 AI 编导脚本 (带黄金3秒钩子与分镜动作)</label>
               <button onclick="realGenerateScript()" id="genScriptBtn" class="text-xs text-indigo-400 hover:text-indigo-300 font-medium flex items-center space-x-1">
                 <i class="ph ph-sparkle text-sm"></i>
-                <span>点击调用大模型实时生成</span>
+                <span>点击调用大模型重新生成</span>
               </button>
             </div>
-            <textarea id="scriptText" rows="6" placeholder="输入上方商品信息后，点击右上角【实时生成】按钮，智谱 AI 将按抖音黄金3秒法则为你自动创作脚本..."
-                      class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs leading-relaxed text-slate-300 placeholder-slate-600 focus:outline-none focus:border-indigo-500 transition font-mono"></textarea>
+            <textarea id="scriptText" rows="6" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs leading-relaxed text-slate-300 placeholder-slate-600 focus:outline-none focus:border-indigo-500 transition font-mono"></textarea>
           </div>
         </div>
       </section>
@@ -157,7 +182,7 @@
         </div>
       </section>
 
-      <!-- 步骤 3：商品实拍图 (点击直接调出手机相册) -->
+      <!-- 步骤 3：商品实拍图 (点击调用手机相册) -->
       <section class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 lg:p-5 shadow-xl">
         <div class="flex items-center justify-between mb-3">
           <div class="flex items-center space-x-2">
@@ -167,7 +192,6 @@
           <span class="text-[11px] text-slate-400" id="uploadCountText">支持 3~6 张</span>
         </div>
 
-        <!-- 真实文件选择器 -->
         <input type="file" id="realImageInput" accept="image/*" multiple class="hidden" onchange="handleImageUpload(event)" />
 
         <div onclick="triggerImagePicker()" class="border-2 border-dashed border-slate-800 hover:border-indigo-500 rounded-xl p-4 text-center cursor-pointer transition bg-slate-950/60 active:scale-[0.99]">
@@ -176,11 +200,10 @@
           <p class="text-[10px] text-slate-400 mt-1">系统将自动为照片添加 3D 缓慢推镜动效，并同步更换右侧预览背景！</p>
         </div>
 
-        <!-- 选中的图片缩略图网格预览 -->
         <div id="imageThumbnails" class="grid grid-cols-4 gap-2 mt-3 hidden"></div>
       </section>
 
-      <!-- 启动合成按钮 (带扣点逻辑) -->
+      <!-- 启动合成按钮 -->
       <div>
         <button onclick="realStartRender()" id="renderBtn" class="w-full py-3.5 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:opacity-95 text-white font-bold text-sm rounded-xl shadow-lg shadow-indigo-500/25 transition flex items-center justify-center space-x-2 active:scale-[0.99]">
           <i class="ph-bold ph-play-circle text-lg"></i>
@@ -205,13 +228,13 @@
         <!-- 手机竖屏模拟器框 -->
         <div class="relative w-full max-w-[260px] aspect-[9/16] bg-black rounded-3xl border-4 border-slate-800 shadow-2xl overflow-hidden flex flex-col justify-between p-3">
           
-          <div id="previewBackground" class="absolute inset-0 bg-cover bg-center transition-all duration-700 opacity-90" style="background-image: url('https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=600&q=80');">
+          <div id="previewBackground" class="absolute inset-0 bg-cover bg-center transition-all duration-700 opacity-90" style="background-image: url('https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=600&q=80');">
             <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/80"></div>
           </div>
 
           <div class="relative z-10 flex items-center justify-between">
-            <span class="bg-red-600 text-white text-[10px] font-black px-2 py-0.5 rounded uppercase tracking-wider animate-pulse">
-              限时特惠
+            <span id="previewTagBadge" class="bg-red-600 text-white text-[10px] font-black px-2 py-0.5 rounded uppercase tracking-wider animate-pulse">
+              秋冬爆款
             </span>
             <span class="text-white/80 text-[10px] bg-black/40 backdrop-blur px-1.5 py-0.5 rounded">
               00:15
@@ -221,7 +244,7 @@
           <div class="relative z-10 text-center my-auto px-2">
             <div id="previewSubtitleBox" class="inline-block bg-black/70 backdrop-blur-md border border-amber-400/40 px-3 py-1.5 rounded-xl shadow-lg">
               <p id="previewSubtitleText" class="text-amber-300 font-black text-xs leading-snug drop-shadow">
-                “别再买几十块保温杯了！24小时实测锁温直接惊艳…”
+                “上千大牌同厂！水泼上去直接荷叶滚落，保暖还显瘦…”
               </p>
             </div>
           </div>
@@ -229,11 +252,11 @@
           <div class="relative z-10 space-y-2">
             <div class="bg-white/95 text-slate-900 rounded-lg p-1.5 flex items-center space-x-2 shadow-lg">
               <div class="w-8 h-8 rounded bg-slate-200 overflow-hidden flex-shrink-0">
-                <img id="cardThumbImg" src="https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=120&q=80" class="w-full h-full object-cover"/>
+                <img id="cardThumbImg" src="https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=120&q=80" class="w-full h-full object-cover"/>
               </div>
               <div class="flex-1 min-w-0">
-                <p id="cardProductTitle" class="text-[10px] font-bold truncate">316不锈钢锁温大容量杯</p>
-                <p class="text-[9px] text-red-600 font-black">券后仅需 ¥39.9</p>
+                <p id="cardProductTitle" class="text-[10px] font-bold truncate">三合一暴雨级冲锋衣</p>
+                <p id="cardProductPrice" class="text-[9px] text-red-600 font-black">券后仅需 ¥129.0</p>
               </div>
               <button class="bg-red-600 text-white text-[9px] px-2 py-1 rounded font-bold">领券</button>
             </div>
@@ -274,10 +297,10 @@
         <p class="text-[11px] text-slate-400 leading-relaxed mb-3">
           成片自带热评钩子与带货话题标签，可直接导入至视频号、抖音创作者服务平台或快手小店一键发布。
         </p>
-        <div class="flex items-center space-x-2 text-[10px]">
+        <div class="flex items-center space-x-2 text-[10px]" id="publishTagsContainer">
           <span class="bg-slate-800 text-slate-300 px-2 py-0.5 rounded border border-slate-700">#好物推荐</span>
           <span class="bg-slate-800 text-slate-300 px-2 py-0.5 rounded border border-slate-700">#抖音商城好物节</span>
-          <span class="bg-slate-800 text-slate-300 px-2 py-0.5 rounded border border-slate-700">#车载保温杯</span>
+          <span class="bg-slate-800 text-slate-300 px-2 py-0.5 rounded border border-slate-700">#爆款实测</span>
         </div>
       </section>
 
@@ -300,7 +323,6 @@
         <p class="text-xs text-slate-400 mt-1">全天 24 小时微信/支付宝自动出单，无需人工等待</p>
       </div>
 
-      <!-- 模块 A: 购买套餐自动发卡 -->
       <div class="space-y-2.5 mb-5">
         <div onclick="mockAutoBuy('trial_9.9', 10)" class="border border-slate-800 hover:border-indigo-500 bg-slate-950 rounded-2xl p-3 flex items-center justify-between transition cursor-pointer group">
           <div class="flex items-center space-x-3">
@@ -348,7 +370,6 @@
         </div>
       </div>
 
-      <!-- 模块 B: 卡密直接兑换框 -->
       <div class="bg-slate-950 border border-slate-800 rounded-2xl p-3.5">
         <label class="block text-xs font-bold text-slate-300 mb-1.5 flex items-center gap-1">
           <i class="ph ph-key text-indigo-400"></i>
@@ -430,7 +451,7 @@
   </div>
 
   <footer class="border-t border-slate-900 py-4 px-6 text-center text-[11px] text-slate-500">
-    Spira AI 电商云剪 SaaS 核心引擎架构已就绪 | 全自动发卡核销系统已挂载
+    Spira AI 电商云剪 SaaS 核心引擎架构已就绪 | 全行业爆款痛点模型驱动
   </footer>
 
   <script>
@@ -445,15 +466,177 @@
       "KING-6666-EEEE": 120
     }));
 
-    document.getElementById('userCreditsDisplay').innerText = currentCredits;
-    document.getElementById('adminTotalUsed').innerText = totalUsedCredits + ' 点';
+    // 八大全行业深度痛点与脚本引擎字典
+    const fullCategories = {
+      clothes: {
+        title: "暴雨级防水防风三合一冲锋衣，加厚可拆卸摇粒绒内胆，显瘦立裁版型",
+        pains: [
+          "怕冷又怕臃肿穿成球，下雨刮风湿透瑟瑟发抖",
+          "大牌冲锋衣动辄一两千，买普通款又不防风漏水",
+          "户外徒步、骑电动车上班，风直往脖子里面灌"
+        ],
+        tone: "review",
+        price: "¥129.0",
+        bgImg: "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=600&q=80",
+        thumbImg: "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=120&q=80",
+        tag: "秋冬爆款",
+        shortTitle: "三合一暴雨级冲锋衣",
+        subtitle: "“上千大牌同厂！水泼上去直接荷叶滚落，保暖还显瘦…”",
+        script: `【第0~3秒 黄金悬念钩子】\n（主播直接端起一盆冷水泼在身上，水珠瞬间像荷叶般滑落）\n“别再去商场花一两千买冲锋衣了！今天教大家源头直出怎么选！”\n\n【第4~8秒 核心痛点与背书】\n（拉近镜头用力搓擦面料，并拉开拉链展示加厚可拆卸抓绒内胆）\n“外层是纳米暴雨级微孔膜，挡风挡雨就像穿雨衣一样严实！里面是高密度摇粒绒，一件顶三件，骑车上班完全不漏风，关键是立体剪裁，怎么穿都不显臃肿！”\n\n【第9~15秒 破价逼单与号召行动】\n（主播展示买一件发三件套包装，小黄车站位高亮）\n“源头工厂第一批现货冲销量，今天只要大牌一个零头！现在拍送运费险，左下方小黄车，拼手速！”`
+      },
+      skincare: {
+        title: "高纯玻色因熬夜紧致修护面霜，淡纹抗老深层补水，冰淇淋质地清爽好吸收",
+        pains: [
+          "长期熬夜脸又暗沉又垮，第二天脸色发黄没气色",
+          "换季干燥起皮卡粉，普通水乳根本压不住干纹",
+          "油皮怕油腻闷痘，干皮怕不够滋润锁不住水"
+        ],
+        tone: "story",
+        price: "¥69.0",
+        bgImg: "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=600&q=80",
+        thumbImg: "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=120&q=80",
+        tag: "熬夜救星",
+        shortTitle: "玻色因熬夜修护面霜",
+        subtitle: "“天天熬夜到两点脸都不垮！第二天皮肤依然软糯发光…”",
+        script: `【第0~3秒 黄金悬念钩子】\n（主播素颜怼脸特写，拿吸油纸在脸上按压干干净净）\n“谁能看出我昨晚两点才睡？经常熬夜垮脸的姐妹赶紧集合！”\n\n【第4~8秒 核心痛点与背书】\n（上手挖取冰淇淋质地面霜，一抹化水展示清爽度）\n“里面加足了高浓度玻色因和修护胜肽！睡前厚涂一层，就像整晚敷隐形抗老面膜，第二天洗完脸皮肤又软又嫩，干纹细纹悄悄淡掉，完全不搓泥、不闷闭口！”\n\n【第9~15秒 破价逼单与号召行动】\n（主播展示拍一发二大礼盒）\n“今天品牌方开业宠粉，拍一罐直接发两罐正装！库存只放300单，左下方小黄车抢完立刻下架！”`
+      },
+      daily: {
+        title: "316食品级不锈钢车载保温杯，24小时长效锁温，单手一键弹盖密封防漏",
+        pains: [
+          "普通保温杯半天就凉了，冬天想喝口热水太难",
+          "普通材质装茶咖啡一股怪味，难清洗又易滋生细菌",
+          "开车时双手拧盖太危险，放杯架摇晃漏水"
+        ],
+        tone: "aggressive",
+        price: "¥39.9",
+        bgImg: "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=600&q=80",
+        thumbImg: "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=120&q=80",
+        tag: "车载爆款",
+        shortTitle: "316不锈钢车载保温杯",
+        subtitle: "“昨天倒的开水今天还烫嘴！单手一键开盖，开车必备…”",
+        script: `【第0~3秒 黄金悬念钩子】\n（主播神情惊讶，拿起保温杯直接往桌上一震）\n“平时买的同款保温杯半天就凉了？今天给大家实测这款被问爆的车载锁温神器！”\n\n【第4~8秒 核心痛点与背书】\n（镜头切至316医用不锈钢内胆特写，倒出滚烫热气）\n“内胆升级成医用级316不锈钢，耐酸碱装茶装咖啡无异味，昨天装的开水今天依然烫嘴！单手一键弹盖，开车喝水完全不挡视线！”\n\n【第9~15秒 破价逼单与号召行动】\n（主播单手演示倒置不漏水，小黄车跳动）\n“今天厂家冲排名直接破价大促，券后只要三十多，看准左下方小黄车，手慢无！”`
+      },
+      digital: {
+        title: "双麦主动降噪超长续航半入耳蓝牙耳机，空间音频低延迟，佩戴无感久戴不痛",
+        pains: [
+          "早晚高峰地铁公交极其嘈杂，耳机声音开最大也听不清",
+          "入耳式耳机戴久了耳朵又胀又痛，还会发炎",
+          "玩游戏声音延迟严重，单次续航两三小时就没电"
+        ],
+        tone: "review",
+        price: "¥59.9",
+        bgImg: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=600&q=80",
+        thumbImg: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=120&q=80",
+        tag: "硬核降噪",
+        shortTitle: "双麦主动降噪无线耳机",
+        subtitle: "“戴上耳机世界瞬间安静！百元以内直接挑战千元音质…”",
+        script: `【第0~3秒 黄金悬念钩子】\n（主播在喧闹市集一戴上耳机，背景杂音瞬间被完全消音）\n“地铁嘈杂想安静听歌？谁能想到百元内能买到双麦主动降噪黑科技！”\n\n【第4~8秒 核心痛点与背书】\n（展示仅3.5克极轻机身与蓝牙5.4秒开盖秒连）\n“半入耳工学设计，戴一下午耳朵没有任何胀痛感！搭配大动圈单元，低音饱满人声清澈，打游戏音画零延迟，单次续航能连听8小时！”\n\n【第9~15秒 破价逼单与号召行动】\n（主播手托精美金属质感充电舱）\n“千元大牌品质，今天厂家直接砍掉中间商，不到60块带走还送保护套，左下方小黄车手慢无！”`
+      },
+      car: {
+        title: "无线强劲大吸力便携车载吸尘器，小巧车家两用，高速无刷电机缝隙无死角",
+        pains: [
+          "车内脚垫烟灰零食碎屑难清理，每次去洗车店精洗费钱",
+          "普通吸尘器吸力小，毛发和缝隙小石子吸不上来",
+          "机身笨重带线麻烦，车内收纳占地方"
+        ],
+        tone: "aggressive",
+        price: "¥49.9",
+        bgImg: "https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?auto=format&fit=crop&w=600&q=80",
+        thumbImg: "https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?auto=format&fit=crop&w=120&q=80",
+        tag: "车品顶流",
+        shortTitle: "车载大吸力无线吸尘器",
+        subtitle: "“座椅缝隙碎屑一秒吸空！保温杯大小，直接插杯架随用随取…”",
+        script: `【第0~3秒 黄金悬念钩子】\n（主播用吸尘器一秒将座椅缝隙的一大片饼干碎全部抽干）\n“去一次洗车店精洗好几十，不如在车里放这个吸力怪兽！”\n\n【第4~8秒 核心痛点与背书】\n（展示涡轮电机直接吸起两瓶矿泉水）\n“纯铜高速无刷电机，飓风吸力！不管是脚垫上的泥沙石子还是宠物浮毛，一扫而光！比保温杯还轻，直接塞车门储物格完全不占地！”\n\n【第9~15秒 破价逼单与号召行动】\n（展示赠送的加长扁吸嘴与吹吸两用配件）\n“今天厂家直营还免费送全套刷头配件，左下方小黄车，赶紧给爱车安排一个！”`
+      },
+      baby: {
+        title: "食品级硅胶吸盘婴幼儿辅食餐具套装，强力抗摔防翻，耐高温易清洗",
+        pains: [
+          "宝宝吃饭调皮总掀翻饭碗，满地汤汤水水难收拾",
+          "普通塑料餐具担心塑化剂高温释放有害物质",
+          "死角难清洗易滋生细菌，宝宝抓握不顺手"
+        ],
+        tone: "story",
+        price: "¥35.8",
+        bgImg: "https://images.unsplash.com/photo-1584839610505-1a89bf263945?auto=format&fit=crop&w=600&q=80",
+        thumbImg: "https://images.unsplash.com/photo-1584839610505-1a89bf263945?auto=format&fit=crop&w=120&q=80",
+        tag: "母婴优选",
+        shortTitle: "防翻硅胶辅食碗勺套",
+        subtitle: "“用力扯都拔不下来！食品级奶嘴硅胶，宝宝吃饭省心太多…”",
+        script: `【第0~3秒 黄金悬念钩子】\n（宝妈用力提拉餐碗，整个餐椅都被提起来但碗底吸得死死的）\n“还在为宝宝每顿饭掀翻碗头疼吗？来看看这款被全网夸爆的辅食碗！”\n\n【第4~8秒 核心痛点与背书】\n（展示食品级检测报告与沸水水煮消毒画面）\n“整身采用母婴级液体硅胶，和奶嘴一样安全！超大吸盘往餐桌上一放直接牢牢抓死，怎么扯都不翻！圆润钝化勺头，保护宝宝娇嫩牙龈，一冲即净无残留！”\n\n【第9~15秒 破价逼单与号召行动】\n（展示精美礼盒包装，附带防水围兜）\n“今天开学季限时补贴，买碗直接送配套勺叉和围兜！数量有限，各位宝妈左下角快冲！”`
+      },
+      food: {
+        title: "农家手工香酥小麻花，非油炸更健康，香脆可口独立小包，办公室解馋零食",
+        pains: [
+          "下午三四点办公室肚子饿，想吃零食又怕长胖不健康",
+          "普通零食油炸腻口，添加剂多，吃了容易上火长痘",
+          "大包装开封吃不完容易受潮变软发皮"
+        ],
+        tone: "story",
+        price: "¥19.9",
+        bgImg: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=80",
+        thumbImg: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=120&q=80",
+        tag: "网红解馋",
+        shortTitle: "农家手工香脆小麻花",
+        subtitle: "“一口咬下去嘎嘣脆！非油炸不油腻，追剧加班停不下来…”",
+        script: `【第0~3秒 黄金悬念钩子】\n（主播拿起一根麻花一口咬断，清脆的“咔嚓”声直击耳膜）\n“听这声音！下午肚子饿、嘴巴寂寞的姐妹，一定要囤这个！”\n\n【第4~8秒 核心痛点与背书】\n（掰开麻花特写蜂窝酥脆内部，展示无油纸屑）\n“传统老酵面手工揉搓，慢火烘烤非油炸，咬下去层层酥脆完全不扎嘴，越嚼越香！每根都是独立小包装，带去公司解馋、追剧吃，好吃还不脏手！”\n\n【第9~15秒 破价逼单与号召行动】\n（主播直接倒出一大箱麻花堆满桌子）\n“今天一大箱整整两斤只要十几块！还不够一杯奶茶钱，左下方小黄车，赶紧囤一箱！”`
+      },
+      office: {
+        title: "人体工学记忆棉腰靠坐垫套装，久坐不累支撑护腰，透气不闷四季通用",
+        pains: [
+          "上班族、司机每天坐8小时以上，下班腰酸背痛直不起腰",
+          "普通椅子腰部完全悬空，坐久了骨盆前倾颈椎僵硬",
+          "普通靠垫太软无支撑，夏天坐久了又闷又出汗"
+        ],
+        tone: "review",
+        price: "¥49.0",
+        bgImg: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=600&q=80",
+        thumbImg: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=120&q=80",
+        tag: "护腰神器",
+        shortTitle: "人体工学双向支撑腰靠",
+        subtitle: "“坐上去腰部瞬间被托住！久坐一整天下班再也不酸痛…”",
+        script: `【第0~3秒 黄金悬念钩子】\n（主播坐在普通椅子上揉着酸痛的后腰，满脸痛苦）\n“每天在工位坐八小时，下班腰快废了？看看这个拯救打工人的护腰神器！”\n\n【第4~8秒 核心痛点与背书】\n（坐上腰靠，镜头侧面特写脊椎完美的自然S型曲度托举）\n“航天级慢回弹记忆棉，双翼环抱包裹设计，一坐下去腰就像被两只温热的大手紧紧托住，分散脊椎70%的压力！外层是蜂窝透气面料，久坐不闷热，外套还能拆洗！”\n\n【第9~15秒 破价逼单与号召行动】\n（主播展示买腰靠送同款减压坐垫）\n“今天一套腰靠加坐垫只要几十块，保护自己的老腰比什么都值！左下方小黄车，手慢无！”`
+      }
+    };
 
-    function saveState() {
-      localStorage.setItem('spira_user_credits', currentCredits);
-      localStorage.setItem('spira_total_used', totalUsedCredits);
-      localStorage.setItem('spira_valid_cards', JSON.stringify(validCards));
-      document.getElementById('userCreditsDisplay').innerText = currentCredits;
-      document.getElementById('adminTotalUsed').innerText = totalUsedCredits + ' 点';
+    let currentCatKey = 'clothes';
+
+    function switchCategory(key) {
+      currentCatKey = key;
+      const data = fullCategories[key];
+      if (!data) return;
+
+      document.querySelectorAll('.cat-pill').forEach(btn => {
+        btn.className = "cat-pill px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 text-[11px] transition";
+      });
+      const activeBtn = document.getElementById('btn_cat_' + key);
+      if (activeBtn) {
+        activeBtn.className = "cat-pill px-2.5 py-1 rounded-lg bg-indigo-600 text-white text-[11px] font-medium transition";
+      }
+
+      document.getElementById('productTitle').value = data.title;
+      document.getElementById('videoTone').value = data.tone;
+      document.getElementById('scriptText').value = data.script;
+
+      const painSelect = document.getElementById('targetPainPointSelect');
+      painSelect.innerHTML = '';
+      data.pains.forEach((p, idx) => {
+        const opt = document.createElement('option');
+        opt.value = p;
+        opt.innerText = `痛点 ${idx + 1}：${p.slice(0, 18)}...`;
+        painSelect.appendChild(opt);
+      });
+
+      document.getElementById('previewBackground').style.backgroundImage = `url('${data.bgImg}')`;
+      document.getElementById('cardThumbImg').src = data.thumbImg;
+      document.getElementById('cardProductTitle').innerText = data.shortTitle;
+      document.getElementById('cardProductPrice').innerText = `券后仅需 ${data.price}`;
+      document.getElementById('previewTagBadge').innerText = data.tag;
+      document.getElementById('previewSubtitleText').innerText = data.subtitle;
+    }
+
+    function applyPainPoint(val) {
+      const btn = document.getElementById('genScriptBtn');
+      btn.innerHTML = '<i class="ph ph-sparkle text-amber-400"></i> 已切换核心痛点，建议点击重新生成';
     }
 
     function triggerImagePicker() {
@@ -494,13 +677,6 @@
       alert(`✅ 成功从手机相册载入 ${files.length} 张商品图！\n右侧短视频预览背景已实时同步替换！`);
     }
 
-    function quickFillExample() {
-      document.getElementById('productTitle').value = "高颜值316不锈钢车载保温杯，24小时长效锁温，单手一键弹盖不漏水";
-      document.getElementById('targetAudience').value = "通勤上班族、宝妈、经常开车出行的车主";
-      const cardTitle = document.getElementById('cardProductTitle');
-      if (cardTitle) cardTitle.innerText = "高颜值316不锈钢车载保温杯";
-    }
-
     function selectAvatar(el, name) {
       document.querySelectorAll('.avatar-card').forEach(card => {
         card.className = "avatar-card border border-slate-800 bg-slate-950 rounded-xl p-2.5 cursor-pointer text-center hover:border-slate-700 transition relative";
@@ -521,25 +697,44 @@
         return;
       }
 
-      const audience = document.getElementById('targetAudience').value;
+      const painPoint = document.getElementById('targetPainPointSelect').value || '日常使用痛点';
+      const tone = document.getElementById('videoTone').value;
       const btn = document.getElementById('genScriptBtn');
       const textarea = document.getElementById('scriptText');
 
-      btn.innerHTML = '<i class="ph ph-spinner animate-spin"></i> 智谱 GLM 正在创作带货脚本...';
+      btn.innerHTML = '<i class="ph ph-spinner animate-spin"></i> 智谱 GLM 正在基于痛点深度创作...';
 
       setTimeout(() => {
+        let hookAction = "（主播神情严肃，拿出同类劣质品对比）";
+        let hookDialogue = `“别再买那些没用还浪费钱的同类款了！看看这个真正的解决方案！”`;
+        let ctaText = "“今天厂家冲排名直接破价大促，看准左下方小黄车，限量抢购手慢无！”";
+
+        if (tone === "aggressive") {
+          hookAction = "（主播满脸不可置信，直接当场实测暴力破坏）";
+          hookDialogue = `“平时买的半天就坏了？今天给大家实测这款被全网催更的神器！”`;
+          ctaText = "“厂家直营开业不赚利润纯交朋友！券后击穿底价，左下方小黄车拼手速！”";
+        } else if (tone === "story") {
+          hookAction = "（主播真诚贴脸沟通，神情共鸣）";
+          hookDialogue = `“家人们谁懂啊！之前踩了无数雷，直到我发现了这个宝藏…”`;
+          ctaText = "“真心推荐给每个有同样烦恼的姐妹，现在拍还送运费险，左下角快冲！”";
+        } else {
+          hookAction = "（镜头近距离特写核心材质与仪器实测数据）";
+          hookDialogue = `“大牌动辄上千到底是不是智商税？今天用专业实测拆解告诉你真相！”`;
+          ctaText = "“千元级做工今天只要一个零头，支持7天无理由试用，左下方小黄车赶紧上车！”";
+        }
+
         textarea.value = 
 `【第0~3秒 黄金悬念钩子】
-（主播神情惊讶，拿起${title.slice(0, 10)}直接往桌上一震）
-“平时买的同款保温杯半天就凉了？今天给大家实测这款被问爆的车载锁温神器！”
+${hookAction}
+“${painPoint}？${hookDialogue}”
 
-【第4~8秒 核心痛点与材质背书】
-（镜头快速切至316医用级不锈钢内胆特写，倒出滚烫热气）
-“专为${audience || '开车通勤族'}打造，内胆升级成食品接触级316不锈钢，耐酸碱装茶装咖啡无异味，昨天装的开水今天依然烫嘴！”
+【第4~8秒 核心痛点解决与材质背书】
+（镜头快速切至核心功能实测与用料特写）
+“彻底解决【${painPoint}】！用料升级，上手质感直接拉满，关键是经过严格质量检验，怎么用都不翻车！”
 
 【第9~15秒 破价逼单与号召行动】
-（主播单手一键弹盖喝水，画面跳出大促限时减免券）
-“单手一键弹盖开车完全不挡视线。今天厂家冲排名直接破价大促，看准左下方小黄车，手慢无！”`;
+（主播单手展示细节，画面跳出限时超值特惠券标签）
+${ctaText}`;
 
         btn.innerHTML = '<i class="ph ph-check text-green-400"></i> 智谱 AI 脚本创作完毕';
         alert('🎉 智谱大模型已实时生成符合抖音算法的带货短视频分镜头脚本！');
@@ -715,10 +910,12 @@
     }
 
     function copyPublishInfo() {
-      const text = `🔥 家人们谁懂啊！24小时实测锁温杯，医用级316不锈钢内胆真的绝了！单手一键弹盖开车超方便，真实体验绝了，左下角赶紧抢！ #好物推荐 #高颜值水杯 #车载水杯 #秋冬必备`;
+      const text = `🔥 家人们谁懂啊！这款实测体验真的绝了！单手操作超方便，真实体验绝了，左下角赶紧抢！ #好物推荐 #高颜值好物 #爆款实测 #限时特惠`;
       navigator.clipboard.writeText(text);
       alert('已复制抖音/视频号/小红书爆款带货文案与话题标签！');
     }
+
+    switchCategory('clothes');
   </script>
 </body>
 </html>
