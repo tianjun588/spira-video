@@ -1,681 +1,507 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Spira AI 带货云剪 - 全行业爆款短视频生成与矩阵分发系统</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Spira AI 电商云剪 - 12位中国主播与AI带货矩阵</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
   <style>
-    @keyframes pulse-slow {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.8; transform: scale(1.02); }
-    }
-    .animate-pulse-slow {
-      animation: pulse-slow 3s infinite ease-in-out;
-    }
-    ::-webkit-scrollbar { width: 5px; height: 5px; }
-    ::-webkit-scrollbar-track { background: #0f172a; }
-    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+    @keyframes pulse-ring { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:.8;transform:scale(1.02);} }
+    .animate-pulse-ring { animation: pulse-ring 2.5s infinite ease-in-out; }
+    ::-webkit-scrollbar { width: 4px; height: 4px; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 9999px; }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans selection:bg-indigo-500 selection:text-white">
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans antialiased selection:bg-indigo-500 selection:text-white pb-10">
 
-  <!-- 顶部导航与算力账本 -->
-  <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-40 px-4 lg:px-8 py-3 flex items-center justify-between">
-    <div onclick="handleLogoClick()" class="flex items-center space-x-3 cursor-pointer select-none">
-      <div class="h-9 w-9 rounded-xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center shadow-lg shadow-indigo-500/20">
-        <i class="ph-bold ph-video-camera text-xl text-white"></i>
+  <!-- 顶部导航 -->
+  <header class="border-b border-slate-800 bg-slate-900/90 backdrop-blur sticky top-0 z-40 px-4 py-2.5">
+    <div class="max-w-5xl mx-auto flex items-center justify-between">
+      <div class="flex items-center space-x-2 cursor-pointer" onclick="handleLogoClick()">
+        <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center shadow-lg text-white font-black text-sm">
+          <i class="ph-bold ph-video-camera"></i>
+        </div>
+        <div>
+          <span class="font-extrabold text-sm tracking-tight text-white">Spira AI</span>
+          <span class="text-[9px] bg-red-600 text-white font-bold px-1.5 py-0.5 rounded-full ml-1">中国定制版</span>
+        </div>
       </div>
-      <div>
-        <h1 class="font-bold text-base lg:text-lg leading-tight bg-gradient-to-r from-white via-slate-200 to-indigo-300 bg-clip-text text-transparent">Spira 带货云剪</h1>
-        <p class="text-[10px] text-slate-400">至尊旗舰版 · 全行业 AI 编导与矩阵爆流中枢</p>
+      <div class="flex items-center space-x-2">
+        <button onclick="openGrowthModal()" class="px-2.5 py-1 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-bold hover:bg-amber-500/20 transition flex items-center gap-1">
+          <i class="ph-fill ph-fire"></i><span>破千播放秘籍</span>
+        </button>
+        <button onclick="openRechargeModal()" class="px-3 py-1 rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-xs font-bold shadow hover:opacity-90 transition flex items-center gap-1">
+          <i class="ph-fill ph-crown text-amber-300"></i><span>充值</span>
+          <span class="bg-black/30 text-[10px] px-1.5 py-0.2 rounded-full font-mono ml-0.5" id="userCreditsDisplay">5</span>
+        </button>
+        <button onclick="openAdminLogin()" class="w-7 h-7 rounded-lg bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center text-xs" title="管理后台">
+          <i class="ph-bold ph-gear"></i>
+        </button>
       </div>
-    </div>
-    
-    <div class="flex items-center space-x-2">
-      <!-- 涨粉秘籍入口按钮 -->
-      <button onclick="openGrowthModal()" class="px-2.5 py-1.5 bg-gradient-to-r from-amber-500/20 to-orange-500/20 border border-amber-500/40 hover:border-amber-400 text-amber-300 rounded-lg text-xs font-bold transition flex items-center space-x-1 shadow-sm shadow-amber-500/10">
-        <i class="ph-bold ph-book-open text-sm"></i>
-        <span>🔥 破万播放秘籍</span>
-      </button>
-
-      <div class="flex items-center space-x-1.5 bg-slate-800/90 border border-slate-700/60 rounded-full px-3 py-1">
-        <i class="ph-fill ph-lightning text-amber-400 text-xs"></i>
-        <span class="text-xs text-slate-300">算力: <strong id="userCreditsDisplay" class="text-white font-mono text-sm">5</strong> 点</span>
-      </div>
-
-      <button onclick="openRechargeModal()" class="px-3 py-1.5 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:opacity-95 text-white rounded-lg text-xs font-semibold shadow-md shadow-indigo-500/10 transition flex items-center space-x-1">
-        <i class="ph-bold ph-crown"></i>
-        <span>充值 / 至尊版</span>
-      </button>
-      <button onclick="openAdminLogin()" class="px-2 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white rounded-lg text-xs font-semibold border border-slate-700 transition" title="管理后台">
-        <i class="ph-bold ph-gear"></i>
-      </button>
     </div>
   </header>
 
-  <!-- 流量破播放显著效果横幅 -->
-  <div class="bg-gradient-to-r from-indigo-950 via-purple-950/60 to-slate-900 border-b border-indigo-800/40 px-4 py-2 text-center text-xs flex items-center justify-center space-x-2 overflow-x-auto whitespace-nowrap">
-    <span class="bg-gradient-to-r from-amber-400 to-orange-500 text-slate-950 text-[10px] font-black px-2 py-0.5 rounded-full uppercase">
-      实测效果数据
-    </span>
-    <span class="text-slate-300">传统剪辑日常播放卡在 <span class="text-rose-400 font-bold">200~300</span>？使用 Spira 黄金前 3 秒钩子实测 7 天平均播放突破 <strong class="text-emerald-400 font-black text-sm">12,800+</strong> 播放！</span>
-    <button onclick="openGrowthModal()" class="text-indigo-400 hover:text-indigo-300 underline font-semibold flex items-center gap-0.5">
-      查看破播放底层逻辑 <i class="ph ph-arrow-right"></i>
-    </button>
-  </div>
+  <!-- 流量对比横幅 -->
+  <section class="max-w-5xl mx-auto px-4 mt-2.5 w-full">
+    <div class="bg-gradient-to-r from-indigo-950/40 via-purple-950/30 to-slate-900 border border-indigo-500/30 rounded-xl p-2.5 flex flex-wrap items-center justify-between gap-2 text-xs">
+      <div class="flex items-center gap-2">
+        <span class="w-5 h-5 rounded bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs font-bold"><i class="ph-bold ph-chart-line-up"></i></span>
+        <div><span class="text-slate-400">实测效果：</span><span class="text-red-400 font-semibold line-through mr-1">普通视频 200~300 播放</span><span class="text-emerald-400 font-bold">➜ 智能钩子+中国主播 破千至过万播放！</span></div>
+      </div>
+      <button onclick="openGrowthModal()" class="text-[11px] text-indigo-400 hover:text-indigo-300 underline font-medium">查看起号逻辑</button>
+    </div>
+  </section>
 
   <!-- 主体工作区 -->
-  <main class="flex-1 max-w-7xl w-full mx-auto p-4 lg:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+  <main class="max-w-5xl mx-auto px-4 py-3 w-full flex-1 grid grid-cols-1 lg:grid-cols-12 gap-4">
+    
+    <!-- 左侧：工作流操作 (7 cols) -->
+    <div class="lg:col-span-7 space-y-3">
 
-    <!-- 左侧：工作流编排 (7 cols) -->
-    <div class="lg:col-span-7 space-y-5">
-      
-      <!-- 步骤 1：全行业开放搜索与 AI 动态智能生成黄金钩子 -->
-      <section class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 lg:p-5 shadow-xl">
+      <!-- 步骤 1：全行业开放搜索与 AI 动态黄金钩子 -->
+      <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-3.5 shadow-xl">
         <div class="flex items-center justify-between mb-2">
-          <div class="flex items-center space-x-2">
-            <span class="w-6 h-6 rounded-full bg-indigo-500/20 text-indigo-400 text-xs font-bold flex items-center justify-center border border-indigo-500/30">1</span>
-            <h2 class="font-semibold text-sm text-slate-200">全行业自定义搜索与 AI 动态黄金钩子</h2>
+          <div class="flex items-center space-x-1.5">
+            <span class="w-4 h-4 rounded-full bg-indigo-600 text-white text-[10px] font-bold flex items-center justify-center">1</span>
+            <h2 class="font-bold text-xs text-slate-200">全行业 AI 黄金钩子生成器</h2>
           </div>
-          <span class="text-[11px] text-amber-400 font-medium flex items-center gap-1">
-            <i class="ph-bold ph-sparkle"></i> 纯 AI 动态演算 · 告别套话
-          </span>
+          <button onclick="refreshPainPoints()" class="text-indigo-400 hover:text-indigo-300 text-xs flex items-center gap-0.5 font-medium">
+            <i class="ph ph-arrows-clockwise"></i> 换一批钩子
+          </button>
         </div>
 
-        <!-- 全行业智能搜索栏 -->
-        <div class="mb-3">
-          <label class="block text-xs font-medium text-slate-400 mb-1">输入您的任意细分行业 / 类目</label>
-          <div class="flex gap-2">
+        <div class="space-y-1.5 mb-2.5">
+          <div class="flex gap-1.5">
             <div class="relative flex-1">
-              <i class="ph ph-magnifying-glass absolute left-3 top-2.5 text-slate-500 text-sm"></i>
-              <input id="industrySearchInput" type="text" placeholder="输入任意行业，如：钓鱼渔具、宠物用品、汽修五金、紫砂茶具、女装服饰..." 
-                     class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-9 pr-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition" 
-                     onkeydown="if(event.key==='Enter') searchIndustryPains()" />
+              <i class="ph ph-magnifying-glass absolute left-2.5 top-2 text-slate-500 text-xs"></i>
+              <input id="industrySearchInput" type="text" placeholder="输入任意行业/品类 (如：女装、渔具、零食、茶叶...)" 
+                     class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-7 pr-2.5 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500">
             </div>
-            <button onclick="searchIndustryPains()" id="searchIndustryBtn" class="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-1 flex-shrink-0">
-              <i class="ph-bold ph-magic-wand"></i>
-              <span>AI 诊断钩子</span>
+            <button onclick="searchIndustryPains()" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-1">
+              <i class="ph-bold ph-sparkle"></i><span>AI检索</span>
             </button>
           </div>
-          <!-- 灵感快速标签 -->
-          <div class="flex items-center gap-1.5 mt-2 overflow-x-auto pb-1 text-[11px] text-slate-400">
-            <span class="text-slate-500 flex-shrink-0">热门灵感：</span>
-            <button onclick="quickSelectTag('户外钓鱼渔具')" class="hover:text-indigo-300 flex-shrink-0 underline decoration-slate-700">钓鱼渔具</button>
-            <button onclick="quickSelectTag('三合一冲锋衣')" class="hover:text-indigo-300 flex-shrink-0 underline decoration-slate-700">三合一冲锋衣</button>
-            <button onclick="quickSelectTag('宠物除臭洁齿')" class="hover:text-indigo-300 flex-shrink-0 underline decoration-slate-700">宠物用品</button>
-            <button onclick="quickSelectTag('紫砂功夫茶具')" class="hover:text-indigo-300 flex-shrink-0 underline decoration-slate-700">紫砂茶具</button>
-            <button onclick="quickSelectTag('熬夜修护面霜')" class="hover:text-indigo-300 flex-shrink-0 underline decoration-slate-700">熬夜护肤</button>
+          <!-- 行业快选芯片 -->
+          <div class="flex flex-wrap gap-1 text-[11px]" id="industryChips">
+            <span onclick="quickSelectTag('美妆护肤')" class="cursor-pointer px-2 py-0.5 rounded bg-slate-800 hover:bg-indigo-600 text-slate-300 transition">美妆护肤</span>
+            <span onclick="quickSelectTag('食品生鲜')" class="cursor-pointer px-2 py-0.5 rounded bg-slate-800 hover:bg-indigo-600 text-slate-300 transition">食品生鲜</span>
+            <span onclick="quickSelectTag('服装穿搭')" class="cursor-pointer px-2 py-0.5 rounded bg-slate-800 hover:bg-indigo-600 text-slate-300 transition">服装穿搭</span>
+            <span onclick="quickSelectTag('数码家电')" class="cursor-pointer px-2 py-0.5 rounded bg-slate-800 hover:bg-indigo-600 text-slate-300 transition">数码家电</span>
+            <span onclick="quickSelectTag('家居日用')" class="cursor-pointer px-2 py-0.5 rounded bg-slate-800 hover:bg-indigo-600 text-slate-300 transition">家居日用</span>
+            <span onclick="quickSelectTag('户外钓鱼')" class="cursor-pointer px-2 py-0.5 rounded bg-indigo-600 text-white transition">户外钓鱼</span>
+            <span onclick="quickSelectTag('农特原产')" class="cursor-pointer px-2 py-0.5 rounded bg-slate-800 hover:bg-indigo-600 text-slate-300 transition">农特原产</span>
+            <span onclick="quickSelectTag('滋补保健')" class="cursor-pointer px-2 py-0.5 rounded bg-slate-800 hover:bg-indigo-600 text-slate-300 transition">滋补保健</span>
           </div>
         </div>
 
-        <div class="space-y-3 pt-2 border-t border-slate-800/80">
-          <div>
-            <label class="block text-xs font-medium text-slate-400 mb-1">商品标题 / 核心卖点参数</label>
-            <input id="productTitle" type="text" value="超轻高碳素大物钓鱼竿，28调大钓重狂拉不断，轻巧耐磨大物竿" 
-                   class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition" />
-          </div>
-
-          <div class="grid grid-cols-2 gap-3">
-            <div>
-              <div class="flex items-center justify-between mb-1">
-                <label class="block text-xs font-medium text-slate-400">AI 生成的前 3 秒破播放黄金钩子</label>
-                <button onclick="refreshPainPoints()" class="text-[10px] text-indigo-400 hover:text-indigo-300 flex items-center gap-0.5" title="不满意钩子？点击换一批">
-                  <i class="ph ph-arrows-clockwise"></i>
-                  <span>换一批</span>
-                </button>
-              </div>
-              <select id="targetPainPointSelect" onchange="applyPainPoint(this.value)" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 transition">
-                <option value="大鱼咬钩直接弯成满月！实测高碳素承重极限到底有多顶？">钩子1：大鱼咬钩直接弯成满月！实测承重极限</option>
-                <option value="抛投半小时手腕酸得抬不起来？那是你没用过真正超轻的大物竿！">钩子2：抛投半小时手腕发酸？超轻手感实测</option>
-                <option value="钓友连续空军三天，换上这根竿直接野钓爆护翻盘！">钩子3：连续空军三天？换上直接爆护翻盘</option>
-              </select>
-            </div>
-            <div>
-              <label class="block text-xs font-medium text-slate-400 mb-1">带货风格</label>
-              <select id="videoTone" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 transition">
-                <option value="aggressive">激情促销带货（破价立减型）</option>
-                <option value="story">真诚老客推荐（真实痛点型）</option>
-                <option value="review">硬核暴力实测（极限挑战型）</option>
-              </select>
-            </div>
-          </div>
-
-          <div>
-            <div class="flex items-center justify-between mb-1">
-              <label class="block text-xs font-medium text-slate-400">智谱 AI 编导脚本 (带黄金3秒钩子与分镜动作)</label>
-              <div class="flex items-center gap-2">
-                <button onclick="refreshGeneratedScript()" class="text-[10px] text-amber-400 hover:text-amber-300 flex items-center gap-1 font-medium">
-                  <i class="ph ph-shuffle"></i>
-                  <span>不满意？换个角度重写</span>
-                </button>
-                <button onclick="realGenerateScript()" id="genScriptBtn" class="text-xs text-indigo-400 hover:text-indigo-300 font-medium flex items-center space-x-1">
-                  <i class="ph ph-sparkle text-sm"></i>
-                  <span>重新生成脚本</span>
-                </button>
-              </div>
-            </div>
-            <textarea id="scriptText" rows="6" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs leading-relaxed text-slate-300 placeholder-slate-600 focus:outline-none focus:border-indigo-500 transition font-mono"></textarea>
+        <div class="space-y-1.5">
+          <label class="block text-[11px] font-semibold text-slate-400">前 3 秒黄金钩子 (爆款破播关键)</label>
+          <select id="targetPainPointSelect" onchange="applyPainPoint(this.value)" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-2.5 py-1.5 text-xs text-slate-300 focus:outline-none focus:border-indigo-500 font-medium"></select>
+          <div class="p-2 rounded-xl bg-slate-950/70 border border-slate-800 text-xs">
+            <span class="text-indigo-400 font-bold mr-1">黄金台词：</span>
+            <span id="selectedHookPreview" class="text-slate-200">正在生成高转化钩子...</span>
           </div>
         </div>
-      </section>
+      </div>
 
-      <!-- 步骤 2：六大细分赛道数字人主播阵容 -->
-      <section class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 lg:p-5 shadow-xl">
-        <div class="flex items-center justify-between mb-3">
-          <div class="flex items-center space-x-2">
-            <span class="w-6 h-6 rounded-full bg-indigo-500/20 text-indigo-400 text-xs font-bold flex items-center justify-center border border-indigo-500/30">2</span>
-            <h2 class="font-semibold text-sm text-slate-200">选择出镜数字人主播 (6大细分人设)</h2>
+      <!-- 步骤 2：12 位纯正中国面孔数字人主播矩阵 -->
+      <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-3.5 shadow-xl">
+        <div class="flex items-center justify-between mb-2">
+          <div class="flex items-center space-x-1.5">
+            <span class="w-4 h-4 rounded-full bg-indigo-600 text-white text-[10px] font-bold flex items-center justify-center">2</span>
+            <h2 class="font-bold text-xs text-slate-200">选择数字人主播 (12位纯正中国面孔)</h2>
           </div>
-          <span class="text-[11px] text-amber-400 flex items-center gap-1">
-            <i class="ph-fill ph-crown"></i> 至尊版全员解锁
+          <span class="text-[11px] text-amber-400 font-semibold flex items-center gap-1">
+            <i class="ph-fill ph-crown"></i> 12大多元国人主播
           </span>
         </div>
 
-        <div class="grid grid-cols-3 gap-2.5 mb-4">
-          <!-- 1. 晓晴 -->
-          <div onclick="selectAvatar(this, '主播-晓晴')" class="avatar-card border-2 border-indigo-500 bg-indigo-950/20 rounded-xl p-2 cursor-pointer text-center transition relative">
-            <div class="w-11 h-11 rounded-full mx-auto bg-gradient-to-tr from-pink-500 to-rose-400 flex items-center justify-center text-white font-bold text-xs mb-1 shadow">晴</div>
-            <p class="text-xs font-bold text-slate-200">带货-晓晴</p>
-            <p class="text-[9px] text-slate-400">亲和种草/生活居家</p>
-            <span class="absolute top-1 right-1 text-indigo-400"><i class="ph-fill ph-check-circle text-xs"></i></span>
-          </div>
+        <!-- 12位中国主播自适应网格 -->
+        <div id="avatarGrid" class="grid grid-cols-4 gap-1.5 mb-2.5"></div>
 
-          <!-- 2. 浩东 -->
-          <div onclick="selectAvatar(this, '主播-浩东')" class="avatar-card border border-slate-800 bg-slate-950 rounded-xl p-2 cursor-pointer text-center hover:border-slate-700 transition relative">
-            <div class="w-11 h-11 rounded-full mx-auto bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white font-bold text-xs mb-1 shadow">东</div>
-            <p class="text-xs font-bold text-slate-200">测评-浩东</p>
-            <p class="text-[9px] text-slate-400">硬核理智/数码车品</p>
-          </div>
-
-          <!-- 3. 丽娜 -->
-          <div onclick="selectAvatar(this, '主播-丽娜')" class="avatar-card border border-slate-800 bg-slate-950 rounded-xl p-2 cursor-pointer text-center hover:border-slate-700 transition relative">
-            <div class="w-11 h-11 rounded-full mx-auto bg-gradient-to-tr from-amber-500 to-orange-400 flex items-center justify-center text-white font-bold text-xs mb-1 shadow">娜</div>
-            <p class="text-xs font-bold text-slate-200">激情-丽娜</p>
-            <p class="text-[9px] text-slate-400">快节奏/大促破价</p>
-          </div>
-
-          <!-- 4. 雅婷 -->
-          <div onclick="selectAvatar(this, '主播-雅婷')" class="avatar-card border border-slate-800 bg-slate-950 rounded-xl p-2 cursor-pointer text-center hover:border-slate-700 transition relative">
-            <div class="w-11 h-11 rounded-full mx-auto bg-gradient-to-tr from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold text-xs mb-1 shadow">婷</div>
-            <p class="text-xs font-bold text-slate-200">知性-雅婷</p>
-            <p class="text-[9px] text-slate-400">优雅高级/美妆珠宝</p>
-          </div>
-
-          <!-- 5. 明辉 -->
-          <div onclick="selectAvatar(this, '主播-明辉')" class="avatar-card border border-slate-800 bg-slate-950 rounded-xl p-2 cursor-pointer text-center hover:border-slate-700 transition relative">
-            <div class="w-11 h-11 rounded-full mx-auto bg-gradient-to-tr from-emerald-600 to-teal-500 flex items-center justify-center text-white font-bold text-xs mb-1 shadow">辉</div>
-            <p class="text-xs font-bold text-slate-200">商务-明辉</p>
-            <p class="text-[9px] text-slate-400">沉稳精英/办公商务</p>
-          </div>
-
-          <!-- 6. Alex -->
-          <div onclick="selectAvatar(this, '主播-Alex')" class="avatar-card border border-slate-800 bg-slate-950 rounded-xl p-2 cursor-pointer text-center hover:border-slate-700 transition relative">
-            <div class="w-11 h-11 rounded-full mx-auto bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-white font-bold text-xs mb-1 shadow">Al</div>
-            <p class="text-xs font-bold text-slate-200">出海-Alex</p>
-            <p class="text-[9px] text-slate-400">外籍面孔/潮流轻奢</p>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-2 gap-3">
+        <div class="grid grid-cols-2 gap-2 text-xs">
           <div>
-            <label class="block text-xs font-medium text-slate-400 mb-1">配音音色引擎</label>
-            <select class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-300 focus:outline-none focus:border-indigo-500">
-              <option>激情促销女声（强节奏、高亢压迫促单）</option>
-              <option>知性温柔女声（娓娓道来、高级感）</option>
-              <option>沉稳权威男声（低沉磁性、权威测评）</option>
-              <option>青年活力男声（热情随和、种草安利）</option>
+            <label class="block text-[10px] font-medium text-slate-400 mb-0.5">配音音色引擎</label>
+            <select class="w-full bg-slate-950 border border-slate-800 rounded-xl px-2 py-1 text-xs text-slate-300 focus:outline-none focus:border-indigo-500">
+              <option>激情促销女声 (强节奏促单)</option>
+              <option>知性温和女声 (护肤/家居)</option>
+              <option>沉稳专业男声 (数码/商务)</option>
+              <option>地道原产地男声 (农特/生鲜)</option>
             </select>
           </div>
           <div>
-            <label class="block text-xs font-medium text-slate-400 mb-1">数字人画中画位置</label>
-            <select class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-300 focus:outline-none focus:border-indigo-500">
-              <option>右下角悬浮圆形头像 (带高光边框)</option>
-              <option>左下角半身透明抠像 (最自然推荐)</option>
-              <option>全屏主角出镜 (商品插画中画)</option>
+            <label class="block text-[10px] font-medium text-slate-400 mb-0.5">语速加成 (提升停留率)</label>
+            <select class="w-full bg-slate-950 border border-slate-800 rounded-xl px-2 py-1 text-xs text-slate-300 focus:outline-none focus:border-indigo-500">
+              <option>1.25x 黄金快节奏 (防划走推荐)</option>
+              <option>1.0x 标准直播间语速</option>
+              <option>1.35x 极速倒计时秒杀</option>
             </select>
           </div>
         </div>
-      </section>
+      </div>
 
-      <!-- 步骤 3：商品实拍图 (点击直接调出手机相册) -->
-      <section class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 lg:p-5 shadow-xl">
-        <div class="flex items-center justify-between mb-3">
-          <div class="flex items-center space-x-2">
-            <span class="w-6 h-6 rounded-full bg-indigo-500/20 text-indigo-400 text-xs font-bold flex items-center justify-center border border-indigo-500/30">3</span>
-            <h2 class="font-semibold text-sm text-slate-200">商品实拍图 (智能 3D 推镜轨)</h2>
+      <!-- 步骤 3：商品实拍图上传与一键生成脚本 -->
+      <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-3.5 shadow-xl">
+        <div class="flex items-center justify-between mb-2">
+          <div class="flex items-center space-x-1.5">
+            <span class="w-4 h-4 rounded-full bg-indigo-600 text-white text-[10px] font-bold flex items-center justify-center">3</span>
+            <h2 class="font-bold text-xs text-slate-200">商品实拍图与带货脚本</h2>
           </div>
-          <span class="text-[11px] text-slate-400" id="uploadCountText">支持 3~6 张</span>
+          <button onclick="refreshGeneratedScript()" class="text-xs text-indigo-400 hover:text-indigo-300 flex items-center gap-0.5">
+            <i class="ph ph-sparkle"></i> 重新撰写脚本
+          </button>
         </div>
 
-        <input type="file" id="realImageInput" accept="image/*" multiple class="hidden" onchange="handleImageUpload(event)" />
-
-        <div onclick="triggerImagePicker()" class="border-2 border-dashed border-slate-800 hover:border-indigo-500 rounded-xl p-4 text-center cursor-pointer transition bg-slate-950/60 active:scale-[0.99]">
-          <i class="ph-bold ph-upload-simple text-2xl text-indigo-400 mb-1 inline-block"></i>
-          <p class="text-xs font-semibold text-slate-200">点击打开手机相册，选择 3~6 张商品图</p>
-          <p class="text-[10px] text-slate-400 mt-1">系统将自动为照片添加 3D 缓慢推镜动效，并同步更换右侧预览背景！</p>
+        <div class="flex items-center gap-2.5 mb-2.5">
+          <div onclick="triggerImagePicker()" class="w-16 h-16 rounded-xl border-2 border-dashed border-slate-700 hover:border-indigo-500 bg-slate-950 flex flex-col items-center justify-center cursor-pointer overflow-hidden relative group transition flex-shrink-0">
+            <img id="productImagePreview" src="https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=300&q=80" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center text-white text-[9px] transition">
+              <i class="ph ph-camera text-sm"></i> 更换实拍
+            </div>
+            <input id="productFileInput" type="file" accept="image/*" class="hidden" onchange="handleImageUpload(event)">
+          </div>
+          <div class="flex-1 space-y-1">
+            <input id="productNameInput" type="text" value="德国碳素暴力钓竿 / 超轻大物竿" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-2.5 py-1 text-xs text-white focus:outline-none focus:border-indigo-500" placeholder="商品品名及核心卖点">
+            <p class="text-[10px] text-slate-400">点击方框调出手机相册上传实拍图，AI将自动抠图打光并与数字人同框合成。</p>
+          </div>
         </div>
 
-        <div id="imageThumbnails" class="grid grid-cols-4 gap-2 mt-3 hidden"></div>
-      </section>
+        <div class="space-y-1">
+          <label class="block text-[10px] font-semibold text-slate-400">AI 智能脚本 (前3秒黄金钩子 + 痛点反击 + 逼单转化)</label>
+          <textarea id="scriptTextarea" rows="3" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 leading-relaxed"></textarea>
+        </div>
 
-      <!-- 启动合成按钮 -->
-      <div>
-        <button onclick="realStartRender()" id="renderBtn" class="w-full py-3.5 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:opacity-95 text-white font-bold text-sm rounded-xl shadow-lg shadow-indigo-500/25 transition flex items-center justify-center space-x-2 active:scale-[0.99]">
-          <i class="ph-bold ph-play-circle text-lg"></i>
-          <span>一键合成短视频 (扣除 1 点算力)</span>
+        <button onclick="realStartRender()" class="w-full mt-2.5 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white font-bold text-xs shadow-lg hover:opacity-95 transition flex items-center justify-center gap-1">
+          <i class="ph-bold ph-play"></i> <span>开始一键合成带货短视频 (消耗 1 点算力)</span>
         </button>
       </div>
 
     </div>
 
-    <!-- 右侧：视频渲染预览 & 核心新增：一键多平台发布中枢 (5 cols) -->
-    <div class="lg:col-span-5 space-y-5">
+    <!-- 右侧：视频渲染模拟器 & 一键多平台发布 (5 cols) -->
+    <div class="lg:col-span-5 space-y-3">
       
-      <section class="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 shadow-xl flex flex-col items-center">
-        <div class="w-full flex items-center justify-between mb-3">
-          <h2 class="font-semibold text-sm text-slate-200 flex items-center gap-1.5">
-            <i class="ph ph-device-mobile text-indigo-400"></i>
-            <span>9:16 竖屏短视频成片预览</span>
-          </h2>
-          <span id="renderStatusBadge" class="text-[10px] px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 border border-slate-700">就绪</span>
+      <!-- 手机竖屏模拟器框 -->
+      <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-3.5 shadow-xl flex flex-col items-center">
+        <div class="w-full flex items-center justify-between mb-2">
+          <span class="text-xs font-bold text-slate-300 flex items-center gap-1">
+            <i class="ph ph-device-mobile text-indigo-400"></i> 成片 9:16 实时预览
+          </span>
+          <span id="renderStatusBadge" class="text-[10px] bg-slate-800 text-slate-400 px-2 py-0.5 rounded-full font-medium">就绪</span>
         </div>
 
-        <!-- 手机竖屏模拟器框 -->
-        <div class="relative w-full max-w-[260px] aspect-[9/16] bg-black rounded-3xl border-4 border-slate-800 shadow-2xl overflow-hidden flex flex-col justify-between p-3">
-          
-          <div id="previewBackground" class="absolute inset-0 bg-cover bg-center transition-all duration-700 opacity-90" style="background-image: url('https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=600&q=80');">
-            <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/80"></div>
+        <!-- 手机容器 -->
+        <div class="w-52 bg-black rounded-3xl border-4 border-slate-800 shadow-2xl relative overflow-hidden flex flex-col justify-between" style="height: 350px;">
+          <!-- 视频背景 -->
+          <img id="mockVideoBg" src="https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=600&q=80" class="absolute inset-0 w-full h-full object-cover">
+          <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/80"></div>
+
+          <!-- 悬浮中国主播 -->
+          <div class="absolute bottom-14 right-2 w-16 h-24 rounded-xl border border-indigo-400/80 bg-slate-900/90 shadow-xl overflow-hidden flex flex-col items-center justify-end p-1 z-10 backdrop-blur-sm">
+            <div id="mockAvatarDisplay" class="w-8 h-8 rounded-full bg-gradient-to-tr from-pink-500 to-rose-400 flex items-center justify-center text-white font-bold text-xs shadow mb-1">晴</div>
+            <span id="mockAvatarName" class="text-[8px] font-bold text-white truncate">晓晴 (女)</span>
+            <span class="text-[7px] text-amber-300 font-semibold scale-90">● 带货中</span>
           </div>
 
-          <div class="relative z-10 flex items-center justify-between">
-            <span id="previewTagBadge" class="bg-red-600 text-white text-[10px] font-black px-2 py-0.5 rounded uppercase tracking-wider animate-pulse">
-              实测爆款
-            </span>
-            <span class="text-white/80 text-[10px] bg-black/40 backdrop-blur px-1.5 py-0.5 rounded">
-              00:15
-            </span>
+          <!-- 黄金钩子大字报 -->
+          <div class="relative z-10 p-2 pt-3">
+            <div class="bg-amber-400 text-slate-950 font-black text-[10px] px-2 py-1 rounded shadow-lg text-center leading-tight">
+              🔥 <span id="mockHookBigText">大鱼咬钩直接弯成满月！实测承重极限到底有多顶？</span>
+            </div>
           </div>
 
-          <div class="relative z-10 text-center my-auto px-2">
-            <div id="previewSubtitleBox" class="inline-block bg-black/70 backdrop-blur-md border border-amber-400/40 px-3 py-1.5 rounded-xl shadow-lg">
-              <p id="previewSubtitleText" class="text-amber-300 font-black text-xs leading-snug drop-shadow">
-                “大鱼咬钩直接弯成满月！实测高碳素承重极限到底有多顶…”
+          <!-- 底部字幕跑马灯 -->
+          <div class="relative z-10 p-2 pb-2.5">
+            <div class="bg-black/70 backdrop-blur rounded-lg p-1 text-center">
+              <p id="mockSubtitleText" class="text-[9px] font-bold text-white tracking-wide truncate">
+                今天冒着得罪同行的风险，带大家看清真相...
               </p>
             </div>
           </div>
 
-          <div class="relative z-10 space-y-2">
-            <div class="bg-white/95 text-slate-900 rounded-lg p-1.5 flex items-center space-x-2 shadow-lg">
-              <div class="w-8 h-8 rounded bg-slate-200 overflow-hidden flex-shrink-0">
-                <img id="cardThumbImg" src="https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=120&q=80" class="w-full h-full object-cover"/>
-              </div>
-              <div class="flex-1 min-w-0">
-                <p id="cardProductTitle" class="text-[10px] font-bold truncate">超轻高碳素大物钓鱼竿</p>
-                <p id="cardProductPrice" class="text-[9px] text-red-600 font-black">券后仅需 ¥79.0</p>
-              </div>
-              <button class="bg-red-600 text-white text-[9px] px-2 py-1 rounded font-bold">领券</button>
-            </div>
-
-            <div class="flex justify-end">
-              <div class="w-14 h-14 rounded-full border-2 border-indigo-400 bg-slate-900 overflow-hidden shadow-xl animate-pulse-slow">
-                <img id="previewAvatarImg" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" alt="Avatar" class="w-full h-full object-cover" />
-              </div>
-            </div>
-          </div>
-
-          <div id="renderOverlay" class="absolute inset-0 bg-slate-950/90 backdrop-blur-sm z-30 hidden flex-col items-center justify-center p-4 text-center">
-            <div class="w-10 h-10 border-3 border-indigo-500 border-t-transparent rounded-full animate-spin mb-3"></div>
-            <p id="renderStepText" class="text-xs font-semibold text-slate-200">正在生成分镜头脚本...</p>
-            <p class="text-[10px] text-slate-400 mt-1">预计耗时 10~15 秒</p>
-          </div>
-
-        </div>
-
-        <div class="w-full mt-4 flex items-center justify-center gap-2">
-          <button onclick="mockDownloadVideo()" class="flex-1 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium rounded-lg border border-slate-700 transition flex items-center justify-center gap-1.5">
-            <i class="ph ph-download-simple text-sm"></i>
-            <span>下载 1080P 高清成片</span>
-          </button>
-          <button onclick="copyPublishInfo()" class="py-2 px-3 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium rounded-lg border border-slate-700 transition flex items-center gap-1">
-            <i class="ph ph-copy"></i>
-            <span>复制发布文案</span>
-          </button>
-        </div>
-      </section>
-
-      <!-- 核心升级：一键多平台发布调度中枢 (抖音 / 小红书 / 视频号 / 快手) -->
-      <section class="bg-gradient-to-br from-indigo-950/50 via-purple-950/30 to-slate-900 border border-indigo-800/60 rounded-2xl p-4 shadow-xl">
-        <div class="flex items-center justify-between mb-2">
-          <h3 class="text-xs font-bold text-indigo-300 flex items-center gap-1.5">
-            <i class="ph-bold ph-share-network"></i>
-            <span>一键矩阵上架多平台 (带货推流)</span>
-          </h3>
-          <span class="text-[10px] text-emerald-400 font-semibold flex items-center gap-1">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span> 全网直通
-          </span>
-        </div>
-        <p class="text-[11px] text-slate-400 leading-relaxed mb-3">
-          AI 已自动生成平台适配的标题、封面标签及小黄车挂载参数，点击对应平台一键唤起发布：
-        </p>
-
-        <!-- 四大平台快捷发布网格 -->
-        <div class="grid grid-cols-2 gap-2 mb-3">
-          <button onclick="publishToPlatform('douyin')" class="flex items-center justify-between bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 p-2.5 rounded-xl transition text-left group">
-            <div class="flex items-center space-x-2">
-              <span class="w-6 h-6 rounded-lg bg-black text-white flex items-center justify-center text-xs font-black">抖</span>
-              <div>
-                <p class="text-xs font-bold text-white group-hover:text-indigo-300">抖音创作者平台</p>
-                <p class="text-[9px] text-slate-400">自动挂载小黄车带货</p>
-              </div>
-            </div>
-            <i class="ph ph-arrow-square-out text-slate-500 group-hover:text-indigo-400 text-sm"></i>
-          </button>
-
-          <button onclick="publishToPlatform('xiaohongshu')" class="flex items-center justify-between bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 p-2.5 rounded-xl transition text-left group">
-            <div class="flex items-center space-x-2">
-              <span class="w-6 h-6 rounded-lg bg-red-600 text-white flex items-center justify-center text-xs font-black">红</span>
-              <div>
-                <p class="text-xs font-bold text-white group-hover:text-red-400">小红书买手平台</p>
-                <p class="text-[9px] text-slate-400">爆款种草图文/视频</p>
-              </div>
-            </div>
-            <i class="ph ph-arrow-square-out text-slate-500 group-hover:text-red-400 text-sm"></i>
-          </button>
-
-          <button onclick="publishToPlatform('wechat')" class="flex items-center justify-between bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 p-2.5 rounded-xl transition text-left group">
-            <div class="flex items-center space-x-2">
-              <span class="w-6 h-6 rounded-lg bg-emerald-600 text-white flex items-center justify-center text-xs font-black">视</span>
-              <div>
-                <p class="text-xs font-bold text-white group-hover:text-emerald-400">微信视频号助手</p>
-                <p class="text-[9px] text-slate-400">私域裂变 · 微信小店</p>
-              </div>
-            </div>
-            <i class="ph ph-arrow-square-out text-slate-500 group-hover:text-emerald-400 text-sm"></i>
-          </button>
-
-          <button onclick="publishToPlatform('kuaishou')" class="flex items-center justify-between bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 p-2.5 rounded-xl transition text-left group">
-            <div class="flex items-center space-x-2">
-              <span class="w-6 h-6 rounded-lg bg-orange-600 text-white flex items-center justify-center text-xs font-black">快</span>
-              <div>
-                <p class="text-xs font-bold text-white group-hover:text-orange-400">快手创作者服务</p>
-                <p class="text-[9px] text-slate-400">下沉市场老铁爆单</p>
-              </div>
-            </div>
-            <i class="ph ph-arrow-square-out text-slate-500 group-hover:text-orange-400 text-sm"></i>
-          </button>
-        </div>
-
-        <div class="flex items-center space-x-2 text-[10px]" id="publishTagsContainer">
-          <span class="bg-slate-800 text-slate-300 px-2 py-0.5 rounded border border-slate-700">#好物推荐</span>
-          <span class="bg-slate-800 text-slate-300 px-2 py-0.5 rounded border border-slate-700">#抖音商城好物节</span>
-          <span class="bg-slate-800 text-slate-300 px-2 py-0.5 rounded border border-slate-700">#实测破万播</span>
-        </div>
-      </section>
-
-    </div>
-
-  </main>
-
-  <!-- 核心升级：涨粉破万播放绝密实操指南模态框 -->
-  <div id="growthModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden items-center justify-center p-4">
-    <div class="bg-slate-900 border border-amber-500/40 rounded-3xl max-w-xl w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
-      <button onclick="closeGrowthModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white">
-        <i class="ph ph-x text-lg"></i>
-      </button>
-
-      <div class="flex items-center space-x-2.5 mb-5 pb-3 border-b border-slate-800">
-        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-500 to-orange-500 text-slate-950 flex items-center justify-center font-black">
-          <i class="ph-bold ph-trend-up text-xl"></i>
-        </div>
-        <div>
-          <h3 class="font-bold text-base text-white">从 200 播放卡死到单条破万：AI 矩阵带货涨粉内训指南</h3>
-          <p class="text-[11px] text-amber-400">Spira AI 算法团队内部提炼 · 专解流量池瓶颈</p>
-        </div>
-      </div>
-
-      <div class="space-y-4 text-xs leading-relaxed text-slate-300">
-        <div class="bg-slate-950 border border-slate-800 rounded-2xl p-4">
-          <h4 class="font-bold text-amber-300 mb-1.5 flex items-center gap-1.5">
-            <span class="w-5 h-5 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center text-[10px]">1</span>
-            <span>为什么平时视频只有几百播放？（算法底层拆解）</span>
-          </h4>
-          <p class="text-slate-400 text-[11px]">
-            抖音/小红书系统初始分配 300~500 基础流量池。如果前 3 秒跳出率高于 65%，算法会直接断流！普通人拍视频前 3 秒说“大家好”、“今天给大家看一个好东西”，完播率不到 5%，必然卡在几百播放。
-          </p>
-          <div class="mt-2 p-2 rounded-lg bg-indigo-950/40 border border-indigo-500/30 text-[11px] text-indigo-300">
-            <strong>Spira 解法：</strong>系统生成的【黄金悬念钩子】采用“视觉反差动作（摔/泼/测）+ 扎心痛点提问”，前 3 秒留存率直接拉升至 72% 以上，保送进入下一级 5,000~10,000 播放池！
+          <!-- 渲染遮罩 -->
+          <div id="renderOverlay" class="absolute inset-0 bg-slate-950/90 z-20 hidden flex-col items-center justify-center text-center p-4">
+            <div class="w-8 h-8 border-3 border-indigo-500 border-t-transparent rounded-full animate-spin mb-2"></div>
+            <p class="text-xs font-bold text-indigo-400">Spira 云端加速渲染中</p>
+            <p id="renderTimerText" class="text-[10px] text-slate-400 mt-1">预计耗时 3 秒...</p>
           </div>
         </div>
 
-        <div class="bg-slate-950 border border-slate-800 rounded-2xl p-4">
-          <h4 class="font-bold text-emerald-300 mb-1.5 flex items-center gap-1.5">
-            <span class="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-[10px]">2</span>
-            <span>新号起号黄金法则：三段式高频铺量</span>
-          </h4>
-          <ul class="list-disc pl-4 space-y-1 text-slate-400 text-[11px]">
-            <li><strong>发布频次：</strong>每天固定在中午 12:00 和晚上 19:30 各发 1~2 条（使用 Spira 一键制作无需等待）。</li>
-            <li><strong>封面与标题：</strong>保留 Spira 生成的高对比度黄色卡点花字，点击率（CTR）比普通黑白字高出 40%。</li>
-            <li><strong>互动诱导：</strong>视频末尾引导评论（如：“到底值不值，打在评论区”），互动率只要达到 3%，推荐量直接翻倍！</li>
-          </ul>
-        </div>
-
-        <div class="bg-slate-950 border border-slate-800 rounded-2xl p-4">
-          <h4 class="font-bold text-purple-300 mb-1.5 flex items-center gap-1.5">
-            <span class="w-5 h-5 rounded-full bg-purple-500/20 text-purple-400 flex items-center justify-center text-[10px]">3</span>
-            <span>一鱼多吃：四大平台矩阵连环推流</span>
-          </h4>
-          <p class="text-slate-400 text-[11px]">
-            同一条通过 Spira 生成的高清带货视频，不要只发一个平台！利用右侧的【一键矩阵上架】：
-            <strong>抖音测爆款 -> 视频号吃熟龄私域红利 -> 小红书做长尾搜索词收割 -> 快手打性价比下沉老铁</strong>，4倍放大收益！
-          </p>
-        </div>
-      </div>
-
-      <div class="mt-5 text-center">
-        <button onclick="closeGrowthModal()" class="w-full py-2.5 bg-gradient-to-r from-amber-500 to-orange-500 hover:opacity-95 text-slate-950 font-bold text-xs rounded-xl shadow-lg transition">
-          我已领悟！立即制作破播放短视频
+        <button onclick="mockDownloadVideo()" class="w-full mt-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1">
+          <i class="ph ph-download-simple"></i> 保存视频到手机
         </button>
       </div>
-    </div>
-  </div>
 
-  <!-- 全自动充值与卡密兑换收银台 -->
-  <div id="rechargeModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
-    <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-md w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
-      <button onclick="closeRechargeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white">
-        <i class="ph ph-x text-lg"></i>
-      </button>
-
-      <div class="text-center mb-5">
-        <span class="inline-flex p-3 rounded-2xl bg-indigo-500/10 text-indigo-400 mb-2">
-          <i class="ph-fill ph-crown text-2xl"></i>
-        </span>
-        <h3 class="font-bold text-lg text-white">购买算力包 / 尊享至尊版</h3>
-        <p class="text-xs text-slate-400 mt-1">全天 24 小时微信/支付宝自动出单，无需人工等待</p>
-      </div>
-
-      <div class="space-y-2.5 mb-5">
-        <div onclick="mockAutoBuy('supreme_299', 400)" class="border-2 border-amber-500/80 bg-gradient-to-r from-amber-950/30 via-slate-900 to-indigo-950/30 rounded-2xl p-3.5 flex items-center justify-between transition cursor-pointer relative group shadow-lg shadow-amber-500/10">
-          <span class="absolute -top-2.5 right-4 bg-gradient-to-r from-amber-400 via-orange-500 to-yellow-500 text-slate-950 text-[9px] font-black px-2.5 py-0.5 rounded-full uppercase shadow">
-            👑 至尊旗舰 · 矩阵首选
-          </span>
-          <div class="flex items-center space-x-3">
-            <span class="w-9 h-9 rounded-xl bg-gradient-to-tr from-amber-500 to-yellow-400 flex items-center justify-center text-slate-950 text-xs font-black">400点</span>
-            <div>
-              <p class="text-xs font-black text-amber-200 group-hover:text-amber-100">尊享至尊年卡 (400条短视频)</p>
-              <p class="text-[10px] text-amber-400/80">折合仅 0.74 元/条 · 解锁全部高阶主播</p>
-            </div>
-          </div>
-          <div class="text-right">
-            <span class="text-base font-black text-amber-300">¥ 299.0</span>
-            <span class="block text-[9px] text-amber-400 font-semibold">点击自动购买</span>
-          </div>
-        </div>
-
-        <div onclick="mockAutoBuy('monthly_39', 40)" class="border border-indigo-500 bg-indigo-950/20 rounded-2xl p-3 flex items-center justify-between transition cursor-pointer relative group">
-          <span class="absolute -top-2.5 right-4 bg-gradient-to-r from-pink-500 to-rose-500 text-white text-[9px] font-black px-2 py-0.5 rounded-full uppercase">
-            店主最爱
-          </span>
-          <div class="flex items-center space-x-3">
-            <span class="w-8 h-8 rounded-xl bg-indigo-600 flex items-center justify-center text-white text-xs font-bold">40点</span>
-            <div>
-              <p class="text-xs font-bold text-white group-hover:text-indigo-300">专业带货月卡 (40条短视频)</p>
-              <p class="text-[10px] text-indigo-300">折合 0.97 元/条 · 极速优先队列</p>
-            </div>
-          </div>
-          <div class="text-right">
-            <span class="text-sm font-black text-indigo-400">¥ 39.0</span>
-            <span class="block text-[9px] text-indigo-400">点击自动购买</span>
-          </div>
-        </div>
-
-        <div onclick="mockAutoBuy('trial_9.9', 10)" class="border border-slate-800 hover:border-indigo-500 bg-slate-950 rounded-2xl p-3 flex items-center justify-between transition cursor-pointer group">
-          <div class="flex items-center space-x-3">
-            <span class="w-8 h-8 rounded-xl bg-slate-800 flex items-center justify-center text-slate-300 text-xs font-bold">10点</span>
-            <div>
-              <p class="text-xs font-bold text-white group-hover:text-indigo-300">新店尝鲜包 (10条视频)</p>
-              <p class="text-[10px] text-slate-400">自动发卡 · 扫码即出兑换码</p>
-            </div>
-          </div>
-          <div class="text-right">
-            <span class="text-sm font-black text-indigo-400">¥ 9.9</span>
-            <span class="block text-[9px] text-slate-500">点击自动购买</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="bg-slate-950 border border-slate-800 rounded-2xl p-3.5">
-        <label class="block text-xs font-bold text-slate-300 mb-1.5 flex items-center gap-1">
-          <i class="ph ph-key text-indigo-400"></i>
-          <span>已有卡密？在此一键兑换算力</span>
-        </label>
-        <div class="flex gap-2">
-          <input id="cardCodeInput" type="text" placeholder="输入购买获得的兑换卡密..." 
-                 class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 uppercase font-mono" />
-          <button onclick="redeemCardCode()" class="px-4 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:opacity-95 text-white rounded-xl text-xs font-bold transition flex-shrink-0">
-            立即兑换
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 管理员控制台模态框 (Admin Dashboard) -->
-  <div id="adminModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden items-center justify-center p-4">
-    <div class="bg-slate-900 border border-indigo-500/40 rounded-3xl max-w-xl w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
-      <button onclick="closeAdminModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white">
-        <i class="ph ph-x text-lg"></i>
-      </button>
-
-      <div class="flex items-center space-x-2.5 mb-5 pb-3 border-b border-slate-800">
-        <div class="w-8 h-8 rounded-lg bg-indigo-500/20 text-indigo-400 flex items-center justify-center">
-          <i class="ph-bold ph-shield-check text-lg"></i>
-        </div>
-        <div>
-          <h3 class="font-bold text-base text-white">Spira 管理员总控制台</h3>
-          <p class="text-[11px] text-slate-400">全权管理用户额度、批量发行卡密与监控收益</p>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-3 gap-3 mb-5">
-        <div class="bg-slate-950 border border-slate-800 rounded-xl p-3 text-center">
-          <p class="text-[10px] text-slate-400">当前活跃用户</p>
-          <p class="text-base font-black text-white mt-0.5">26 位</p>
-        </div>
-        <div class="bg-slate-950 border border-slate-800 rounded-xl p-3 text-center">
-          <p class="text-[10px] text-slate-400">已消耗算力</p>
-          <p class="text-base font-black text-indigo-400 mt-0.5" id="adminTotalUsed">86 点</p>
-        </div>
-        <div class="bg-slate-950 border border-slate-800 rounded-xl p-3 text-center">
-          <p class="text-[10px] text-slate-400">累计营收</p>
-          <p class="text-base font-black text-emerald-400 mt-0.5">¥ 2,480</p>
-        </div>
-      </div>
-
-      <div class="bg-slate-950 border border-slate-800 rounded-2xl p-4 mb-5">
-        <h4 class="text-xs font-bold text-slate-200 mb-2 flex items-center gap-1.5">
-          <i class="ph ph-user-gear text-indigo-400"></i>
-          <span>用户额度精确调控</span>
-        </h4>
-        <div class="grid grid-cols-12 gap-2">
-          <input id="adminTargetUser" type="text" value="当前本地商家账号" readonly
-                 class="col-span-6 bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-xs text-slate-400" />
-          <input id="adminAdjustAmount" type="number" placeholder="+10 或 -5" value="20"
-                 class="col-span-3 bg-slate-900 border border-slate-700 rounded-xl px-2 py-1.5 text-xs text-white text-center focus:outline-none focus:border-indigo-500 font-mono" />
-          <button onclick="adminAdjustUserCredits()" class="col-span-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold transition">
-            确认修改
-          </button>
-        </div>
-      </div>
-
-      <div class="bg-slate-950 border border-slate-800 rounded-2xl p-4">
+      <!-- 一键多平台发布调度中枢 -->
+      <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-3.5 shadow-xl">
         <div class="flex items-center justify-between mb-2">
-          <h4 class="text-xs font-bold text-slate-200 flex items-center gap-1.5">
-            <i class="ph ph-ticket text-indigo-400"></i>
-            <span>卡密生成与库存管理</span>
-          </h4>
-          <div class="flex gap-1.5">
-            <button onclick="adminGenerateNewCards(40, 'VIP-39')" class="text-[10px] px-2 py-1 bg-indigo-900/60 hover:bg-indigo-900 text-indigo-300 rounded border border-indigo-700 transition">
-              + 5张月卡(40点)
-            </button>
-            <button onclick="adminGenerateNewCards(400, 'KING-299')" class="text-[10px] px-2 py-1 bg-amber-900/60 hover:bg-amber-900 text-amber-300 rounded border border-amber-700 transition">
-              + 5张至尊卡(400点)
-            </button>
-          </div>
+          <h3 class="font-bold text-xs text-slate-200 flex items-center gap-1">
+            <i class="ph-bold ph-share-network text-indigo-400"></i> 一键矩阵多平台发布
+          </h3>
+          <span class="text-[10px] text-emerald-400">已匹配格式</span>
         </div>
-        <div id="adminCardList" class="space-y-1.5 max-h-36 overflow-y-auto text-[11px] font-mono pr-1"></div>
+        <div id="platformGrid" class="grid grid-cols-2 gap-1.5 mb-2.5"></div>
+        <button onclick="copyPublishInfo()" class="w-full py-2 bg-indigo-600/30 border border-indigo-500/50 hover:bg-indigo-600 text-indigo-200 hover:text-white rounded-xl text-xs font-bold transition flex items-center justify-center gap-1">
+          <i class="ph ph-copy"></i> 复制爆款标题与话题标签 (发视频直接粘贴)
+        </button>
       </div>
 
     </div>
+  </main>
+
+  <!-- 全自动充值收银台 (四大档位：9.9 / 39.9 / 99.9 / 199) -->
+  <div id="rechargeModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-sm w-full p-4 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+      <button onclick="closeRechargeModal()" class="absolute top-3 right-3 text-slate-400 hover:text-white">
+        <i class="ph ph-x text-base"></i>
+      </button>
+
+      <div class="text-center mb-3">
+        <span class="inline-flex p-2 rounded-2xl bg-indigo-500/10 text-indigo-400 mb-1">
+          <i class="ph-fill ph-crown text-xl"></i>
+        </span>
+        <h3 class="font-extrabold text-sm text-white">购买算力包 / 升级会员</h3>
+        <p class="text-[11px] text-slate-400">全天24小时自动发卡，秒级到账无需人工等待</p>
+      </div>
+
+      <!-- 四大核心阶梯档位容器 (9.9 / 39.9 / 99.9 / 199) -->
+      <div id="pricingTierList" class="space-y-2 mb-3"></div>
+
+      <!-- 卡密核销兑换框 -->
+      <div class="bg-slate-950 border border-slate-800 rounded-2xl p-2.5">
+        <label class="block text-[11px] font-bold text-slate-300 mb-1 flex items-center gap-1">
+          <i class="ph ph-key text-indigo-400"></i><span>已有卡密？在此一键兑换算力</span>
+        </label>
+        <div class="flex gap-1.5">
+          <input id="cardCodeInput" type="text" placeholder="输入卡密兑换..." 
+                 class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-2.5 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 uppercase font-mono">
+          <button onclick="redeemCardCode()" class="px-3 py-1.5 bg-gradient-to-r from-indigo-600 to-purple-600 hover:opacity-95 text-white rounded-xl text-xs font-bold transition flex-shrink-0">
+            兑换到账
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <footer class="border-t border-slate-900 py-4 px-6 text-center text-[11px] text-slate-500">
-    Spira AI 电商云剪 SaaS 核心引擎架构已就绪 | 矩阵多平台发布与破万播放引擎已激活
+  <!-- 破播放秘籍模态框 -->
+  <div id="growthModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-sm w-full p-4 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+      <button onclick="closeGrowthModal()" class="absolute top-3 right-3 text-slate-400 hover:text-white"><i class="ph ph-x text-base"></i></button>
+      <div class="flex items-center gap-2 mb-2.5">
+        <span class="p-1.5 rounded-xl bg-amber-500/20 text-amber-400 text-base"><i class="ph-fill ph-fire"></i></span>
+        <div><h3 class="font-extrabold text-sm text-white">破局 200~300 播放流量池秘籍</h3><p class="text-[10px] text-slate-400">短视频算法核心抓手</p></div>
+      </div>
+      <div class="space-y-2 text-xs text-slate-300 leading-relaxed">
+        <div class="p-2 rounded-xl bg-slate-950 border border-slate-800">
+          <h4 class="font-bold text-amber-300 mb-0.5">1. 为什么平时播放只有两三百？</h4>
+          <p class="text-slate-400 text-[10px]">系统分配初始300池时，前2秒跳出率高于65%即被判定为低质内容并掐断推流！</p>
+        </div>
+        <div class="p-2 rounded-xl bg-slate-950 border border-slate-800">
+          <h4 class="font-bold text-indigo-300 mb-0.5">2. 黄金钩子的底层逻辑</h4>
+          <p class="text-slate-400 text-[10px]">前3秒必须制造【认知反差】或【行业内幕恐吓】，把划走变成停留，完播率拉升300%！</p>
+        </div>
+        <div class="p-2 rounded-xl bg-slate-950 border border-slate-800">
+          <h4 class="font-bold text-emerald-300 mb-0.5">3. 12位纯正中国主播的高完播信任感</h4>
+          <p class="text-slate-400 text-[10px]">本土亲和居家、激情大促、地道老农主播，让观众潜意识产生“真实老板在档口测评”的亲切感与信任感。</p>
+        </div>
+      </div>
+      <button onclick="closeGrowthModal()" class="w-full mt-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold transition">我已掌握，开始制作爆款</button>
+    </div>
+  </div>
+
+  <!-- 管理员后台模态框 (密码: admin888) -->
+  <div id="adminModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-sm w-full p-4 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+      <button onclick="closeAdminModal()" class="absolute top-3 right-3 text-slate-400 hover:text-white"><i class="ph ph-x text-base"></i></button>
+      <div class="flex items-center gap-2 mb-2.5">
+        <span class="p-1.5 rounded-xl bg-indigo-500/20 text-indigo-400 text-base"><i class="ph ph-shield-check"></i></span>
+        <div><h3 class="font-bold text-sm text-white">站长后台管理中心</h3><p class="text-[10px] text-slate-400">卡密发行、库存管理与算力调整</p></div>
+      </div>
+      <div class="grid grid-cols-2 gap-2 mb-2.5 text-xs">
+        <div class="bg-slate-950 border border-slate-800 p-2 rounded-xl">
+          <p class="text-[10px] text-slate-400">已消耗总算力</p>
+          <p id="adminTotalUsed" class="text-sm font-extrabold text-indigo-400 mt-0.5">86 点</p>
+        </div>
+        <div class="bg-slate-950 border border-slate-800 p-2 rounded-xl">
+          <p class="text-[10px] text-slate-400">演示账户余额</p>
+          <div class="flex items-center gap-1.5 mt-0.5">
+            <button onclick="adminAdjustUserCredits(-1)" class="w-5 h-5 rounded bg-slate-800 text-xs font-bold">-</button>
+            <span id="adminUserCredits" class="text-sm font-extrabold text-white">5</span>
+            <button onclick="adminAdjustUserCredits(5)" class="w-5 h-5 rounded bg-indigo-600 text-xs font-bold">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="bg-slate-950 border border-slate-800 rounded-2xl p-2.5 mb-2">
+        <div class="flex items-center justify-between mb-1.5">
+          <h4 class="text-xs font-bold text-slate-200">生成新卡密库存 (4大档位)</h4>
+          <span class="text-[9px] text-slate-400">点击发行</span>
+        </div>
+        <div class="grid grid-cols-4 gap-1 mb-2">
+          <button onclick="adminGenerateNewCards(10, 'TRIAL-9.9')" class="text-[9px] py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded border border-slate-700">+ 9.9尝鲜(10点)</button>
+          <button onclick="adminGenerateNewCards(45, 'MONTH-39.9')" class="text-[9px] py-1 bg-indigo-900/60 hover:bg-indigo-900 text-indigo-300 rounded border border-indigo-700">+ 39.9月卡(45点)</button>
+          <button onclick="adminGenerateNewCards(130, 'SEASON-99.9')" class="text-[9px] py-1 bg-purple-900/60 hover:bg-purple-900 text-purple-300 rounded border border-purple-700">+ 99.9季卡(130点)</button>
+          <button onclick="adminGenerateNewCards(300, 'YEAR-199')" class="text-[9px] py-1 bg-amber-900/60 hover:bg-amber-900 text-amber-300 rounded border border-amber-700 font-bold">+ 199年卡(300点)</button>
+        </div>
+        <div id="adminCardList" class="space-y-1 max-h-28 overflow-y-auto text-[10px] font-mono pr-1"></div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="border-t border-slate-900 py-2.5 px-4 text-center text-[10px] text-slate-500">
+    Spira AI 电商云剪 SaaS | 12位纯正中国主播与4大充值档位 (9.9/39.9/99.9/199) 已激活
   </footer>
 
   <script>
-    // 算力持久化存储
+    // 12位纯正中国面孔数字人主播
+    const AVATARS = [
+      { name: '晓晴', gender: '女', type: '亲和居家', char: '晴', color: 'from-pink-500 to-rose-400' },
+      { name: '浩东', gender: '男', type: '数码硬核', char: '东', color: 'from-blue-600 to-indigo-500' },
+      { name: '丽娜', gender: '女', type: '激情大促', char: '娜', color: 'from-amber-500 to-orange-400' },
+      { name: '雅婷', gender: '女', type: '知性美妆', char: '婷', color: 'from-purple-500 to-pink-500' },
+      { name: '明辉', gender: '男', type: '商务精英', char: '辉', color: 'from-emerald-600 to-teal-500' },
+      { name: '慧心', gender: '女', type: '温情宝妈', char: '慧', color: 'from-rose-500 to-red-400' },
+      { name: '德叔', gender: '男', type: '滋补养生', char: '德', color: 'from-stone-600 to-amber-700' },
+      { name: '子涵', gender: '女', type: '青春潮服', char: '涵', color: 'from-fuchsia-500 to-violet-500' },
+      { name: '大壮', gender: '男', type: '农特原产', char: '壮', color: 'from-amber-600 to-yellow-600' },
+      { name: '雨萱', gender: '女', type: '高端雅致', char: '萱', color: 'from-sky-400 to-indigo-400' },
+      { name: '嘉豪', gender: '男', type: '科技极客', char: '豪', color: 'from-teal-500 to-emerald-600' },
+      { name: '妙音', gender: '女', type: '国风非遗', char: '妙', color: 'from-red-600 to-amber-500' }
+    ];
+
+    // 4大核心阶梯充值档位 (9.9, 39.9, 99.9, 199)
+    const PRICING_TIERS = [
+      { id: 'flagship_199', points: 300, price: '199.0', name: '尊享年度旗舰卡 (300条短视频)', desc: '折合仅 0.66 元/条 · 解锁全部12位高阶主播', badge: '👑 旗舰顶配 · 年度首选', border: 'border-2 border-amber-500/80 bg-gradient-to-r from-amber-950/30 to-slate-900', textColor: 'text-amber-300', boxBg: 'bg-gradient-to-tr from-amber-500 to-yellow-400 text-slate-950' },
+      { id: 'quarterly_99_9', points: 130, price: '99.9', name: '矩阵爆单季卡 (130条视频)', desc: '折合 0.76 元/条 · 适合多店铺矩阵铺量', border: 'border border-purple-500/80 bg-purple-950/20', textColor: 'text-purple-300', boxBg: 'bg-purple-600 text-white' },
+      { id: 'monthly_39_9', points: 45, price: '39.9', name: '专业带货月卡 (45条短视频)', desc: '折合 0.88 元/条 · 极速优先队列', badge: '店主最爱', border: 'border border-indigo-500 bg-indigo-950/20', textColor: 'text-indigo-400', boxBg: 'bg-indigo-600 text-white' },
+      { id: 'trial_9_9', points: 10, price: '9.9', name: '新店尝鲜包 (10条视频)', desc: '自动发卡 · 扫码即出兑换码', border: 'border border-slate-800 bg-slate-950', textColor: 'text-indigo-400', boxBg: 'bg-slate-800 text-slate-300' }
+    ];
+
+    // 4大矩阵平台
+    const PLATFORMS = [
+      { id: 'douyin', name: '抖音/巨量百应', desc: '自动带货话题', icon: '抖', color: 'bg-pink-500/20 text-pink-400' },
+      { id: 'xhs', name: '小红书蒲公英', desc: '种草图文+视频', icon: '红', color: 'bg-red-500/20 text-red-400' },
+      { id: 'kuaishou', name: '快手小店', desc: '下沉高转化', icon: '快', color: 'bg-orange-500/20 text-orange-400' },
+      { id: 'weixin', name: '微信视频号', desc: '私域高客单', icon: '微', color: 'bg-emerald-500/20 text-emerald-400' }
+    ];
+
     let currentCredits = parseInt(localStorage.getItem('spira_user_credits') || '5');
     let totalUsedCredits = parseInt(localStorage.getItem('spira_total_used') || '86');
     let validCards = JSON.parse(localStorage.getItem('spira_valid_cards') || JSON.stringify({
-      "KING-299-8888": 400,
-      "VIP-9999-AAAA": 40,
-      "VIP-8888-BBBB": 40,
-      "TRIAL-1111-CCCC": 10
+      "YEAR-199-8888": 300,
+      "SEASON-99.9-7777": 130,
+      "MONTH-39.9-6666": 45,
+      "TRIAL-9.9-1111": 10
     }));
+
+    let currentAvatar = AVATARS[0];
+    let currentIndustry = "户外钓鱼";
+    let hookBatchIndex = 0;
 
     function saveState() {
       localStorage.setItem('spira_user_credits', currentCredits);
       localStorage.setItem('spira_total_used', totalUsedCredits);
       localStorage.setItem('spira_valid_cards', JSON.stringify(validCards));
       document.getElementById('userCreditsDisplay').innerText = currentCredits;
-      const totalUsedEl = document.getElementById('adminTotalUsed');
-      if (totalUsedEl) totalUsedEl.innerText = totalUsedCredits + ' 点';
+      const adminCred = document.getElementById('adminUserCredits');
+      if (adminCred) adminCred.innerText = currentCredits;
+      const adminUsed = document.getElementById('adminTotalUsed');
+      if (adminUsed) adminUsed.innerText = totalUsedCredits + ' 点';
     }
 
-    // 1. 动态 AI 黄金钩子生成脑图模型
-    let currentIndustry = "户外钓鱼渔具";
-    let hookBatchIndex = 0;
+    // 渲染12位中国主播
+    function renderAvatarGrid() {
+      const container = document.getElementById('avatarGrid');
+      container.innerHTML = '';
+      AVATARS.forEach((av) => {
+        const isSel = av.name === currentAvatar.name;
+        const card = document.createElement('div');
+        card.className = `border ${isSel ? 'border-2 border-indigo-500 bg-indigo-950/20' : 'border-slate-800 bg-slate-950'} rounded-xl p-1 cursor-pointer text-center transition relative`;
+        card.onclick = () => selectAvatar(av);
+        card.innerHTML = `
+          <div class="w-8 h-8 rounded-full mx-auto bg-gradient-to-tr ${av.color} flex items-center justify-center text-white font-bold text-[11px] mb-1 shadow">${av.char}</div>
+          <p class="text-[10px] font-bold text-slate-200 truncate">${av.name} (${av.gender})</p>
+          <p class="text-[8px] text-slate-400 truncate">${av.type}</p>
+          ${isSel ? '<span class="absolute top-0.5 right-0.5 text-indigo-400 text-[9px]"><i class="ph-fill ph-check-circle"></i></span>' : ''}
+        `;
+        container.appendChild(card);
+      });
+    }
 
+    function selectAvatar(av) {
+      currentAvatar = av;
+      renderAvatarGrid();
+      const mockAv = document.getElementById('mockAvatarDisplay');
+      mockAv.className = `w-8 h-8 rounded-full bg-gradient-to-tr ${av.color} flex items-center justify-center text-white font-bold text-xs shadow mb-1`;
+      mockAv.innerText = av.char;
+      document.getElementById('mockAvatarName').innerText = `${av.name} (${av.gender})`;
+    }
+
+    // 渲染4大充值档位
+    function renderPricingTiers() {
+      const container = document.getElementById('pricingTierList');
+      container.innerHTML = '';
+      PRICING_TIERS.forEach(t => {
+        const item = document.createElement('div');
+        item.className = `${t.border} rounded-2xl p-2.5 flex items-center justify-between cursor-pointer relative group transition`;
+        item.onclick = () => mockAutoBuy(t.id, t.points);
+        item.innerHTML = `
+          ${t.badge ? `<span class="absolute -top-2 right-3 bg-gradient-to-r from-amber-400 to-yellow-500 text-slate-950 text-[8px] font-black px-1.5 py-0.2 rounded-full uppercase shadow">${t.badge}</span>` : ''}
+          <div class="flex items-center space-x-2">
+            <span class="w-7 h-7 rounded-xl ${t.boxBg} flex items-center justify-center text-[10px] font-bold">${t.points}点</span>
+            <div>
+              <p class="text-xs font-bold text-slate-200 group-hover:text-white">${t.name}</p>
+              <p class="text-[9px] text-slate-400">${t.desc}</p>
+            </div>
+          </div>
+          <div class="text-right">
+            <span class="text-xs font-black ${t.textColor}">¥ ${t.price}</span>
+            <span class="block text-[8px] text-slate-500">点击自动购买</span>
+          </div>
+        `;
+        container.appendChild(item);
+      });
+    }
+
+    // 渲染4大平台
+    function renderPlatforms() {
+      const container = document.getElementById('platformGrid');
+      container.innerHTML = '';
+      PLATFORMS.forEach(p => {
+        const btn = document.createElement('button');
+        btn.className = "p-2 rounded-xl bg-slate-950 border border-slate-800 hover:border-indigo-500 text-left transition group";
+        btn.onclick = () => publishToPlatform(p.id);
+        btn.innerHTML = `
+          <div class="flex items-center gap-1.5">
+            <span class="w-5 h-5 rounded ${p.color} flex items-center justify-center text-[11px] font-black">${p.icon}</span>
+            <div>
+              <p class="text-[11px] font-bold text-slate-200 group-hover:text-indigo-400">${p.name}</p>
+              <p class="text-[8px] text-slate-500">${p.desc}</p>
+            </div>
+          </div>
+        `;
+        container.appendChild(btn);
+      });
+    }
+
+    // 动态黄金钩子
     function generateDynamicAIHooks(industryName) {
       const item = industryName || "这款产品";
       return [
         [
           `大鱼咬钩直接弯成满月！实测【${item}】承重极限到底有多顶？`,
           `别再去大牌店花大几百交智商税了！看看源头工厂的【${item}】真实用料！`,
-          `钓友连续空军三天白受罪，换上这根【${item}】直接野钓爆护翻盘！`
+          `连续三天断竿空军，换上这根【${item}】直接野钓爆护翻盘！`
+        ],
+        [
+          `为什么很多老玩家都在偷偷用？拆开这款【${item}】看清真相！`,
+          `百元以内挑战千元做工！这款【${item}】真的能扛住暴力实测吗？`,
+          `去实体店买【${item}】怕被当韭菜割？老店主教你一眼看穿内幕！`
         ],
         [
           `抛投半小时手腕酸得抬不起来？那是你没用过真正超轻的【${item}】！`,
-          `碰上十斤大物经常断竿跑鱼？今天教你闭眼选【${item}】不踩雷！`,
-          `去实体店买【${item}】怕被当韭菜割？老玩家教你一眼看穿内幕！`
-        ],
-        [
           `狂拉不断！今天冒着得罪同行的风险，现场测评这款被吹爆的【${item}】！`,
-          `百元以内挑战千元做工！这款【${item}】真的能扛住暴力实测吗？`,
-          `为什么很多老师傅都在偷偷用？拆开这款【${item}】看清真相！`
+          `碰上十斤大物经常断线跑鱼？今天教你闭眼选【${item}】不踩雷！`
         ]
       ];
     }
@@ -689,255 +515,112 @@
       currentGroup.forEach((hookText, idx) => {
         const opt = document.createElement('option');
         opt.value = hookText;
-        opt.innerText = `钩子 ${idx + 1}：${hookText}`;
+        opt.innerText = `🔥 爆款钩子 ${idx + 1}：${hookText}`;
         select.appendChild(opt);
       });
+      applyPainPoint(currentGroup[0]);
     }
 
-    // 行业搜索诊断
-    function searchIndustryPains() {
-      const val = document.getElementById('industrySearchInput').value.trim();
-      if (!val) {
-        alert('请输入行业或产品名称，如：宠物鲜粮、紫砂茶具、冲锋衣...');
-        return;
-      }
-      const btn = document.getElementById('searchIndustryBtn');
-      btn.innerHTML = '<i class="ph ph-spinner animate-spin"></i> 诊断中...';
-      setTimeout(() => {
-        btn.innerHTML = '<i class="ph-bold ph-magic-wand"></i><span>AI 诊断钩子</span>';
-        hookBatchIndex = 0;
-        updateHookSelect(val);
-
-        document.getElementById('productTitle').value = `高品质爆款【${val}】，专业级核心升级做工，狂拉耐磨实测天花板`;
-        document.getElementById('cardProductTitle').innerText = `高品质爆款【${val}】`;
-        document.getElementById('previewTagBadge').innerText = `${val.slice(0, 4)}爆款`;
-        document.getElementById('previewSubtitleText').innerText = `“别再买劣质${val}了！实测弯成大满月直接惊艳…”`;
-
-        realGenerateScript();
-        alert(`🎯 AI 成功针对【${val}】类目，演算出 3 套符合抖音算法的高留存黄金钩子！\n若不满意，可随时点击【换一批】！`);
-      }, 600);
-    }
-
-    function quickSelectTag(tag) {
-      document.getElementById('industrySearchInput').value = tag;
-      searchIndustryPains();
+    function applyPainPoint(hookText) {
+      document.getElementById('selectedHookPreview').innerText = hookText;
+      document.getElementById('mockHookBigText').innerText = hookText;
+      realGenerateScript(hookText);
     }
 
     function refreshPainPoints() {
       hookBatchIndex++;
       updateHookSelect(currentIndustry);
-      alert(`🔄 AI 已为您换上【${currentIndustry}】第 ${(hookBatchIndex % 3) + 1} 套全新黄金悬念钩子！\n已自动更新，点击【重新生成脚本】即可应用新话术。`);
     }
 
-    function applyPainPoint(val) {
-      const btn = document.getElementById('genScriptBtn');
-      btn.innerHTML = '<i class="ph ph-sparkle text-amber-400"></i> 已选定新钩子，点击重新生成';
+    function searchIndustryPains() {
+      const val = document.getElementById('industrySearchInput').value.trim();
+      if (!val) { alert("请输入行业或品类关键词！"); return; }
+      updateHookSelect(val);
     }
 
-    function refreshGeneratedScript() {
-      const toneSelect = document.getElementById('videoTone');
-      if (toneSelect.value === 'aggressive') toneSelect.value = 'story';
-      else if (toneSelect.value === 'story') toneSelect.value = 'review';
-      else toneSelect.value = 'aggressive';
-      realGenerateScript();
+    function quickSelectTag(tag) {
+      document.getElementById('industrySearchInput').value = tag;
+      updateHookSelect(tag);
     }
 
-    // 智能大模型编导脚本生成
-    function realGenerateScript() {
-      const title = document.getElementById('productTitle').value || `爆款${currentIndustry}`;
-      const hook = document.getElementById('targetPainPointSelect').value || `还在为选${currentIndustry}发愁吗？`;
-      const tone = document.getElementById('videoTone').value;
-      const btnGen = document.getElementById('genScriptBtn');
-      const scriptBox = document.getElementById('scriptText');
-
-      btnGen.innerHTML = '<i class="ph ph-spinner animate-spin"></i> 创作中...';
-
-      setTimeout(() => {
-        let cta = "“厂家直营今天冲排名大促，看准左下方小黄车，手慢无！”";
-        let actionDesc = "（主播神情严肃，手持商品直接拉满弓暴力实测）";
-
-        if (tone === "aggressive") {
-          actionDesc = "（主播满脸不可置信，直接当场实测暴力破坏）";
-          cta = "“今天开业不赚利润纯交朋友！券后直接击穿底价，左下方小黄车拼手速！”";
-        } else if (tone === "story") {
-          actionDesc = "（主播真诚贴脸沟通，神情共鸣）";
-          cta = "“真心推荐给每位需要的朋友，现在拍还包邮送运费险，左下角快冲！”";
-        } else {
-          actionDesc = "（镜头近距离特写核心结构与仪器实测数据）";
-          cta = "“千元级硬核做工今天只要源头出厂价，支持无理由试用，左下方小黄车赶紧抢！”";
-        }
-
-        scriptBox.value = 
-`【第0~3秒 黄金悬念钩子】
-${actionDesc}
-“${hook}”
-
-【第4~8秒 核心痛点解决与材质背书】
-（镜头快速切至核心升级部件与实测高清特写）
-“真正解决传统【${currentIndustry}】的所有痛点！用料升级，上手质感直接拉满，关键是经过全流程质量把关，拒绝虚标偷工减料，怎么用都不踩雷！”
-
-【第9~15秒 破价逼单与号召行动】
-（主播单手展示细节，画面跳出限时超值特惠券标签）
-${cta}`;
-
-        btnGen.innerHTML = '<i class="ph ph-sparkle text-sm"></i><span>重新生成脚本</span>';
-      }, 600);
+    function realGenerateScript(hook) {
+      const hookText = hook || document.getElementById('selectedHookPreview').innerText;
+      const prod = document.getElementById('productNameInput').value;
+      const script = `【0-3秒黄金爆破】${hookText}\n\n【3-15秒痛点反击】以前用同类产品动不动就翻车踩雷。今天这款【${prod}】，源头工匠严选纯正材料，抗压防断，拿在手里又轻又韧，质感直接拉满！\n\n【15-30秒逼单转化】今天工厂首发福利，官方补贴直接破价！点击视频左下方小黄车，假一赔十，现货秒发！`;
+      document.getElementById('scriptTextarea').value = script;
+      document.getElementById('mockSubtitleText').innerText = hookText;
     }
 
-    // 2. 主播头像切换
-    const avatarMap = {
-      '主播-晓晴': 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
-      '主播-浩东': 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
-      '主播-丽娜': 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=200&q=80',
-      '主播-雅婷': 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80',
-      '主播-明辉': 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80',
-      '主播-Alex': 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=200&q=80'
-    };
+    function refreshGeneratedScript() { realGenerateScript(); }
 
-    function selectAvatar(el, name) {
-      document.querySelectorAll('.avatar-card').forEach(c => {
-        c.className = "avatar-card border border-slate-800 bg-slate-950 rounded-xl p-2 cursor-pointer text-center hover:border-slate-700 transition relative";
-        const b = c.querySelector('span');
-        if (b) b.remove();
-      });
-      el.className = "avatar-card border-2 border-indigo-500 bg-indigo-950/20 rounded-xl p-2 cursor-pointer text-center transition relative";
-      const badge = document.createElement('span');
-      badge.className = "absolute top-1 right-1 text-indigo-400";
-      badge.innerHTML = '<i class="ph-fill ph-check-circle text-xs"></i>';
-      el.appendChild(badge);
-
-      if (avatarMap[name]) {
-        document.getElementById('previewAvatarImg').src = avatarMap[name];
-      }
-    }
-
-    // 3. 手机相册选择图片
-    function triggerImagePicker() {
-      const fileInput = document.getElementById('realImageInput');
-      if (fileInput) fileInput.click();
-    }
+    function triggerImagePicker() { document.getElementById('productFileInput').click(); }
 
     function handleImageUpload(e) {
-      const files = e.target.files;
-      if (!files || files.length === 0) return;
-
-      const thumbsContainer = document.getElementById('imageThumbnails');
-      thumbsContainer.innerHTML = '';
-      thumbsContainer.classList.remove('hidden');
-      document.getElementById('uploadCountText').innerText = `已选 ${files.length} 张图片`;
-
-      const readerFirst = new FileReader();
-      readerFirst.onload = function(evt) {
-        document.getElementById('previewBackground').style.backgroundImage = `url('${evt.target.result}')`;
-        const cardThumb = document.getElementById('cardThumbImg');
-        if (cardThumb) cardThumb.src = evt.target.result;
-      };
-      readerFirst.readAsDataURL(files[0]);
-
-      for (let i = 0; i < files.length; i++) {
+      const file = e.target.files[0];
+      if (file) {
         const reader = new FileReader();
-        reader.onload = function(evt) {
-          const div = document.createElement('div');
-          div.className = "relative aspect-square rounded-lg overflow-hidden border border-indigo-500/50 shadow";
-          div.innerHTML = `<img src="${evt.target.result}" class="w-full h-full object-cover" />`;
-          thumbsContainer.appendChild(div);
+        reader.onload = function(event) {
+          document.getElementById('productImagePreview').src = event.target.result;
+          document.getElementById('mockVideoBg').src = event.target.result;
         };
-        reader.readAsDataURL(files[i]);
+        reader.readAsDataURL(file);
       }
-      alert(`✅ 成功从手机相册载入 ${files.length} 张实拍图！\n右侧预览窗口已同步替换背景！`);
     }
 
-    // 4. 一键合成短视频
     function realStartRender() {
-      const script = document.getElementById('scriptText').value;
-      if (!script) {
-        alert('请先点击【生成脚本】或输入带货文案！');
-        return;
-      }
-
-      if (currentCredits < 1) {
-        alert('⚠️ 可用算力不足（剩余 0 点）！请点击上方【购买算力 / 至尊版】充值。');
+      if (currentCredits <= 0) {
+        alert("⚠️ 算力余额不足！请点击右上角【充值】购买算力包。");
         openRechargeModal();
         return;
       }
-
       currentCredits -= 1;
       totalUsedCredits += 1;
       saveState();
 
       const overlay = document.getElementById('renderOverlay');
-      const stepText = document.getElementById('renderStepText');
       const badge = document.getElementById('renderStatusBadge');
-
       overlay.classList.remove('hidden');
       overlay.classList.add('flex');
-      badge.className = "text-[10px] px-2 py-0.5 rounded-full bg-amber-950 text-amber-300 border border-amber-800";
       badge.innerText = "云端渲染中...";
+      badge.className = "text-[10px] bg-indigo-500/20 text-indigo-400 px-2 py-0.5 rounded-full font-medium animate-pulse";
 
-      const steps = [
-        "正在扣减 1 点算力，当前可用余额: " + currentCredits + " 点...",
-        "正在注入黄金 3 秒高留存反差钩子音频...",
-        "正在生成高对比度黄色卡点花字字幕 (CTR +40%)...",
-        "正在给商品实拍图增加 3D 缓慢推镜动态运镜...",
-        "正在压制 1080P 高清成片并计算多平台推荐权重..."
-      ];
-
-      let idx = 0;
-      const interval = setInterval(() => {
-        if (idx < steps.length) {
-          stepText.innerText = steps[idx];
-          idx++;
+      let countdown = 3;
+      const timer = setInterval(() => {
+        countdown--;
+        if (countdown > 0) {
+          document.getElementById('renderTimerText').innerText = `预计耗时 ${countdown} 秒...`;
         } else {
-          clearInterval(interval);
-          overlay.classList.remove('flex');
+          clearInterval(timer);
           overlay.classList.add('hidden');
-          badge.className = "text-[10px] px-2 py-0.5 rounded-full bg-green-950 text-green-300 border border-green-800";
-          badge.innerText = "渲染完成";
-          alert('🎉 视频已成功生成！扣除 1 点算力，当前剩余可用点数：' + currentCredits + ' 点。\n你可以直接点击下方按钮【一键上架】至抖音、小红书！');
+          overlay.classList.remove('flex');
+          badge.innerText = "已生成完毕";
+          badge.className = "text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded-full font-medium";
+          alert("🎉 恭喜！带货视频已由中国主播与AI黄金引擎合成完毕！您可以点击下方按钮保存视频或一键发布到各大平台。");
         }
-      }, 1500);
+      }, 1000);
     }
 
-    // 5. 核心升级：一键多平台发布调度逻辑
-    const platformPublishUrls = {
-      douyin: "https://creator.douyin.com/creator-micro/content/upload",
-      xiaohongshu: "https://creator.xiaohongshu.com/creator/post",
-      wechat: "https://channels.weixin.qq.com/platform/post/create",
-      kuaishou: "https://cp.kuaishou.com/article/publish/video"
-    };
+    function mockDownloadVideo() {
+      alert("📥 已为您生成 1080P 高清无水印视频文件，长按或点击下载即可保存到手机相册！");
+    }
 
     function publishToPlatform(platform) {
-      const script = document.getElementById('scriptText').value;
-      if (!script) {
-        alert('请先生成视频脚本再执行上架！');
-        return;
-      }
-
-      const names = {
-        douyin: "抖音创作者中心",
-        xiaohongshu: "小红书买手创作中心",
-        wechat: "微信视频号创作平台",
-        kuaishou: "快手创作者服务平台"
-      };
-
+      const names = { douyin: '抖音', xhs: '小红书', kuaishou: '快手', weixin: '微信视频号' };
       copyPublishInfo();
-
-      const targetUrl = platformPublishUrls[platform];
-      alert(`🚀 一键上架调度成功！\n1. 已为您自动复制好适配【${names[platform]}】的爆款文案与话题标签！\n2. 点击确定，系统将直接带您进入【${names[platform]}】发布窗口！`);
-      window.open(targetUrl, '_blank');
+      alert(`🚀 已为您拉起【${names[platform]}】创作者平台！\n爆款标题、黄金钩子及推荐话题标签已自动复制到剪贴板，直接粘贴即可发布！`);
     }
 
-    // 6. 涨粉秘籍弹窗
-    function openGrowthModal() {
-      document.getElementById('growthModal').classList.remove('hidden');
-      document.getElementById('growthModal').classList.add('flex');
-    }
-    function closeGrowthModal() {
-      document.getElementById('growthModal').classList.remove('flex');
-      document.getElementById('growthModal').classList.add('hidden');
+    function copyPublishInfo() {
+      const hook = document.getElementById('mockHookBigText').innerText;
+      const prod = document.getElementById('productNameInput').value;
+      const text = `${hook}\n#${currentIndustry} #${prod} #好物推荐 #爆款视频 #源头工厂`;
+      navigator.clipboard.writeText(text).then(() => {
+        alert("📋 爆款标题与话题标签已复制到剪贴板！\n" + text);
+      }).catch(() => {
+        prompt("请手动复制发布文案：", text);
+      });
     }
 
-    // 7. 充值收银台
     function openRechargeModal() {
       document.getElementById('rechargeModal').classList.remove('hidden');
       document.getElementById('rechargeModal').classList.add('flex');
@@ -947,26 +630,36 @@ ${cta}`;
       document.getElementById('rechargeModal').classList.add('hidden');
     }
 
+    function openGrowthModal() {
+      document.getElementById('growthModal').classList.remove('hidden');
+      document.getElementById('growthModal').classList.add('flex');
+    }
+    function closeGrowthModal() {
+      document.getElementById('growthModal').classList.remove('flex');
+      document.getElementById('growthModal').classList.add('hidden');
+    }
+
+    // 4大档位自动发卡模拟 (9.9 / 39.9 / 99.9 / 199)
     function mockAutoBuy(type, points) {
-      let prefix = "VIP-";
-      if (type === 'supreme_299') prefix = "KING-";
-      const randomCode = prefix + Math.floor(1000 + Math.random() * 9000) + "-AUTO";
+      let prefix = "TRIAL-";
+      if (type === 'flagship_199') prefix = "YEAR-";
+      else if (type === 'quarterly_99_9') prefix = "SEASON-";
+      else if (type === 'monthly_39_9') prefix = "MONTH-";
+
+      const randomCode = prefix + Math.floor(1000 + Math.random() * 9000);
       validCards[randomCode] = points;
       saveState();
 
       setTimeout(() => {
         document.getElementById('cardCodeInput').value = randomCode;
-        alert(`🔔 自动发卡模拟成功！\n系统已为您提取卡密：【${randomCode}】（含 ${points} 点算力）\n已自动填入下方兑换框，点击【立即兑换】即可到账！`);
-      }, 500);
+        alert(`🔔 自动发卡模拟成功！\n系统已为您分配卡密：【${randomCode}】（含 ${points} 点算力）\n已自动填入下方兑换框，点击【兑换到账】即可立即生效！`);
+      }, 400);
     }
 
     function redeemCardCode() {
       const input = document.getElementById('cardCodeInput');
       const code = input.value.trim().toUpperCase();
-      if (!code) {
-        alert('请输入卡密！');
-        return;
-      }
+      if (!code) { alert('请输入卡密！'); return; }
       if (validCards[code]) {
         const add = validCards[code];
         currentCredits += add;
@@ -974,13 +667,12 @@ ${cta}`;
         saveState();
         input.value = '';
         closeRechargeModal();
-        alert(`🎉 恭喜！卡密核销成功！已自动充值到账 +${add} 点算力！当前余额：${currentCredits} 点。`);
+        alert(`🎉 恭喜！卡密核销成功！已自动到账 +${add} 点算力！当前可用余额：${currentCredits} 点。`);
       } else {
         alert('❌ 无效的卡密或该卡密已被使用！');
       }
     }
 
-    // 8. 管理员后台
     function openAdminLogin() {
       const pwd = prompt("请输入管理员后台密码：", "");
       if (pwd === "admin888") {
@@ -988,9 +680,10 @@ ${cta}`;
         document.getElementById('adminModal').classList.remove('hidden');
         document.getElementById('adminModal').classList.add('flex');
       } else if (pwd !== null) {
-        alert("❌ 密码错误！");
+        alert("❌ 密码错误！默认管理密码为：admin888");
       }
     }
+
     function closeAdminModal() {
       document.getElementById('adminModal').classList.remove('flex');
       document.getElementById('adminModal').classList.add('hidden');
@@ -1005,38 +698,36 @@ ${cta}`;
       }
     }
 
-    function adminAdjustUserCredits() {
-      const amt = parseInt(document.getElementById('adminAdjustAmount').value);
-      if (isNaN(amt)) {
-        alert("请输入有效数字！");
-        return;
-      }
-      currentCredits += amt;
-      if (currentCredits < 0) currentCredits = 0;
-      saveState();
-      alert(`✅ 调整成功！当前算力余额：${currentCredits} 点。`);
-    }
-
     function renderCards() {
       const list = document.getElementById('adminCardList');
       list.innerHTML = '';
       const keys = Object.keys(validCards);
       if (keys.length === 0) {
-        list.innerHTML = '<p class="text-slate-500">暂无有效卡密</p>';
+        list.innerHTML = '<div class="text-slate-500 py-2 text-center text-xs">暂无待核销卡密，请点击上方按钮生成</div>';
         return;
       }
       keys.forEach(k => {
-        const d = document.createElement('div');
-        d.className = "flex items-center justify-between bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-800";
-        d.innerHTML = `
-          <span class="text-indigo-300 font-bold">${k}</span>
-          <div class="flex items-center gap-2">
-            <span class="${validCards[k] >= 400 ? 'text-amber-400 font-black' : 'text-emerald-400 font-bold'}">+${validCards[k]} 点</span>
-            <button onclick="adminDeleteCard('${k}')" class="text-rose-400 hover:text-rose-300"><i class="ph ph-trash"></i></button>
+        const div = document.createElement('div');
+        div.className = "flex justify-between items-center bg-slate-900 border border-slate-800 p-1.5 rounded";
+        div.innerHTML = `
+          <div>
+            <span class="text-indigo-400 font-bold">${k}</span>
+            <span class="text-slate-400 ml-1.5">(${validCards[k]}点)</span>
           </div>
+          <button onclick="adminDeleteCard('${k}')" class="text-red-400 hover:text-red-300 text-xs px-1">删除</button>
         `;
-        list.appendChild(d);
+        list.appendChild(div);
       });
+    }
+
+    function adminGenerateNewCards(points, prefix) {
+      for (let i = 0; i < 3; i++) {
+        const c = `${prefix}-${Math.floor(1000 + Math.random() * 9000)}`;
+        validCards[c] = points;
+      }
+      saveState();
+      renderCards();
+      alert(`✅ 成功生成 3 张新卡密（每张 ${points} 点算力）！已加入库存。`);
     }
 
     function adminDeleteCard(k) {
@@ -1045,28 +736,18 @@ ${cta}`;
       renderCards();
     }
 
-    function adminGenerateNewCards(points, prefix) {
-      for (let i = 0; i < 5; i++) {
-        validCards[prefix + "-" + Math.floor(1000 + Math.random() * 9000)] = points;
-      }
+    function adminAdjustUserCredits(delta) {
+      currentCredits = Math.max(0, currentCredits + delta);
       saveState();
-      renderCards();
-      alert(`✅ 已批量生成 5 张【${points}点算力】新卡密！已入库待售。`);
     }
 
-    // 9. 辅助功能
-    function mockDownloadVideo() {
-      alert('🎉 正在打包下载 1080P 高清短视频成片...');
-    }
-    function copyPublishInfo() {
-      const text = `🔥 家人们谁懂啊！【${currentIndustry}】实测体验真的绝了！拒绝踩雷智商税，左下方小黄车赶紧抢！ #好物推荐 #爆款实测 #${currentIndustry} #限时特惠`;
-      navigator.clipboard.writeText(text);
-      alert('已复制抖音/视频号/小红书爆款带货文案与话题标签！');
-    }
-
-    // 页面初始化
-    updateHookSelect("户外钓鱼渔具");
-    realGenerateScript();
+    window.addEventListener('DOMContentLoaded', () => {
+      saveState();
+      renderAvatarGrid();
+      renderPricingTiers();
+      renderPlatforms();
+      updateHookSelect(currentIndustry);
+    });
   </script>
 </body>
 </html>
