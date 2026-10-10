@@ -20,26 +20,31 @@
 
   <!-- 顶部导航与算力账本 -->
   <header class="border-b border-slate-800 bg-slate-900/70 backdrop-blur sticky top-0 z-50 px-4 lg:px-8 py-3 flex items-center justify-between">
-    <div class="flex items-center space-x-3">
+    <!-- 点击品牌logo 5次可触发管理员暗门 -->
+    <div onclick="handleLogoClick()" class="flex items-center space-x-3 cursor-pointer select-none">
       <div class="h-9 w-9 rounded-xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center shadow-lg shadow-indigo-500/20">
         <i class="ph-bold ph-video-camera text-xl text-white"></i>
       </div>
       <div>
         <h1 class="font-bold text-base lg:text-lg leading-tight bg-gradient-to-r from-white via-slate-200 to-indigo-300 bg-clip-text text-transparent">Spira 带货云剪</h1>
-        <p class="text-[10px] text-slate-400">已激活智谱 GLM 大脑驱动</p>
+        <p class="text-[10px] text-slate-400">已激活智谱 GLM 商业引擎</p>
       </div>
     </div>
     
-    <div class="flex items-center space-x-2.5">
+    <div class="flex items-center space-x-2">
       <!-- 动态算力显示 -->
       <div class="flex items-center space-x-1.5 bg-slate-800/90 border border-slate-700/60 rounded-full px-3 py-1">
         <i class="ph-fill ph-lightning text-amber-400 text-xs"></i>
         <span class="text-xs text-slate-300">算力余额: <strong id="userCreditsDisplay" class="text-white font-mono text-sm">5</strong> 点</span>
       </div>
-      <!-- 充值按钮 -->
+      <!-- 全自动充值按钮 -->
       <button onclick="openRechargeModal()" class="px-3 py-1.5 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white rounded-lg text-xs font-semibold shadow-md shadow-indigo-500/10 transition flex items-center space-x-1">
-        <i class="ph-bold ph-plus-circle"></i>
-        <span>购买算力包</span>
+        <i class="ph-bold ph-shopping-cart"></i>
+        <span>充值 / 兑换</span>
+      </button>
+      <!-- 管理员入口按钮 -->
+      <button onclick="openAdminLogin()" class="px-2 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white rounded-lg text-xs font-semibold border border-slate-700 transition" title="管理后台">
+        <i class="ph-bold ph-gear"></i>
       </button>
     </div>
   </header>
@@ -275,84 +280,183 @@
 
   </main>
 
-  <!-- 算力充值收银台模态框 -->
+  <!-- 全自动充值与卡密兑换收银台 -->
   <div id="rechargeModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
     <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-md w-full p-6 shadow-2xl relative">
       <button onclick="closeRechargeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white">
         <i class="ph ph-x text-lg"></i>
       </button>
 
-      <div class="text-center mb-6">
+      <div class="text-center mb-5">
         <span class="inline-flex p-3 rounded-2xl bg-indigo-500/10 text-indigo-400 mb-2">
           <i class="ph-fill ph-lightning text-2xl"></i>
         </span>
-        <h3 class="font-bold text-lg text-white">购买算力包 / 升级会员</h3>
-        <p class="text-xs text-slate-400 mt-1">合成 1 条带货短视频仅消耗 1 点算力</p>
+        <h3 class="font-bold text-lg text-white">购买算力包 / 卡密秒兑</h3>
+        <p class="text-xs text-slate-400 mt-1">全天 24 小时微信/支付宝自动出单，无需人工等待</p>
       </div>
 
-      <!-- 套餐选项 -->
-      <div class="space-y-3 mb-6">
+      <!-- 模块 A: 购买套餐自动发卡 -->
+      <div class="space-y-2.5 mb-5">
         <!-- 9.9 元体验包 -->
-        <div onclick="selectRechargePlan('trial_9.9', this)" class="plan-card border border-slate-800 hover:border-indigo-500 bg-slate-950 rounded-2xl p-3.5 flex items-center justify-between cursor-pointer transition">
+        <a href="https://fk.example.com" target="_blank" onclick="mockAutoBuy('trial_9.9', 10)" class="border border-slate-800 hover:border-indigo-500 bg-slate-950 rounded-2xl p-3 flex items-center justify-between transition group">
           <div class="flex items-center space-x-3">
-            <span class="w-5 h-5 rounded-full border border-slate-600 flex items-center justify-center">
-              <span class="w-2.5 h-2.5 rounded-full bg-indigo-500 hidden check-dot"></span>
-            </span>
+            <span class="w-8 h-8 rounded-xl bg-slate-800 flex items-center justify-center text-slate-300 text-xs font-bold">10点</span>
             <div>
-              <p class="text-xs font-bold text-white">新店尝鲜包 (10 点算力)</p>
-              <p class="text-[10px] text-slate-400">可生成 10 条高清带货短视频</p>
+              <p class="text-xs font-bold text-white group-hover:text-indigo-300">新店尝鲜包 (10条视频)</p>
+              <p class="text-[10px] text-slate-400">自动发卡 · 扫码即出兑换码</p>
             </div>
           </div>
-          <span class="text-sm font-black text-indigo-400">¥ 9.9</span>
-        </div>
+          <div class="text-right">
+            <span class="text-sm font-black text-indigo-400">¥ 9.9</span>
+            <span class="block text-[9px] text-slate-500">点击自动购买</span>
+          </div>
+        </a>
 
-        <!-- 39 元专业月卡 (推荐) -->
-        <div onclick="selectRechargePlan('monthly_39', this)" class="plan-card border-2 border-indigo-500 bg-indigo-950/20 rounded-2xl p-3.5 flex items-center justify-between cursor-pointer transition relative">
+        <!-- 39 元专业月卡 (爆款推荐) -->
+        <a href="https://fk.example.com" target="_blank" onclick="mockAutoBuy('monthly_39', 40)" class="border-2 border-indigo-500 bg-indigo-950/20 rounded-2xl p-3 flex items-center justify-between transition relative group">
           <span class="absolute -top-2.5 right-4 bg-gradient-to-r from-pink-500 to-rose-500 text-white text-[9px] font-black px-2 py-0.5 rounded-full uppercase">
             店主最爱
           </span>
           <div class="flex items-center space-x-3">
-            <span class="w-5 h-5 rounded-full border border-indigo-500 flex items-center justify-center">
-              <span class="w-2.5 h-2.5 rounded-full bg-indigo-500 check-dot"></span>
-            </span>
+            <span class="w-8 h-8 rounded-xl bg-indigo-600 flex items-center justify-center text-white text-xs font-bold">40点</span>
             <div>
-              <p class="text-xs font-bold text-white">专业带货月卡 (40 点算力)</p>
-              <p class="text-[10px] text-indigo-300">折合每条仅 0.97 元，享优先渲染队列</p>
+              <p class="text-xs font-bold text-white group-hover:text-indigo-300">专业带货月卡 (40条视频)</p>
+              <p class="text-[10px] text-indigo-300">折合仅 0.97 元/条 · 极速优先队列</p>
             </div>
           </div>
-          <span class="text-sm font-black text-indigo-400">¥ 39.0</span>
-        </div>
+          <div class="text-right">
+            <span class="text-sm font-black text-indigo-400">¥ 39.0</span>
+            <span class="block text-[9px] text-indigo-400">点击自动购买</span>
+          </div>
+        </a>
 
         <!-- 99 元尊享季卡 -->
-        <div onclick="selectRechargePlan('quarterly_99', this)" class="plan-card border border-slate-800 hover:border-indigo-500 bg-slate-950 rounded-2xl p-3.5 flex items-center justify-between cursor-pointer transition">
+        <a href="https://fk.example.com" target="_blank" onclick="mockAutoBuy('quarterly_99', 120)" class="border border-slate-800 hover:border-indigo-500 bg-slate-950 rounded-2xl p-3 flex items-center justify-between transition group">
           <div class="flex items-center space-x-3">
-            <span class="w-5 h-5 rounded-full border border-slate-600 flex items-center justify-center">
-              <span class="w-2.5 h-2.5 rounded-full bg-indigo-500 hidden check-dot"></span>
-            </span>
+            <span class="w-8 h-8 rounded-xl bg-slate-800 flex items-center justify-center text-slate-300 text-xs font-bold">120点</span>
             <div>
-              <p class="text-xs font-bold text-white">矩阵爆单季卡 (120 点算力)</p>
-              <p class="text-[10px] text-slate-400">适合多账号多店铺矩阵起号</p>
+              <p class="text-xs font-bold text-white group-hover:text-indigo-300">矩阵爆单季卡 (120条视频)</p>
+              <p class="text-[10px] text-slate-400">适合多账号多店铺矩阵铺量</p>
             </div>
           </div>
-          <span class="text-sm font-black text-indigo-400">¥ 99.0</span>
+          <div class="text-right">
+            <span class="text-sm font-black text-indigo-400">¥ 99.0</span>
+            <span class="block text-[9px] text-slate-500">点击自动购买</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- 模块 B: 卡密直接兑换框 (全自动核销核心) -->
+      <div class="bg-slate-950 border border-slate-800 rounded-2xl p-3.5">
+        <label class="block text-xs font-bold text-slate-300 mb-1.5 flex items-center gap-1">
+          <i class="ph ph-key text-indigo-400"></i>
+          <span>已有卡密？在此一键兑换算力</span>
+        </label>
+        <div class="flex gap-2">
+          <input id="cardCodeInput" type="text" placeholder="输入购买获得的兑换卡密..." 
+                 class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 uppercase font-mono" />
+          <button onclick="redeemCardCode()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold transition flex-shrink-0">
+            立即兑换
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 管理员控制台模态框 (Admin Dashboard) -->
+  <div id="adminModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden items-center justify-center p-4">
+    <div class="bg-slate-900 border border-indigo-500/40 rounded-3xl max-w-xl w-full p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+      <button onclick="closeAdminModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white">
+        <i class="ph ph-x text-lg"></i>
+      </button>
+
+      <div class="flex items-center space-x-2.5 mb-5 pb-3 border-b border-slate-800">
+        <div class="w-8 h-8 rounded-lg bg-indigo-500/20 text-indigo-400 flex items-center justify-center">
+          <i class="ph-bold ph-shield-check text-lg"></i>
+        </div>
+        <div>
+          <h3 class="font-bold text-base text-white">Spira 管理员总控制台</h3>
+          <p class="text-[11px] text-slate-400">全权管理用户额度、批量发行卡密与监控收益</p>
         </div>
       </div>
 
-      <!-- 支付操作按钮 -->
-      <button onclick="confirmRecharge()" id="payActionBtn" class="w-full py-3 bg-gradient-to-r from-emerald-500 to-teal-500 hover:opacity-95 text-white font-bold text-xs rounded-xl shadow-lg shadow-emerald-500/20 transition flex items-center justify-center space-x-1.5">
-        <i class="ph-bold ph-qr-code text-base"></i>
-        <span>模拟微信扫码支付 (立即充值到账)</span>
-      </button>
+      <!-- 数据看板小卡片 -->
+      <div class="grid grid-cols-3 gap-3 mb-5">
+        <div class="bg-slate-950 border border-slate-800 rounded-xl p-3 text-center">
+          <p class="text-[10px] text-slate-400">当前活跃用户</p>
+          <p class="text-base font-black text-white mt-0.5">18 位</p>
+        </div>
+        <div class="bg-slate-950 border border-slate-800 rounded-xl p-3 text-center">
+          <p class="text-[10px] text-slate-400">已消耗算力</p>
+          <p class="text-base font-black text-indigo-400 mt-0.5" id="adminTotalUsed">86 点</p>
+        </div>
+        <div class="bg-slate-950 border border-slate-800 rounded-xl p-3 text-center">
+          <p class="text-[10px] text-slate-400">累计预计营收</p>
+          <p class="text-base font-black text-emerald-400 mt-0.5">¥ 1,280</p>
+        </div>
+      </div>
+
+      <!-- 快速增减任意用户算力 -->
+      <div class="bg-slate-950 border border-slate-800 rounded-2xl p-4 mb-5">
+        <h4 class="text-xs font-bold text-slate-200 mb-2 flex items-center gap-1.5">
+          <i class="ph ph-user-gear text-indigo-400"></i>
+          <span>用户额度精确调控</span>
+        </h4>
+        <div class="grid grid-cols-12 gap-2">
+          <input id="adminTargetUser" type="text" value="当前本地商家账号" readonly
+                 class="col-span-6 bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 text-xs text-slate-400" />
+          <input id="adminAdjustAmount" type="number" placeholder="+10 或 -5" value="20"
+                 class="col-span-3 bg-slate-900 border border-slate-700 rounded-xl px-2 py-1.5 text-xs text-white text-center focus:outline-none focus:border-indigo-500 font-mono" />
+          <button onclick="adminAdjustUserCredits()" class="col-span-3 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold transition">
+            确认修改
+          </button>
+        </div>
+      </div>
+
+      <!-- 批量一键生成新卡密 -->
+      <div class="bg-slate-950 border border-slate-800 rounded-2xl p-4">
+        <div class="flex items-center justify-between mb-2">
+          <h4 class="text-xs font-bold text-slate-200 flex items-center gap-1.5">
+            <i class="ph ph-ticket text-indigo-400"></i>
+            <span>卡密生成与库存管理</span>
+          </h4>
+          <button onclick="adminGenerateNewCards()" class="text-[11px] text-indigo-400 hover:text-indigo-300 font-medium">
+            + 一键生成 5 张新卡密
+          </button>
+        </div>
+        <div id="adminCardList" class="space-y-1.5 max-h-36 overflow-y-auto text-[11px] font-mono pr-1">
+        </div>
+      </div>
+
     </div>
   </div>
 
   <footer class="border-t border-slate-900 py-4 px-6 text-center text-[11px] text-slate-500">
-    Spira AI 电商云剪 SaaS 核心引擎架构已就绪 | 智谱 BigModel 驱动
+    Spira AI 电商云剪 SaaS 核心引擎架构已就绪 | 全自动发卡核销系统已挂载
   </footer>
 
   <script>
-    let currentCredits = 5;
-    let selectedPlan = 'monthly_39';
+    let currentCredits = parseInt(localStorage.getItem('spira_user_credits') || '5');
+    let totalUsedCredits = parseInt(localStorage.getItem('spira_total_used') || '86');
+    
+    let validCards = JSON.parse(localStorage.getItem('spira_valid_cards') || JSON.stringify({
+      "VIP-9999-AAAA": 40,
+      "VIP-8888-BBBB": 40,
+      "TRIAL-1111-CCCC": 10,
+      "TRIAL-2222-DDDD": 10,
+      "KING-6666-EEEE": 120
+    }));
+
+    document.getElementById('userCreditsDisplay').innerText = currentCredits;
+    document.getElementById('adminTotalUsed').innerText = totalUsedCredits + ' 点';
+
+    function saveState() {
+      localStorage.setItem('spira_user_credits', currentCredits);
+      localStorage.setItem('spira_total_used', totalUsedCredits);
+      localStorage.setItem('spira_valid_cards', JSON.stringify(validCards));
+      document.getElementById('userCreditsDisplay').innerText = currentCredits;
+      document.getElementById('adminTotalUsed').innerText = totalUsedCredits + ' 点';
+    }
 
     function quickFillExample() {
       document.getElementById('productTitle').value = "高颜值316不锈钢车载保温杯，24小时长效锁温，单手一键弹盖不漏水";
@@ -380,11 +484,10 @@
       }
 
       const audience = document.getElementById('targetAudience').value;
-      const tone = document.getElementById('videoTone').value;
       const btn = document.getElementById('genScriptBtn');
       const textarea = document.getElementById('scriptText');
 
-      btn.innerHTML = '<i class="ph ph-spinner animate-spin"></i> 智谱模型正在创作带货脚本...';
+      btn.innerHTML = '<i class="ph ph-spinner animate-spin"></i> 智谱 GLM 正在创作带货脚本...';
 
       setTimeout(() => {
         textarea.value = 
@@ -413,13 +516,14 @@
       }
 
       if (currentCredits < 1) {
-        alert('⚠️ 您的可用算力不足（剩余 0 点）！请点击右上角【购买算力包】充值后再继续生成。');
+        alert('⚠️ 您的可用算力不足（剩余 0 点）！请点击右上角【充值 / 兑换】购买算力包。');
         openRechargeModal();
         return;
       }
 
       currentCredits -= 1;
-      document.getElementById('userCreditsDisplay').innerText = currentCredits;
+      totalUsedCredits += 1;
+      saveState();
 
       const overlay = document.getElementById('renderOverlay');
       const stepText = document.getElementById('renderStepText');
@@ -464,31 +568,112 @@
       document.getElementById('rechargeModal').classList.add('hidden');
     }
 
-    function selectRechargePlan(plan, el) {
-      selectedPlan = plan;
-      document.querySelectorAll('.plan-card').forEach(card => {
-        card.className = "plan-card border border-slate-800 hover:border-indigo-500 bg-slate-950 rounded-2xl p-3.5 flex items-center justify-between cursor-pointer transition";
-        card.querySelector('.check-dot').classList.add('hidden');
-      });
-      el.className = "plan-card border-2 border-indigo-500 bg-indigo-950/20 rounded-2xl p-3.5 flex items-center justify-between cursor-pointer transition relative";
-      el.querySelector('.check-dot').classList.remove('hidden');
-    }
-
-    function confirmRecharge() {
-      let add = 10;
-      if (selectedPlan === 'monthly_39') add = 40;
-      if (selectedPlan === 'quarterly_99') add = 120;
-
-      const btn = document.getElementById('payActionBtn');
-      btn.innerHTML = '<i class="ph ph-spinner animate-spin"></i> 正在调用微信支付收银台...';
+    function mockAutoBuy(type, points) {
+      const randomCode = "VIP-" + Math.floor(1000 + Math.random() * 9000) + "-AUTO";
+      validCards[randomCode] = points;
+      saveState();
 
       setTimeout(() => {
-        currentCredits += add;
-        document.getElementById('userCreditsDisplay').innerText = currentCredits;
+        document.getElementById('cardCodeInput').value = randomCode;
+        alert(`🔔 自动发卡演示：已成功模拟扫码付款！\n系统已为您自动提取卡密：【${randomCode}】（含 ${points} 点算力）\n已自动填入下方兑换框，点击【立即兑换】即可到账！`);
+      }, 500);
+    }
+
+    function redeemCardCode() {
+      const codeInput = document.getElementById('cardCodeInput');
+      const code = codeInput.value.trim().toUpperCase();
+      if (!code) {
+        alert('请输入卡密！');
+        return;
+      }
+
+      if (validCards[code]) {
+        const added = validCards[code];
+        currentCredits += added;
+        delete validCards[code];
+        saveState();
+
+        codeInput.value = '';
         closeRechargeModal();
-        btn.innerHTML = '<i class="ph-bold ph-qr-code text-base"></i><span>模拟微信扫码支付 (立即充值到账)</span>';
-        alert(`✅ 付款成功！已通过微信支付充值到账 ${add} 点算力！当前总额度：${currentCredits} 点。`);
-      }, 1200);
+        alert(`🎉 恭喜！卡密核销成功！已自动充值到账 +${added} 点算力！当前总额度：${currentCredits} 点。`);
+      } else {
+        alert('❌ 无效的卡密或该卡密已被使用！请检查后重试。');
+      }
+    }
+
+    let logoClicks = 0;
+    function handleLogoClick() {
+      logoClicks++;
+      if (logoClicks >= 5) {
+        logoClicks = 0;
+        openAdminLogin();
+      }
+    }
+
+    function openAdminLogin() {
+      const pwd = prompt("请输入管理员后台密钥：", "");
+      if (pwd === "admin888") {
+        renderAdminCardList();
+        document.getElementById('adminModal').classList.remove('hidden');
+        document.getElementById('adminModal').classList.add('flex');
+      } else if (pwd !== null) {
+        alert("❌ 密码错误，无权访问管理员后台！");
+      }
+    }
+
+    function closeAdminModal() {
+      document.getElementById('adminModal').classList.remove('flex');
+      document.getElementById('adminModal').classList.add('hidden');
+    }
+
+    function adminAdjustUserCredits() {
+      const amt = parseInt(document.getElementById('adminAdjustAmount').value);
+      if (isNaN(amt)) {
+        alert("请输入有效的数字！");
+        return;
+      }
+      currentCredits += amt;
+      if (currentCredits < 0) currentCredits = 0;
+      saveState();
+      alert(`✅ 管理员操作成功！已调整用户算力，当前可用余额：${currentCredits} 点。`);
+    }
+
+    function renderAdminCardList() {
+      const listContainer = document.getElementById('adminCardList');
+      listContainer.innerHTML = '';
+      const keys = Object.keys(validCards);
+      if (keys.length === 0) {
+        listContainer.innerHTML = '<p class="text-slate-500">当前没有未使用的有效卡密</p>';
+        return;
+      }
+      keys.forEach(k => {
+        const div = document.createElement('div');
+        div.className = "flex items-center justify-between bg-slate-900 px-3 py-1.5 rounded-lg border border-slate-800";
+        div.innerHTML = `
+          <span class="text-indigo-300 font-bold">${k}</span>
+          <div class="flex items-center gap-2">
+            <span class="text-emerald-400 font-bold">+${validCards[k]} 点</span>
+            <button onclick="adminDeleteCard('${k}')" class="text-rose-400 hover:text-rose-300"><i class="ph ph-trash"></i></button>
+          </div>
+        `;
+        listContainer.appendChild(div);
+      });
+    }
+
+    function adminGenerateNewCards() {
+      for (let i = 0; i < 5; i++) {
+        const code = "CARD-" + Math.floor(1000 + Math.random() * 9000) + "-VIP";
+        validCards[code] = 40;
+      }
+      saveState();
+      renderAdminCardList();
+      alert("✅ 已批量生成 5 张【40点算力月卡】新卡密！已入库待售。");
+    }
+
+    function adminDeleteCard(k) {
+      delete validCards[k];
+      saveState();
+      renderAdminCardList();
     }
 
     function copyPublishInfo() {
