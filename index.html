@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Spira AI 电商云剪 - 12位中国主播与AI带货矩阵</title>
+  <title>Spira AI 电商云剪 - 5人社媒团队自动化流水线</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
   <style>
@@ -13,90 +13,122 @@
     ::-webkit-scrollbar-thumb { background: #334155; border-radius: 9999px; }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans antialiased selection:bg-indigo-500 selection:text-white pb-10">
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans antialiased selection:bg-indigo-500 selection:text-white pb-12">
 
   <!-- 顶部导航 -->
-  <header class="border-b border-slate-800 bg-slate-900/90 backdrop-blur sticky top-0 z-40 px-4 py-2.5">
+  <header class="border-b border-slate-800 bg-slate-900/90 backdrop-blur sticky top-0 z-40 px-3.5 py-2.5">
     <div class="max-w-5xl mx-auto flex items-center justify-between">
       <div class="flex items-center space-x-2 cursor-pointer" onclick="handleLogoClick()">
         <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center shadow-lg text-white font-black text-sm">
-          <i class="ph-bold ph-video-camera"></i>
+          <i class="ph-bold ph-lightning"></i>
         </div>
         <div>
           <span class="font-extrabold text-sm tracking-tight text-white">Spira AI</span>
-          <span class="text-[9px] bg-red-600 text-white font-bold px-1.5 py-0.5 rounded-full ml-1">中国定制版</span>
+          <span class="text-[9px] bg-indigo-600 text-white font-bold px-1.5 py-0.5 rounded-full ml-1">5人运营流水线</span>
         </div>
       </div>
-      <div class="flex items-center space-x-2">
-        <button onclick="openGrowthModal()" class="px-2.5 py-1 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-bold hover:bg-amber-500/20 transition flex items-center gap-1">
-          <i class="ph-fill ph-fire"></i><span>破千播放秘籍</span>
+      <div class="flex items-center space-x-1.5">
+        <button onclick="switchView('calendar')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold transition flex items-center gap-1">
+          <i class="ph ph-calendar"></i><span class="hidden sm:inline">内容</span>日历
         </button>
-        <button onclick="openRechargeModal()" class="px-3 py-1 rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-xs font-bold shadow hover:opacity-90 transition flex items-center gap-1">
+        <button onclick="openGrowthModal()" class="px-2 py-1 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-bold hover:bg-amber-500/20 transition flex items-center gap-1">
+          <i class="ph-fill ph-fire"></i><span>破千秘籍</span>
+        </button>
+        <button onclick="openRechargeModal()" class="px-2.5 py-1 rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-xs font-bold shadow hover:opacity-90 transition flex items-center gap-1">
           <i class="ph-fill ph-crown text-amber-300"></i><span>充值</span>
-          <span class="bg-black/30 text-[10px] px-1.5 py-0.2 rounded-full font-mono ml-0.5" id="userCreditsDisplay">5</span>
+          <span class="bg-black/30 text-[10px] px-1 py-0.2 rounded-full font-mono ml-0.5" id="userCreditsDisplay">5</span>
         </button>
-        <button onclick="openAdminLogin()" class="w-7 h-7 rounded-lg bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center text-xs" title="管理后台">
+        <button onclick="openAdminLogin()" class="w-7 h-7 rounded-lg bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center text-xs" title="后台">
           <i class="ph-bold ph-gear"></i>
         </button>
       </div>
     </div>
   </header>
 
-  <!-- 流量对比横幅 -->
+  <!-- 机制核心看板：5人社媒团队流水线 -->
   <section class="max-w-5xl mx-auto px-4 mt-2.5 w-full">
-    <div class="bg-gradient-to-r from-indigo-950/40 via-purple-950/30 to-slate-900 border border-indigo-500/30 rounded-xl p-2.5 flex flex-wrap items-center justify-between gap-2 text-xs">
-      <div class="flex items-center gap-2">
-        <span class="w-5 h-5 rounded bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs font-bold"><i class="ph-bold ph-chart-line-up"></i></span>
-        <div><span class="text-slate-400">实测效果：</span><span class="text-red-400 font-semibold line-through mr-1">普通视频 200~300 播放</span><span class="text-emerald-400 font-bold">➜ 智能钩子+中国主播 破千至过万播放！</span></div>
+    <div class="bg-gradient-to-r from-indigo-950/60 via-purple-950/40 to-slate-900 border border-indigo-500/30 rounded-2xl p-2.5 text-xs">
+      <div class="flex flex-wrap items-center justify-between gap-2 mb-1.5">
+        <span class="text-indigo-300 font-bold flex items-center gap-1">
+          <i class="ph-bold ph-cpu"></i> Spira 自动化流水线（一人顶一个5人运营团队）
+        </span>
+        <div class="flex gap-2 text-[11px]">
+          <button onclick="switchView('workshop')" id="tabBtnWorkshop" class="px-2.5 py-0.5 rounded-full bg-indigo-600 text-white font-bold">1. 做视频流水线</button>
+          <button onclick="switchView('calendar')" id="tabBtnCalendar" class="px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 hover:text-white">2. 排期矩阵日历</button>
+        </div>
       </div>
-      <button onclick="openGrowthModal()" class="text-[11px] text-indigo-400 hover:text-indigo-300 underline font-medium">查看起号逻辑</button>
+      <div class="grid grid-cols-3 gap-1.5 text-center text-[10px] text-slate-300">
+        <div class="bg-slate-900/80 rounded-lg py-1 border border-slate-800">
+          <span class="text-indigo-400 font-bold block">① 输入原料</span>链接/人设 ➜ 卖点提炼
+        </div>
+        <div class="bg-slate-900/80 rounded-lg py-1 border border-slate-800">
+          <span class="text-purple-400 font-bold block">② 黑盒流水线</span>配音+12主播+Remotion合成
+        </div>
+        <div class="bg-slate-900/80 rounded-lg py-1 border border-slate-800">
+          <span class="text-emerald-400 font-bold block">③ 按时出货</span>日历排期+矩阵分发+数据回传
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- 主体工作区 -->
-  <main class="max-w-5xl mx-auto px-4 py-3 w-full flex-1 grid grid-cols-1 lg:grid-cols-12 gap-4">
+  <!-- 视图 1：主流水线工作坊 (Workshop View) -->
+  <div id="workshopView" class="max-w-5xl mx-auto px-4 py-3 w-full flex-1 grid grid-cols-1 lg:grid-cols-12 gap-4">
     
-    <!-- 左侧：工作流操作 (7 cols) -->
+    <!-- 左侧：输入原料与编排设置 (7 cols) -->
     <div class="lg:col-span-7 space-y-3">
 
-      <!-- 步骤 1：全行业开放搜索与 AI 动态黄金钩子 -->
+      <!-- 步骤 1：输入原料 (URL-to-Video 链接提取 或 自由关键词) -->
       <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-3.5 shadow-xl">
         <div class="flex items-center justify-between mb-2">
           <div class="flex items-center space-x-1.5">
             <span class="w-4 h-4 rounded-full bg-indigo-600 text-white text-[10px] font-bold flex items-center justify-center">1</span>
-            <h2 class="font-bold text-xs text-slate-200">全行业 AI 黄金钩子生成器</h2>
+            <h2 class="font-bold text-xs text-slate-200">输入原料：URL 商品链接 / 行业设定</h2>
           </div>
-          <button onclick="refreshPainPoints()" class="text-indigo-400 hover:text-indigo-300 text-xs flex items-center gap-0.5 font-medium">
-            <i class="ph ph-arrows-clockwise"></i> 换一批钩子
-          </button>
+          <span class="text-[10px] text-indigo-400">URL-to-Video 引擎</span>
         </div>
 
+        <!-- 商品链接一键解析输入框 -->
         <div class="space-y-1.5 mb-2.5">
           <div class="flex gap-1.5">
             <div class="relative flex-1">
-              <i class="ph ph-magnifying-glass absolute left-2.5 top-2 text-slate-500 text-xs"></i>
-              <input id="industrySearchInput" type="text" placeholder="输入任意行业/品类 (如：女装、渔具、零食、茶叶...)" 
+              <i class="ph ph-link absolute left-2.5 top-2 text-slate-500 text-xs"></i>
+              <input id="productUrlInput" type="text" placeholder="粘贴商品链接 (淘宝/天猫/抖音小店/1688/独立站)..." 
                      class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-7 pr-2.5 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500">
             </div>
-            <button onclick="searchIndustryPains()" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-1">
-              <i class="ph-bold ph-sparkle"></i><span>AI检索</span>
+            <button onclick="parseProductUrl()" class="px-3 py-1.5 bg-gradient-to-r from-indigo-600 to-purple-600 hover:opacity-90 text-white rounded-xl text-xs font-bold transition flex items-center gap-1 flex-shrink-0">
+              <i class="ph-bold ph-magic-wand"></i><span>一键解析</span>
             </button>
           </div>
-          <!-- 行业快选芯片 -->
+
+          <!-- 备选：自由输入行业与行业标签快选 -->
+          <div class="flex gap-1.5">
+            <input id="industrySearchInput" type="text" placeholder="或直接输入行业/品类 (女装、渔具、生鲜、数码...)" 
+                   class="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-2.5 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500">
+            <button onclick="searchIndustryPains()" class="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-bold transition">
+              生成钩子
+            </button>
+          </div>
+
           <div class="flex flex-wrap gap-1 text-[11px]" id="industryChips">
+            <span onclick="quickSelectTag('户外钓鱼')" class="cursor-pointer px-2 py-0.5 rounded bg-indigo-600 text-white transition">户外钓鱼</span>
             <span onclick="quickSelectTag('美妆护肤')" class="cursor-pointer px-2 py-0.5 rounded bg-slate-800 hover:bg-indigo-600 text-slate-300 transition">美妆护肤</span>
             <span onclick="quickSelectTag('食品生鲜')" class="cursor-pointer px-2 py-0.5 rounded bg-slate-800 hover:bg-indigo-600 text-slate-300 transition">食品生鲜</span>
             <span onclick="quickSelectTag('服装穿搭')" class="cursor-pointer px-2 py-0.5 rounded bg-slate-800 hover:bg-indigo-600 text-slate-300 transition">服装穿搭</span>
             <span onclick="quickSelectTag('数码家电')" class="cursor-pointer px-2 py-0.5 rounded bg-slate-800 hover:bg-indigo-600 text-slate-300 transition">数码家电</span>
             <span onclick="quickSelectTag('家居日用')" class="cursor-pointer px-2 py-0.5 rounded bg-slate-800 hover:bg-indigo-600 text-slate-300 transition">家居日用</span>
-            <span onclick="quickSelectTag('户外钓鱼')" class="cursor-pointer px-2 py-0.5 rounded bg-indigo-600 text-white transition">户外钓鱼</span>
             <span onclick="quickSelectTag('农特原产')" class="cursor-pointer px-2 py-0.5 rounded bg-slate-800 hover:bg-indigo-600 text-slate-300 transition">农特原产</span>
-            <span onclick="quickSelectTag('滋补保健')" class="cursor-pointer px-2 py-0.5 rounded bg-slate-800 hover:bg-indigo-600 text-slate-300 transition">滋补保健</span>
+            <span onclick="quickSelectTag('滋补养生')" class="cursor-pointer px-2 py-0.5 rounded bg-slate-800 hover:bg-indigo-600 text-slate-300 transition">滋补养生</span>
           </div>
         </div>
 
+        <!-- 提取出的卖点与黄金钩子 -->
         <div class="space-y-1.5">
-          <label class="block text-[11px] font-semibold text-slate-400">前 3 秒黄金钩子 (爆款破播关键)</label>
+          <div class="flex items-center justify-between">
+            <label class="text-[11px] font-semibold text-slate-400">前 3 秒黄金钩子 (高完播破局)</label>
+            <button onclick="refreshPainPoints()" class="text-indigo-400 hover:text-indigo-300 text-xs flex items-center gap-0.5">
+              <i class="ph ph-arrows-clockwise"></i> 换一批
+            </button>
+          </div>
           <select id="targetPainPointSelect" onchange="applyPainPoint(this.value)" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-2.5 py-1.5 text-xs text-slate-300 focus:outline-none focus:border-indigo-500 font-medium"></select>
           <div class="p-2 rounded-xl bg-slate-950/70 border border-slate-800 text-xs">
             <span class="text-indigo-400 font-bold mr-1">黄金台词：</span>
@@ -110,28 +142,27 @@
         <div class="flex items-center justify-between mb-2">
           <div class="flex items-center space-x-1.5">
             <span class="w-4 h-4 rounded-full bg-indigo-600 text-white text-[10px] font-bold flex items-center justify-center">2</span>
-            <h2 class="font-bold text-xs text-slate-200">选择数字人主播 (12位纯正中国面孔)</h2>
+            <h2 class="font-bold text-xs text-slate-200">AI 网红人设库 (12位纯正中国面孔)</h2>
           </div>
           <span class="text-[11px] text-amber-400 font-semibold flex items-center gap-1">
             <i class="ph-fill ph-crown"></i> 12大多元国人主播
           </span>
         </div>
 
-        <!-- 12位中国主播自适应网格 -->
         <div id="avatarGrid" class="grid grid-cols-4 gap-1.5 mb-2.5"></div>
 
         <div class="grid grid-cols-2 gap-2 text-xs">
           <div>
-            <label class="block text-[10px] font-medium text-slate-400 mb-0.5">配音音色引擎</label>
+            <label class="block text-[10px] font-medium text-slate-400 mb-0.5">ElevenLabs 情绪配音引擎</label>
             <select class="w-full bg-slate-950 border border-slate-800 rounded-xl px-2 py-1 text-xs text-slate-300 focus:outline-none focus:border-indigo-500">
-              <option>激情促销女声 (强节奏促单)</option>
+              <option>激情促销女声 (高亢压迫促单)</option>
               <option>知性温和女声 (护肤/家居)</option>
-              <option>沉稳专业男声 (数码/商务)</option>
-              <option>地道原产地男声 (农特/生鲜)</option>
+              <option>沉稳专业男声 (数码测评)</option>
+              <option>地道原产地男声 (农特生鲜)</option>
             </select>
           </div>
           <div>
-            <label class="block text-[10px] font-medium text-slate-400 mb-0.5">语速加成 (提升停留率)</label>
+            <label class="block text-[10px] font-medium text-slate-400 mb-0.5">节奏与完播增强</label>
             <select class="w-full bg-slate-950 border border-slate-800 rounded-xl px-2 py-1 text-xs text-slate-300 focus:outline-none focus:border-indigo-500">
               <option>1.25x 黄金快节奏 (防划走推荐)</option>
               <option>1.0x 标准直播间语速</option>
@@ -141,15 +172,15 @@
         </div>
       </div>
 
-      <!-- 步骤 3：商品实拍图上传与一键生成脚本 -->
+      <!-- 步骤 3：产品实拍与分镜脚本生成 -->
       <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-3.5 shadow-xl">
         <div class="flex items-center justify-between mb-2">
           <div class="flex items-center space-x-1.5">
             <span class="w-4 h-4 rounded-full bg-indigo-600 text-white text-[10px] font-bold flex items-center justify-center">3</span>
-            <h2 class="font-bold text-xs text-slate-200">商品实拍图与带货脚本</h2>
+            <h2 class="font-bold text-xs text-slate-200">商品视觉与多模态分镜脚本</h2>
           </div>
           <button onclick="refreshGeneratedScript()" class="text-xs text-indigo-400 hover:text-indigo-300 flex items-center gap-0.5">
-            <i class="ph ph-sparkle"></i> 重新撰写脚本
+            <i class="ph ph-sparkle"></i> 重写脚本
           </button>
         </div>
 
@@ -163,17 +194,17 @@
           </div>
           <div class="flex-1 space-y-1">
             <input id="productNameInput" type="text" value="德国碳素暴力钓竿 / 超轻大物竿" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-2.5 py-1 text-xs text-white focus:outline-none focus:border-indigo-500" placeholder="商品品名及核心卖点">
-            <p class="text-[10px] text-slate-400">点击方框调出手机相册上传实拍图，AI将自动抠图打光并与数字人同框合成。</p>
+            <p class="text-[10px] text-slate-400">已从链接提取核心卖点。点击方框可从手机相册更换商品实拍，AI自动抠图与数字人同框。</p>
           </div>
         </div>
 
         <div class="space-y-1">
-          <label class="block text-[10px] font-semibold text-slate-400">AI 智能脚本 (前3秒黄金钩子 + 痛点反击 + 逼单转化)</label>
+          <label class="block text-[10px] font-semibold text-slate-400">分镜脚本文案 (Hook 钩子 + 痛点反击 + 逼单闭环)</label>
           <textarea id="scriptTextarea" rows="3" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 leading-relaxed"></textarea>
         </div>
 
-        <button onclick="realStartRender()" class="w-full mt-2.5 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white font-bold text-xs shadow-lg hover:opacity-95 transition flex items-center justify-center gap-1">
-          <i class="ph-bold ph-play"></i> <span>开始一键合成带货短视频 (消耗 1 点算力)</span>
+        <button onclick="realStartRender()" class="w-full mt-2.5 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white font-bold text-xs shadow-lg hover:opacity-95 transition flex items-center justify-center gap-1.5">
+          <i class="ph-bold ph-play"></i> <span>启动 5 人团队黑盒流水线合成 (消耗 1 点算力)</span>
         </button>
       </div>
 
@@ -186,7 +217,7 @@
       <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-3.5 shadow-xl flex flex-col items-center">
         <div class="w-full flex items-center justify-between mb-2">
           <span class="text-xs font-bold text-slate-300 flex items-center gap-1">
-            <i class="ph ph-device-mobile text-indigo-400"></i> 成片 9:16 实时预览
+            <i class="ph ph-device-mobile text-indigo-400"></i> Remotion 9:16 成片预览
           </span>
           <span id="renderStatusBadge" class="text-[10px] bg-slate-800 text-slate-400 px-2 py-0.5 rounded-full font-medium">就绪</span>
         </div>
@@ -220,11 +251,14 @@
             </div>
           </div>
 
-          <!-- 渲染遮罩 -->
-          <div id="renderOverlay" class="absolute inset-0 bg-slate-950/90 z-20 hidden flex-col items-center justify-center text-center p-4">
+          <!-- 5人团队流水线执行遮罩 -->
+          <div id="renderOverlay" class="absolute inset-0 bg-slate-950/95 z-20 hidden flex-col items-center justify-center text-center p-3">
             <div class="w-8 h-8 border-3 border-indigo-500 border-t-transparent rounded-full animate-spin mb-2"></div>
-            <p class="text-xs font-bold text-indigo-400">Spira 云端加速渲染中</p>
-            <p id="renderTimerText" class="text-[10px] text-slate-400 mt-1">预计耗时 3 秒...</p>
+            <p class="text-xs font-bold text-indigo-400" id="pipelineAgentTitle">🤖 团队流水线运转中</p>
+            <div class="w-full bg-slate-800 rounded-full h-1.5 mt-2 mb-2 overflow-hidden">
+              <div id="pipelineProgressBar" class="bg-gradient-to-r from-indigo-500 to-purple-500 h-1.5 rounded-full transition-all duration-300" style="width: 15%"></div>
+            </div>
+            <p id="pipelineStepText" class="text-[9px] text-slate-300 leading-tight">1/4 文案编排员提炼黄金分镜...</p>
           </div>
         </div>
 
@@ -239,7 +273,7 @@
           <h3 class="font-bold text-xs text-slate-200 flex items-center gap-1">
             <i class="ph-bold ph-share-network text-indigo-400"></i> 一键矩阵多平台发布
           </h3>
-          <span class="text-[10px] text-emerald-400">已匹配格式</span>
+          <span class="text-[10px] text-emerald-400">自动格式适配</span>
         </div>
         <div id="platformGrid" class="grid grid-cols-2 gap-1.5 mb-2.5"></div>
         <button onclick="copyPublishInfo()" class="w-full py-2 bg-indigo-600/30 border border-indigo-500/50 hover:bg-indigo-600 text-indigo-200 hover:text-white rounded-xl text-xs font-bold transition flex items-center justify-center gap-1">
@@ -248,7 +282,57 @@
       </div>
 
     </div>
-  </main>
+  </div>
+
+  <!-- 视图 2：内容排期日历与矩阵监控 (Calendar View) -->
+  <div id="calendarView" class="max-w-5xl mx-auto px-4 py-3 w-full flex-1 hidden space-y-4">
+    <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 shadow-xl">
+      <div class="flex items-center justify-between mb-3">
+        <div>
+          <h2 class="font-bold text-sm text-slate-200 flex items-center gap-1.5">
+            <i class="ph-bold ph-calendar-check text-indigo-400"></i> 内容排期日历 (Content Calendar)
+          </h2>
+          <p class="text-[11px] text-slate-400 mt-0.5">Spira 每天按时出货，全自动推送至绑定的社媒矩阵账号</p>
+        </div>
+        <button onclick="scheduleNewVideo()" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-1">
+          <i class="ph-bold ph-plus"></i> 添加新排期
+        </button>
+      </div>
+
+      <!-- 周排期卡片列表 -->
+      <div class="grid grid-cols-1 md:grid-cols-7 gap-2 text-xs" id="weekCalendarContainer">
+        <!-- 动态生成 7 天日程 -->
+      </div>
+    </div>
+
+    <!-- 账号矩阵与流量数据回传看板 -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+      <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-3.5">
+        <span class="text-[10px] text-slate-400 block mb-1">已绑定矩阵账号</span>
+        <div class="flex items-center justify-between">
+          <span class="text-lg font-black text-white">8 个店铺账号</span>
+          <span class="text-xs text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full font-bold">100% 在线</span>
+        </div>
+        <p class="text-[10px] text-slate-500 mt-1">涵盖抖音主店、小红书蒲公英、微信视频号私域</p>
+      </div>
+      <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-3.5">
+        <span class="text-[10px] text-slate-400 block mb-1">平均单条视频播放</span>
+        <div class="flex items-center justify-between">
+          <span class="text-lg font-black text-emerald-400">4,820 次</span>
+          <span class="text-xs text-amber-400 font-bold">突破200池</span>
+        </div>
+        <p class="text-[10px] text-slate-500 mt-1">得益于前3秒黄金钩子与本土主播高完播率</p>
+      </div>
+      <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-3.5">
+        <span class="text-[10px] text-slate-400 block mb-1">本周自动分发总数</span>
+        <div class="flex items-center justify-between">
+          <span class="text-lg font-black text-indigo-400">21 条短视频</span>
+          <span class="text-xs text-slate-400">每日 3 连更</span>
+        </div>
+        <p class="text-[10px] text-slate-500 mt-1">省去5人运营团队，全自动流水线出货</p>
+      </div>
+    </div>
+  </div>
 
   <!-- 全自动充值收银台 (四大档位：9.9 / 39.9 / 99.9 / 199) -->
   <div id="rechargeModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
@@ -349,7 +433,7 @@
   </div>
 
   <footer class="border-t border-slate-900 py-2.5 px-4 text-center text-[10px] text-slate-500">
-    Spira AI 电商云剪 SaaS | 12位纯正中国主播与4大充值档位 (9.9/39.9/99.9/199) 已激活
+    Spira AI 电商云剪 SaaS | 5人团队自动化流水线 + 12位中国主播与4大充值档位 (9.9/39.9/99.9/199) 已激活
   </footer>
 
   <script>
@@ -385,6 +469,17 @@
       { id: 'weixin', name: '微信视频号', desc: '私域高客单', icon: '微', color: 'bg-emerald-500/20 text-emerald-400' }
     ];
 
+    // 内容排期日历模拟数据 (7天)
+    const SCHEDULE_DATA = [
+      { day: '周一', time: '12:00', title: '渔具爆款暴力实测', platform: '抖音/快手', status: '已自动发布', views: '4,280' },
+      { day: '周二', time: '18:30', title: '源头工厂拆解大鱼竿', platform: '视频号/小红书', status: '已自动发布', views: '3,890' },
+      { day: '周三', time: '20:00', title: '老钓友断竿内幕揭秘', platform: '全平台矩阵', status: '已定时 待发布', views: '--' },
+      { day: '周四', time: '12:00', title: '超轻碳素竿测评挑战', platform: '抖音/小红书', status: '排期中', views: '--' },
+      { day: '周五', time: '19:00', title: '周末野钓必带大促款', platform: '全平台矩阵', status: '排期中', views: '--' },
+      { day: '周六', time: '10:00', title: '现场拉断10斤水桶', platform: '快手/视频号', status: '排期中', views: '--' },
+      { day: '周日', time: '20:30', title: '粉丝秒杀专场倒计时', platform: '抖音官方号', status: '排期中', views: '--' }
+    ];
+
     let currentCredits = parseInt(localStorage.getItem('spira_user_credits') || '5');
     let totalUsedCredits = parseInt(localStorage.getItem('spira_total_used') || '86');
     let validCards = JSON.parse(localStorage.getItem('spira_valid_cards') || JSON.stringify({
@@ -407,6 +502,81 @@
       if (adminCred) adminCred.innerText = currentCredits;
       const adminUsed = document.getElementById('adminTotalUsed');
       if (adminUsed) adminUsed.innerText = totalUsedCredits + ' 点';
+    }
+
+    // 视图切换 (工作坊 vs 内容日历)
+    function switchView(view) {
+      const wView = document.getElementById('workshopView');
+      const cView = document.getElementById('calendarView');
+      const btnW = document.getElementById('tabBtnWorkshop');
+      const btnC = document.getElementById('tabBtnCalendar');
+
+      if (view === 'calendar') {
+        wView.classList.add('hidden');
+        cView.classList.remove('hidden');
+        btnC.className = "px-2.5 py-0.5 rounded-full bg-indigo-600 text-white font-bold";
+        btnW.className = "px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 hover:text-white";
+        renderCalendar();
+      } else {
+        cView.classList.add('hidden');
+        wView.classList.remove('hidden');
+        btnW.className = "px-2.5 py-0.5 rounded-full bg-indigo-600 text-white font-bold";
+        btnC.className = "px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 hover:text-white";
+      }
+    }
+
+    function renderCalendar() {
+      const container = document.getElementById('weekCalendarContainer');
+      container.innerHTML = '';
+      SCHEDULE_DATA.forEach(s => {
+        const isDone = s.status.includes('已自动发布');
+        const card = document.createElement('div');
+        card.className = `p-2 rounded-xl border ${isDone ? 'border-emerald-500/40 bg-emerald-950/20' : 'border-slate-800 bg-slate-950'} flex flex-col justify-between`;
+        card.innerHTML = `
+          <div>
+            <div class="flex items-center justify-between text-[10px] text-slate-400 mb-1">
+              <span class="font-bold text-white">${s.day}</span>
+              <span>${s.time}</span>
+            </div>
+            <p class="font-bold text-[11px] text-slate-200 line-clamp-2 leading-tight">${s.title}</p>
+            <p class="text-[9px] text-indigo-400 mt-1">${s.platform}</p>
+          </div>
+          <div class="mt-2 pt-1 border-t border-slate-800/80 flex items-center justify-between text-[9px]">
+            <span class="${isDone ? 'text-emerald-400 font-semibold' : 'text-slate-500'}">${s.status}</span>
+            <span class="text-amber-300 font-bold">${s.views !== '--' ? s.views + ' 播' : ''}</span>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function scheduleNewVideo() {
+      const title = document.getElementById('mockHookBigText').innerText;
+      SCHEDULE_DATA.push({
+        day: '下周一',
+        time: '18:00',
+        title: title,
+        platform: '全矩阵自动推送',
+        status: '已排期',
+        views: '--'
+      });
+      renderCalendar();
+      alert("✅ 已将当前制作的视频加入 Spira 自动化出货排期日历！系统将按时自动矩阵分发。");
+    }
+
+    // URL 一键解析原料
+    function parseProductUrl() {
+      const url = document.getElementById('productUrlInput').value.trim();
+      if (!url) {
+        alert("请先粘贴商品链接（如淘宝/天猫/1688/抖音商品页）！");
+        return;
+      }
+      alert("🔍 Spira 正在通过大模型爬取并提取该链接的商品主图、核心卖点与价格区间...");
+      setTimeout(() => {
+        document.getElementById('productNameInput').value = "极速纳米速干防晒衣 (UPF50+ 冰感透气)";
+        quickSelectTag("服装穿搭");
+        alert("🎉 链接原料提取成功！\n已自动提炼：商品品名、核心卖点，并已更新为服装穿搭黄金爆破分镜！");
+      }, 700);
     }
 
     // 渲染12位中国主播
@@ -437,7 +607,7 @@
       document.getElementById('mockAvatarName').innerText = `${av.name} (${av.gender})`;
     }
 
-    // 渲染4大充值档位
+    // 渲染4大充值档位 (9.9 / 39.9 / 99.9 / 199)
     function renderPricingTiers() {
       const container = document.getElementById('pricingTierList');
       container.innerHTML = '';
@@ -567,6 +737,7 @@
       }
     }
 
+    // 5人团队流水线四步渲染模拟
     function realStartRender() {
       if (currentCredits <= 0) {
         alert("⚠️ 算力余额不足！请点击右上角【充值】购买算力包。");
@@ -579,175 +750,33 @@
 
       const overlay = document.getElementById('renderOverlay');
       const badge = document.getElementById('renderStatusBadge');
+      const title = document.getElementById('pipelineAgentTitle');
+      const bar = document.getElementById('pipelineProgressBar');
+      const text = document.getElementById('pipelineStepText');
+
       overlay.classList.remove('hidden');
       overlay.classList.add('flex');
-      badge.innerText = "云端渲染中...";
+      badge.innerText = "流水线运转中";
       badge.className = "text-[10px] bg-indigo-500/20 text-indigo-400 px-2 py-0.5 rounded-full font-medium animate-pulse";
 
-      let countdown = 3;
-      const timer = setInterval(() => {
-        countdown--;
-        if (countdown > 0) {
-          document.getElementById('renderTimerText').innerText = `预计耗时 ${countdown} 秒...`;
+      const steps = [
+        { progress: '25%', title: '🤖 文案编排员 (Agent 1)', text: '正在基于原料链接提炼核心卖点与黄金分镜...' },
+        { progress: '50%', title: '🎙️ 配音调音师 (Agent 2)', text: '正在调用 ElevenLabs 生成情绪级带货口播...' },
+        { progress: '75%', title: '👤 视觉数字人 (Agent 3)', text: '正在使用 LivePortrait 驱动中国主播面孔口型...' },
+        { progress: '100%', title: '🎬 媒体渲染师 (Agent 4)', text: 'Remotion 动态层合成花字、BGM与9:16画幅...' }
+      ];
+
+      let currentStep = 0;
+      const interval = setInterval(() => {
+        if (currentStep < steps.length) {
+          bar.style.width = steps[currentStep].progress;
+          title.innerText = steps[currentStep].title;
+          text.innerText = steps[currentStep].text;
+          currentStep++;
         } else {
-          clearInterval(timer);
+          clearInterval(interval);
           overlay.classList.add('hidden');
           overlay.classList.remove('flex');
-          badge.innerText = "已生成完毕";
+          badge.innerText = "已出货待发";
           badge.className = "text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded-full font-medium";
-          alert("🎉 恭喜！带货视频已由中国主播与AI黄金引擎合成完毕！您可以点击下方按钮保存视频或一键发布到各大平台。");
-        }
-      }, 1000);
-    }
-
-    function mockDownloadVideo() {
-      alert("📥 已为您生成 1080P 高清无水印视频文件，长按或点击下载即可保存到手机相册！");
-    }
-
-    function publishToPlatform(platform) {
-      const names = { douyin: '抖音', xhs: '小红书', kuaishou: '快手', weixin: '微信视频号' };
-      copyPublishInfo();
-      alert(`🚀 已为您拉起【${names[platform]}】创作者平台！\n爆款标题、黄金钩子及推荐话题标签已自动复制到剪贴板，直接粘贴即可发布！`);
-    }
-
-    function copyPublishInfo() {
-      const hook = document.getElementById('mockHookBigText').innerText;
-      const prod = document.getElementById('productNameInput').value;
-      const text = `${hook}\n#${currentIndustry} #${prod} #好物推荐 #爆款视频 #源头工厂`;
-      navigator.clipboard.writeText(text).then(() => {
-        alert("📋 爆款标题与话题标签已复制到剪贴板！\n" + text);
-      }).catch(() => {
-        prompt("请手动复制发布文案：", text);
-      });
-    }
-
-    function openRechargeModal() {
-      document.getElementById('rechargeModal').classList.remove('hidden');
-      document.getElementById('rechargeModal').classList.add('flex');
-    }
-    function closeRechargeModal() {
-      document.getElementById('rechargeModal').classList.remove('flex');
-      document.getElementById('rechargeModal').classList.add('hidden');
-    }
-
-    function openGrowthModal() {
-      document.getElementById('growthModal').classList.remove('hidden');
-      document.getElementById('growthModal').classList.add('flex');
-    }
-    function closeGrowthModal() {
-      document.getElementById('growthModal').classList.remove('flex');
-      document.getElementById('growthModal').classList.add('hidden');
-    }
-
-    // 4大档位自动发卡模拟 (9.9 / 39.9 / 99.9 / 199)
-    function mockAutoBuy(type, points) {
-      let prefix = "TRIAL-";
-      if (type === 'flagship_199') prefix = "YEAR-";
-      else if (type === 'quarterly_99_9') prefix = "SEASON-";
-      else if (type === 'monthly_39_9') prefix = "MONTH-";
-
-      const randomCode = prefix + Math.floor(1000 + Math.random() * 9000);
-      validCards[randomCode] = points;
-      saveState();
-
-      setTimeout(() => {
-        document.getElementById('cardCodeInput').value = randomCode;
-        alert(`🔔 自动发卡模拟成功！\n系统已为您分配卡密：【${randomCode}】（含 ${points} 点算力）\n已自动填入下方兑换框，点击【兑换到账】即可立即生效！`);
-      }, 400);
-    }
-
-    function redeemCardCode() {
-      const input = document.getElementById('cardCodeInput');
-      const code = input.value.trim().toUpperCase();
-      if (!code) { alert('请输入卡密！'); return; }
-      if (validCards[code]) {
-        const add = validCards[code];
-        currentCredits += add;
-        delete validCards[code];
-        saveState();
-        input.value = '';
-        closeRechargeModal();
-        alert(`🎉 恭喜！卡密核销成功！已自动到账 +${add} 点算力！当前可用余额：${currentCredits} 点。`);
-      } else {
-        alert('❌ 无效的卡密或该卡密已被使用！');
-      }
-    }
-
-    function openAdminLogin() {
-      const pwd = prompt("请输入管理员后台密码：", "");
-      if (pwd === "admin888") {
-        renderCards();
-        document.getElementById('adminModal').classList.remove('hidden');
-        document.getElementById('adminModal').classList.add('flex');
-      } else if (pwd !== null) {
-        alert("❌ 密码错误！默认管理密码为：admin888");
-      }
-    }
-
-    function closeAdminModal() {
-      document.getElementById('adminModal').classList.remove('flex');
-      document.getElementById('adminModal').classList.add('hidden');
-    }
-
-    let logoClickCount = 0;
-    function handleLogoClick() {
-      logoClickCount++;
-      if (logoClickCount >= 5) {
-        logoClickCount = 0;
-        openAdminLogin();
-      }
-    }
-
-    function renderCards() {
-      const list = document.getElementById('adminCardList');
-      list.innerHTML = '';
-      const keys = Object.keys(validCards);
-      if (keys.length === 0) {
-        list.innerHTML = '<div class="text-slate-500 py-2 text-center text-xs">暂无待核销卡密，请点击上方按钮生成</div>';
-        return;
-      }
-      keys.forEach(k => {
-        const div = document.createElement('div');
-        div.className = "flex justify-between items-center bg-slate-900 border border-slate-800 p-1.5 rounded";
-        div.innerHTML = `
-          <div>
-            <span class="text-indigo-400 font-bold">${k}</span>
-            <span class="text-slate-400 ml-1.5">(${validCards[k]}点)</span>
-          </div>
-          <button onclick="adminDeleteCard('${k}')" class="text-red-400 hover:text-red-300 text-xs px-1">删除</button>
-        `;
-        list.appendChild(div);
-      });
-    }
-
-    function adminGenerateNewCards(points, prefix) {
-      for (let i = 0; i < 3; i++) {
-        const c = `${prefix}-${Math.floor(1000 + Math.random() * 9000)}`;
-        validCards[c] = points;
-      }
-      saveState();
-      renderCards();
-      alert(`✅ 成功生成 3 张新卡密（每张 ${points} 点算力）！已加入库存。`);
-    }
-
-    function adminDeleteCard(k) {
-      delete validCards[k];
-      saveState();
-      renderCards();
-    }
-
-    function adminAdjustUserCredits(delta) {
-      currentCredits = Math.max(0, currentCredits + delta);
-      saveState();
-    }
-
-    window.addEventListener('DOMContentLoaded', () => {
-      saveState();
-      renderAvatarGrid();
-      renderPricingTiers();
-      renderPlatforms();
-      updateHookSelect(currentIndustry);
-    });
-  </script>
-</body>
-</html>
+          alert("🎉 
