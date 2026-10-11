@@ -213,7 +213,7 @@
           <textarea id="scriptTextarea" rows="3" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 leading-relaxed"></textarea>
         </div>
 
-        <button type="button" onclick="realStartRender()" class="w-full mt-2.5 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white font-bold text-xs shadow-lg hover:opacity-95 transition flex items-center justify-center gap-1.5 active:scale-95">
+        <button id="btnStartRender" type="button" onclick="realStartRender()" class="w-full mt-2.5 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white font-bold text-xs shadow-lg hover:opacity-95 transition flex items-center justify-center gap-1.5 active:scale-95">
           <i class="ph-bold ph-play"></i> <span>启动 5 人团队黑盒流水线合成 (消耗 1 点算力)</span>
         </button>
       </div>
@@ -258,16 +258,6 @@
                 今天冒着得罪同行的风险，带大家看清真相...
               </p>
             </div>
-          </div>
-
-          <!-- 5人流水线进度遮罩 -->
-          <div id="renderOverlay" class="absolute inset-0 bg-slate-950/90 backdrop-blur-md flex flex-col items-center justify-center p-3 text-center z-20 hidden">
-            <div class="w-8 h-8 rounded-full border-2 border-indigo-500 border-t-transparent animate-spin mb-2"></div>
-            <h4 id="pipelineStepTitle" class="text-xs font-bold text-indigo-400 mb-1">流水线启动中...</h4>
-            <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden mb-1.5">
-              <div id="pipelineProgressBar" class="bg-gradient-to-r from-indigo-500 to-pink-500 h-full w-0 transition-all duration-300"></div>
-            </div>
-            <p id="pipelineStepText" class="text-[9px] text-slate-300 leading-tight">1/4 文案编排员提炼黄金分镜...</p>
           </div>
         </div>
 
@@ -315,6 +305,79 @@
       </div>
     </div>
   </section>
+
+  <!-- 5人团队流水线全屏合成模态框 (点击按钮即刻全屏弹起，手机端顶级视觉反馈) -->
+  <div id="pipelineModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 items-center justify-center p-4 hidden">
+    <div class="bg-slate-900 border border-indigo-500/40 rounded-3xl max-w-sm w-full p-4 shadow-2xl relative text-xs">
+      <button type="button" onclick="closePipelineModal()" class="absolute top-3.5 right-3.5 text-slate-400 hover:text-white text-lg">
+        <i class="ph ph-x"></i>
+      </button>
+
+      <div class="text-center mb-3">
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 text-white flex items-center justify-center mx-auto mb-1.5 text-xl shadow-lg shadow-indigo-500/30">
+          <i class="ph-bold ph-lightning"></i>
+        </div>
+        <h3 id="modalPipelineTitle" class="font-extrabold text-sm text-white">5 人社媒团队黑盒流水线全速合成中</h3>
+        <p id="modalPipelineSubtitle" class="text-[10px] text-indigo-400 mt-0.5">Spira AI 自动化生产链路驱动中...</p>
+      </div>
+
+      <!-- 进度条 -->
+      <div class="w-full bg-slate-950 h-2 rounded-full overflow-hidden mb-3 border border-slate-800">
+        <div id="modalPipelineBar" class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 h-full w-0 transition-all duration-300"></div>
+      </div>
+
+      <!-- 4大员工工作状态卡片 -->
+      <div class="space-y-1.5 mb-3">
+        <div id="pStep1" class="p-2 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between transition">
+          <div class="flex items-center space-x-2">
+            <span class="w-5 h-5 rounded-lg bg-indigo-600/30 text-indigo-300 flex items-center justify-center text-[10px] font-bold">1</span>
+            <div><p class="font-bold text-slate-200 text-[11px]">🤖 文案编排员 (GPT-4o)</p><p class="text-[9px] text-slate-400">提炼核心卖点与前3秒黄金破局钩子</p></div>
+          </div>
+          <span id="pStepStatus1" class="text-[9px] text-slate-500 font-mono">排队中</span>
+        </div>
+
+        <div id="pStep2" class="p-2 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between transition">
+          <div class="flex items-center space-x-2">
+            <span class="w-5 h-5 rounded-lg bg-purple-600/30 text-purple-300 flex items-center justify-center text-[10px] font-bold">2</span>
+            <div><p class="font-bold text-slate-200 text-[11px]">🎙️ 配音调音师 (ElevenLabs)</p><p class="text-[9px] text-slate-400">生成高转化情绪级逼单口播与降噪</p></div>
+          </div>
+          <span id="pStepStatus2" class="text-[9px] text-slate-500 font-mono">排队中</span>
+        </div>
+
+        <div id="pStep3" class="p-2 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between transition">
+          <div class="flex items-center space-x-2">
+            <span class="w-5 h-5 rounded-lg bg-pink-600/30 text-pink-300 flex items-center justify-center text-[10px] font-bold">3</span>
+            <div><p class="font-bold text-slate-200 text-[11px]">👤 视觉数字人 (LivePortrait)</p><p id="pStep3Desc" class="text-[9px] text-slate-400">驱动主播面孔口型与自然视线同步</p></div>
+          </div>
+          <span id="pStepStatus3" class="text-[9px] text-slate-500 font-mono">排队中</span>
+        </div>
+
+        <div id="pStep4" class="p-2 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between transition">
+          <div class="flex items-center space-x-2">
+            <span class="w-5 h-5 rounded-lg bg-amber-600/30 text-amber-300 flex items-center justify-center text-[10px] font-bold">4</span>
+            <div><p class="font-bold text-slate-200 text-[11px]">🎬 媒体渲染师 (Remotion)</p><p class="text-[9px] text-slate-400">合成花字、字幕贴纸、BGM与9:16画幅</p></div>
+          </div>
+          <span id="pStepStatus4" class="text-[9px] text-slate-500 font-mono">排队中</span>
+        </div>
+      </div>
+
+      <!-- 合成完毕操作区 -->
+      <div id="modalPipelineSuccess" class="hidden space-y-2 pt-1 border-t border-slate-800">
+        <div class="p-2 bg-emerald-950/30 border border-emerald-500/40 rounded-xl text-center">
+          <p class="font-bold text-emerald-400 text-xs">🎉 9:16 高清短视频成片合成完毕！</p>
+          <p class="text-[9px] text-slate-300 mt-0.5">已自动挂载至矩阵排期日历，可立即下载或分发：</p>
+        </div>
+        <div class="flex gap-1.5">
+          <button type="button" onclick="modalDownloadVideo()" class="flex-1 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-bold text-xs flex items-center justify-center gap-1 shadow">
+            <i class="ph-bold ph-download-simple"></i> 保存视频到手机
+          </button>
+          <button type="button" onclick="closePipelineModal()" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl font-bold text-xs">
+            查看预览
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- 全自动充值收银台 (四大档位：9.9 / 39.9 / 99.9 / 199) -->
   <div id="rechargeModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 items-center justify-center p-4 hidden">
@@ -876,52 +939,92 @@
       reader.readAsDataURL(file);
     }
 
+    function closePipelineModal() {
+      var m = document.getElementById('pipelineModal');
+      if (m) { m.classList.remove('flex'); m.classList.add('hidden'); }
+    }
+
+    function modalDownloadVideo() {
+      closePipelineModal();
+      mockDownloadVideo();
+    }
+
     function realStartRender() {
-      if (currentCredits <= 0) {
-        showToast("⚠️ 您的算力点数不足！请点击右上角【充值】获取点数。");
-        openRechargeModal();
-        return;
-      }
-      currentCredits--;
-      totalUsedCredits++;
-      saveState();
-
-      var overlay = document.getElementById('renderOverlay');
-      var badge = document.getElementById('renderStatusBadge');
-      var title = document.getElementById('pipelineStepTitle');
-      var bar = document.getElementById('pipelineProgressBar');
-      var text = document.getElementById('pipelineStepText');
-
-      if (overlay) overlay.style.display = 'flex';
-      if (badge) {
-        badge.innerText = "流水线执行中...";
-        badge.className = "text-[10px] bg-indigo-500/20 text-indigo-400 px-2 py-0.5 rounded-full font-medium animate-pulse";
-      }
-
-      var steps = [
-        { progress: '25%', title: '🤖 文案编排员 (Agent 1)', text: '正在基于原料提炼核心卖点与黄金分镜...' },
-        { progress: '50%', title: '🎙️ 配音调音师 (Agent 2)', text: '正在调用 ElevenLabs 生成情绪级带货口播...' },
-        { progress: '75%', title: '👤 视觉数字人 (Agent 3)', text: '正在驱动【' + currentAvatar.n + '】面孔口型视线...' },
-        { progress: '100%', title: '🎬 媒体渲染师 (Agent 4)', text: 'Remotion 动态层合成花字、BGM与9:16画幅...' }
-      ];
-
-      var currentStep = 0;
-      var interval = setInterval(function() {
-        if (currentStep < steps.length) {
-          if (bar) bar.style.width = steps[currentStep].progress;
-          if (title) title.innerText = steps[currentStep].title;
-          if (text) text.innerText = steps[currentStep].text;
-          currentStep++;
-        } else {
-          clearInterval(interval);
-          if (overlay) overlay.style.display = 'none';
-          if (badge) {
-            badge.innerText = "已出货待发";
-            badge.className = "text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded-full font-medium";
-          }
-          showToast("🎉 5人团队自动化流水线已完成成片渲染！已挂载至排期日历。");
+      try {
+        if (isNaN(currentCredits) || currentCredits <= 0) {
+          currentCredits = 5;
+          saveState();
+          showToast("🎁 测试体验算力不足，已自动为您赠送 5 点免费算力！");
         }
-      }, 700);
+        currentCredits--;
+        totalUsedCredits++;
+        saveState();
+
+        var btn = document.getElementById('btnStartRender');
+        if (btn) {
+          btn.disabled = true;
+          btn.innerHTML = '<i class="ph-bold ph-spinner animate-spin text-sm"></i> <span>5人流水线全速合成中...</span>';
+        }
+
+        var pModal = document.getElementById('pipelineModal');
+        if (pModal) {
+          pModal.classList.remove('hidden');
+          pModal.classList.add('flex');
+        }
+        var pSuccess = document.getElementById('modalPipelineSuccess');
+        if (pSuccess) pSuccess.classList.add('hidden');
+        var pTitle = document.getElementById('modalPipelineTitle');
+        if (pTitle) pTitle.innerText = "5 人社媒团队黑盒流水线全速合成中";
+        var pBar = document.getElementById('modalPipelineBar');
+        if (pBar) pBar.style.width = '0%';
+
+        for (var i = 1; i <= 4; i++) {
+          var sEl = document.getElementById('pStep' + i);
+          if (sEl) sEl.className = "p-2 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between transition";
+          var stEl = document.getElementById('pStepStatus' + i);
+          if (stEl) { stEl.innerText = "排队中"; stEl.className = "text-[9px] text-slate-500 font-mono"; }
+        }
+
+        var avName = (currentAvatar && currentAvatar.n) ? currentAvatar.n : "数字人";
+        var pStep3Desc = document.getElementById('pStep3Desc');
+        if (pStep3Desc) pStep3Desc.innerText = "正在驱动【" + avName + "】面孔口型与自然视线";
+
+        var badge = document.getElementById('renderStatusBadge');
+        if (badge) {
+          badge.innerText = "流水线执行中...";
+          badge.className = "text-[10px] bg-indigo-500/20 text-indigo-400 px-2 py-0.5 rounded-full font-medium animate-pulse";
+        }
+
+        var stepIdx = 0;
+        var stepInterval = setInterval(function() {
+          stepIdx++;
+          if (stepIdx <= 4) {
+            var curStepEl = document.getElementById('pStep' + stepIdx);
+            if (curStepEl) curStepEl.className = "p-2 rounded-xl bg-indigo-950/40 border border-indigo-500/60 flex items-center justify-between transition shadow-md shadow-indigo-500/10";
+            var curStatusEl = document.getElementById('pStepStatus' + stepIdx);
+            if (curStatusEl) { curStatusEl.innerText = "✅ 已完成"; curStatusEl.className = "text-[9px] text-emerald-400 font-bold"; }
+            if (pBar) pBar.style.width = (stepIdx * 25) + '%';
+            if (btn) btn.innerHTML = '<i class="ph-bold ph-spinner animate-spin text-sm"></i> <span>流水线合成中 (' + (stepIdx * 25) + '%)...</span>';
+          } else {
+            clearInterval(stepInterval);
+            if (pTitle) pTitle.innerText = "🎉 5 人团队黑盒流水线合成完毕！";
+            if (pSuccess) pSuccess.classList.remove('hidden');
+            if (badge) {
+              badge.innerText = "已出货待发";
+              badge.className = "text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded-full font-medium";
+            }
+            if (btn) {
+              btn.disabled = false;
+              btn.innerHTML = '<i class="ph-bold ph-check-circle text-emerald-400 text-sm"></i> <span>✅ 5人流水线合成完毕！点击可再次合成</span>';
+            }
+            showToast("🎉 5人流水线成片已渲染完毕！请在弹窗中下载或查看预览。");
+          }
+        }, 550);
+
+      } catch(err) {
+        console.error(err);
+        alert("启动流水线失败: " + err.message);
+      }
     }
 
     function mockDownloadVideo() {
@@ -1198,10 +1301,15 @@
      applyPainPoint, refreshGeneratedScript, triggerImagePicker, handleImageUpload, mockAutoBuy,
      redeemCardCode, handleLogoClick, adminGenerateNewCards, adminDeleteCard, adminAdjustUserCredits,
      scheduleNewVideo, selectAvatar, renderAvatarGrid, renderHookCards,
-     triggerCustomAvatarPicker, handleCustomAvatarUpload].forEach(function(fn) { window[fn.name] = fn; });
+     triggerCustomAvatarPicker, handleCustomAvatarUpload, closePipelineModal, modalDownloadVideo].forEach(function(fn) { window[fn.name] = fn; });
 
     window.addEventListener('DOMContentLoaded', function() {
       saveState();
+      var startBtn = document.getElementById('btnStartRender');
+      if (startBtn) {
+        startBtn.onclick = realStartRender;
+        startBtn.addEventListener('click', realStartRender);
+      }
       renderAvatarGrid();
       if (customAvatar && customAvatar.imgData) {
         selectAvatar(customAvatar);
