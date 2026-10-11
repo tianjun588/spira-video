@@ -95,7 +95,7 @@
 
         <!-- 行业快捷标签 -->
         <div class="flex flex-wrap gap-1" id="industryChips">
-          <span onclick="quickSelectTag('户外钓鱼')" class="px-2 py-0.5 rounded-full text-[10px] bg-indigo-600/30 border border-indigo-500/50 text-indigo-300 cursor-pointer">户外钓鱼</span>
+          <span onclick="quickSelectTag('户外钓鱼')" class="px-2 py-0.5 rounded-full text-[10px] bg-indigo-600/30 border border-indigo-500/50 text-indigo-300 font-bold cursor-pointer">户外钓鱼</span>
           <span onclick="quickSelectTag('美妆护肤')" class="px-2 py-0.5 rounded-full text-[10px] bg-slate-800 text-slate-400 hover:text-white cursor-pointer">美妆护肤</span>
           <span onclick="quickSelectTag('服装穿搭')" class="px-2 py-0.5 rounded-full text-[10px] bg-slate-800 text-slate-400 hover:text-white cursor-pointer">服装穿搭</span>
           <span onclick="quickSelectTag('生鲜美食')" class="px-2 py-0.5 rounded-full text-[10px] bg-slate-800 text-slate-400 hover:text-white cursor-pointer">生鲜美食</span>
@@ -196,7 +196,7 @@
 
         <div class="flex items-center gap-2.5 mb-2.5">
           <div onclick="triggerImagePicker()" class="w-16 h-16 rounded-xl border-2 border-dashed border-slate-700 hover:border-indigo-500 bg-slate-950 flex flex-col items-center justify-center cursor-pointer overflow-hidden relative group transition flex-shrink-0">
-            <img id="productImagePreview" src="https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=300&q=80" class="w-full h-full object-cover">
+            <img id="productImagePreview" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='600' viewBox='0 0 400 600'><defs><linearGradient id='bgGrad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%231e1b4b'/><stop offset='50%25' stop-color='%230f172a'/><stop offset='100%25' stop-color='%23020617'/></linearGradient></defs><rect width='400' height='600' fill='url(%23bgGrad)'/><circle cx='200' cy='230' r='90' fill='%23312e81' opacity='0.6'/><circle cx='200' cy='230' r='60' fill='%234338ca' opacity='0.8'/><path d='M170,220 L200,175 L230,220 L215,220 L215,280 L185,280 L185,220 Z' fill='%23fbbf24'/><text x='200' y='380' font-family='sans-serif' font-size='22' font-weight='bold' fill='%23ffffff' text-anchor='middle'>Spira AI 商品实拍预览</text><text x='200' y='415' font-family='sans-serif' font-size='13' fill='%2394a3b8' text-anchor='middle'>支持点击更换手机相册实拍图</text></svg>" class="w-full h-full object-cover">
             <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center text-white text-[9px] transition">
               <i class="ph ph-camera text-sm"></i> 更换实拍
             </div>
@@ -234,7 +234,7 @@
 
         <!-- 手机容器 -->
         <div class="w-52 bg-black rounded-3xl border-4 border-slate-800 shadow-2xl relative overflow-hidden flex flex-col justify-between" style="height: 350px;">
-          <img id="mockVideoBg" src="https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=600&q=80" class="absolute inset-0 w-full h-full object-cover">
+          <img id="mockVideoBg" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='600' viewBox='0 0 400 600'><defs><linearGradient id='bgGrad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%231e1b4b'/><stop offset='50%25' stop-color='%230f172a'/><stop offset='100%25' stop-color='%23020617'/></linearGradient></defs><rect width='400' height='600' fill='url(%23bgGrad)'/><circle cx='200' cy='230' r='90' fill='%23312e81' opacity='0.6'/><circle cx='200' cy='230' r='60' fill='%234338ca' opacity='0.8'/><path d='M170,220 L200,175 L230,220 L215,220 L215,280 L185,280 L185,220 Z' fill='%23fbbf24'/><text x='200' y='380' font-family='sans-serif' font-size='22' font-weight='bold' fill='%23ffffff' text-anchor='middle'>Spira AI 商品实拍预览</text><text x='200' y='415' font-family='sans-serif' font-size='13' fill='%2394a3b8' text-anchor='middle'>支持点击更换手机相册实拍图</text></svg>" class="absolute inset-0 w-full h-full object-cover">
           <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/80"></div>
 
           <!-- 悬浮主播画像 / 自设相册主播 -->
@@ -305,6 +305,31 @@
       </div>
     </div>
   </section>
+
+  <!-- 手机长按保存成片弹窗 (防止微信等内置浏览器拦截下载) -->
+  <div id="savedImageModal" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 items-center justify-center p-4 hidden">
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-xs w-full p-3.5 shadow-2xl relative text-center">
+      <button type="button" onclick="closeSavedImageModal()" class="absolute top-3 right-3 text-slate-400 hover:text-white text-lg">
+        <i class="ph ph-x"></i>
+      </button>
+      <div class="flex items-center justify-center space-x-1 mb-2">
+        <i class="ph-fill ph-check-circle text-emerald-400 text-sm"></i>
+        <h4 class="font-extrabold text-xs text-white">1080P 成片海报已生成</h4>
+      </div>
+      <div class="w-full max-h-80 rounded-2xl overflow-hidden border border-indigo-500/40 shadow-xl mb-2.5 bg-black">
+        <img id="savedImagePreview" src="" class="w-full h-auto object-contain mx-auto" alt="成片预览">
+      </div>
+      <p class="text-[10px] text-amber-300 font-semibold mb-2">💡 手机用户长按上方图片，即可直接【保存到手机相册】</p>
+      <div class="flex gap-1.5">
+        <button type="button" onclick="downloadImageDirectly()" class="flex-1 py-1.5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl text-[11px] font-bold shadow">
+          再次触发下载
+        </button>
+        <button type="button" onclick="closeSavedImageModal()" class="px-3 py-1.5 bg-slate-800 text-slate-300 rounded-xl text-[11px] font-bold">
+          关闭
+        </button>
+      </div>
+    </div>
+  </div>
 
   <!-- 5人团队流水线全屏合成模态框 (点击按钮即刻全屏弹起，手机端顶级视觉反馈) -->
   <div id="pipelineModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 items-center justify-center p-4 hidden">
@@ -868,6 +893,7 @@
       if (!val) { alert("请输入行业或产品品名！"); return; }
       currentIndustry = val;
       hookBatchIndex = 0;
+      updateIndustryChips(val);
       updateHookSelect(val);
       autoSyncSampleProduct(val);
       showToast("⚡ 已为【" + val + "】匹配定制黄金钩子！");
@@ -878,6 +904,7 @@
       if (input) input.value = tagName;
       currentIndustry = tagName;
       hookBatchIndex = 0;
+      updateIndustryChips(tagName);
       updateHookSelect(tagName);
       autoSyncSampleProduct(tagName);
       showToast("⚡ 已载入【" + tagName + "】爆款知识库！");
@@ -1079,19 +1106,19 @@
         ctx.fillText('带大家看清真相，现货秒发！', 60, 1195);
 
         function triggerDownloadBlob() {
-          canvas.toBlob(function(blob) {
-            var url = URL.createObjectURL(blob);
+          var dataUrl = canvas.toDataURL('image/png');
+          
+          try {
             var a = document.createElement('a');
-            a.href = url;
+            a.href = dataUrl;
             a.download = 'Spira_爆款短视频成片_' + Date.now() + '.png';
             document.body.appendChild(a);
             a.click();
-            setTimeout(function() {
-              document.body.removeChild(a);
-              URL.revokeObjectURL(url);
-            }, 400);
-            showToast("🎉 视频成片已成功下载到手机！请在手机相册中查看。");
-          }, 'image/png');
+            setTimeout(function() { document.body.removeChild(a); }, 400);
+          } catch(e) {}
+
+          showSavedImageModal(dataUrl);
+          showToast("🎉 1080P 成片海报生成完毕！长按图片可直接保存相册。");
         }
 
         if (currentAvatar.isCustom && currentAvatar.imgData) {
@@ -1126,13 +1153,50 @@
       }
     }
 
+    var lastGeneratedDataUrl = "";
+    function showSavedImageModal(dataUrl) {
+      lastGeneratedDataUrl = dataUrl;
+      var img = document.getElementById('savedImagePreview');
+      if (img) img.src = dataUrl;
+      var m = document.getElementById('savedImageModal');
+      if (m) { m.classList.remove('hidden'); m.classList.add('flex'); }
+    }
+    function closeSavedImageModal() {
+      var m = document.getElementById('savedImageModal');
+      if (m) { m.classList.remove('flex'); m.classList.add('hidden'); }
+    }
+    function downloadImageDirectly() {
+      if (!lastGeneratedDataUrl) return;
+      var a = document.createElement('a');
+      a.href = lastGeneratedDataUrl;
+      a.download = 'Spira_爆款短视频成片_' + Date.now() + '.png';
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(function() { document.body.removeChild(a); }, 400);
+      showToast("💾 已重新触发保存！");
+    }
+
+    function updateIndustryChips(selectedTag) {
+      var chips = document.querySelectorAll('#industryChips span');
+      chips.forEach(function(chip) {
+        if (chip.innerText.trim() === selectedTag.trim()) {
+          chip.className = "px-2 py-0.5 rounded-full text-[10px] bg-indigo-600/30 border border-indigo-500/50 text-indigo-300 font-bold cursor-pointer";
+        } else {
+          chip.className = "px-2 py-0.5 rounded-full text-[10px] bg-slate-800 text-slate-400 hover:text-white cursor-pointer";
+        }
+      });
+    }
+
     function publishToPlatform(platform, platformUrl) {
       var names = { douyin: '抖音', xhs: '小红书', kuaishou: '快手', weixin: '微信视频号' };
       copyPublishInfo();
-      showToast("🚀 已复制爆款文案！正在打开【" + (names[platform] || platform) + "】平台...");
-      setTimeout(function() {
-        if (platformUrl) window.open(platformUrl, '_blank');
-      }, 500);
+      showToast("🚀 已复制带货文案！正在直达【" + (names[platform] || platform) + "】...");
+      if (platformUrl) {
+        var win = window.open(platformUrl, '_blank');
+        if (!win || win.closed || typeof win.closed === 'undefined') {
+          window.location.href = platformUrl;
+        }
+      }
     }
 
     function copyPublishInfo() {
@@ -1301,7 +1365,7 @@
      applyPainPoint, refreshGeneratedScript, triggerImagePicker, handleImageUpload, mockAutoBuy,
      redeemCardCode, handleLogoClick, adminGenerateNewCards, adminDeleteCard, adminAdjustUserCredits,
      scheduleNewVideo, selectAvatar, renderAvatarGrid, renderHookCards,
-     triggerCustomAvatarPicker, handleCustomAvatarUpload, closePipelineModal, modalDownloadVideo].forEach(function(fn) { window[fn.name] = fn; });
+     triggerCustomAvatarPicker, handleCustomAvatarUpload, closePipelineModal, modalDownloadVideo, closeSavedImageModal, downloadImageDirectly].forEach(function(fn) { window[fn.name] = fn; });
 
     window.addEventListener('DOMContentLoaded', function() {
       saveState();
