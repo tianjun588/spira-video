@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Spira AI 电商云剪 - 12位中国主播与AI带货矩阵</title>
+  <title>Spira AI 电商云剪 - 5人社媒团队自动化流水线</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
   <style>
     .hidden { display: none !important; }
-    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar { width: 4px; height: 4px; }
     ::-webkit-scrollbar-thumb { background: #334155; border-radius: 9999px; }
     button, input, select, textarea { -webkit-tap-highlight-color: transparent; }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans antialiased selection:bg-indigo-500 selection:text-white pb-10">
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans antialiased pb-12">
 
   <!-- 顶部导航 -->
   <header class="border-b border-slate-800 bg-slate-900/90 backdrop-blur sticky top-0 z-40 px-3.5 py-2.5">
@@ -23,7 +23,7 @@
           <i class="ph-bold ph-lightning"></i>
         </div>
         <div>
-          <span class="font-extrabold text-sm tracking-tight text-white">Spira AI</span>
+          <span class="font-extrabold text-sm text-white">Spira AI</span>
           <span class="text-[9px] bg-indigo-600 text-white font-bold px-1.5 py-0.5 rounded-full ml-1">5人运营流水线</span>
         </div>
       </div>
@@ -48,98 +48,117 @@
   <!-- 5人团队看板 -->
   <section class="max-w-5xl mx-auto px-4 mt-2.5 w-full">
     <div class="bg-gradient-to-r from-indigo-950/60 via-purple-950/40 to-slate-900 border border-indigo-500/30 rounded-2xl p-2.5 text-xs">
-      <div class="flex flex-wrap items-center justify-between gap-2 mb-1.5">
-        <span class="text-indigo-300 font-bold flex items-center gap-1">
-          <i class="ph-bold ph-cpu"></i> Spira 自动化流水线（一人顶一个5人运营团队）
+      <div class="flex items-center justify-between mb-1.5">
+        <span class="font-bold text-slate-200 flex items-center gap-1">
+          <i class="ph-fill ph-users text-indigo-400"></i> 5人自动化社媒运营团队全员在线
         </span>
-        <div class="flex gap-2 text-[11px]">
-          <button type="button" onclick="switchView('workshop')" id="tabBtnWorkshop" class="px-2.5 py-0.5 rounded-full bg-indigo-600 text-white font-bold">1. 做视频流水线</button>
-          <button type="button" onclick="switchView('calendar')" id="tabBtnCalendar" class="px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 hover:text-white">2. 排期矩阵日历</button>
-        </div>
+        <span class="text-[10px] text-emerald-400 font-semibold bg-emerald-950/50 px-2 py-0.5 rounded-full border border-emerald-500/30">● 自动流水线就绪</span>
       </div>
-      <div class="grid grid-cols-3 gap-1.5 text-center text-[10px] text-slate-300">
-        <div class="bg-slate-900/80 rounded-lg py-1 border border-slate-800"><span class="text-indigo-400 font-bold block">① 输入原料</span>链接/人设 ➜ 卖点提炼</div>
-        <div class="bg-slate-900/80 rounded-lg py-1 border border-slate-800"><span class="text-purple-400 font-bold block">② 黑盒流水线</span>配音+12主播+Remotion合成</div>
-        <div class="bg-slate-900/80 rounded-lg py-1 border border-slate-800"><span class="text-emerald-400 font-bold block">③ 按时出货</span>日历排期+矩阵分发+数据回传</div>
+      <div class="grid grid-cols-4 gap-1.5 text-center text-[10px]">
+        <div class="bg-slate-900/80 p-1 rounded-xl border border-slate-800"><span class="font-bold text-indigo-300">① 文案策划</span><p class="text-[8px] text-slate-400 scale-95">爆款分镜提取</p></div>
+        <div class="bg-slate-900/80 p-1 rounded-xl border border-slate-800"><span class="font-bold text-purple-300">② 配音调音</span><p class="text-[8px] text-slate-400 scale-95">情绪级语音</p></div>
+        <div class="bg-slate-900/80 p-1 rounded-xl border border-slate-800"><span class="font-bold text-pink-300">③ 视觉数字人</span><p class="text-[8px] text-slate-400 scale-95">12国人脸+自设相册</p></div>
+        <div class="bg-slate-900/80 p-1 rounded-xl border border-slate-800"><span class="font-bold text-amber-300">④ 矩阵分发</span><p class="text-[8px] text-slate-400 scale-95">4大社媒调度</p></div>
       </div>
     </div>
   </section>
 
   <!-- 视图 1：主流水线工作坊 -->
-  <div id="workshopView" class="max-w-5xl mx-auto px-4 py-3 w-full flex-1 grid grid-cols-1 lg:grid-cols-12 gap-4">
+  <main id="workshopView" class="max-w-5xl mx-auto px-4 py-3 w-full flex-1 grid grid-cols-1 lg:grid-cols-12 gap-3.5">
     
     <!-- 左侧：输入原料与编排设置 (7 cols) -->
     <div class="lg:col-span-7 space-y-3">
-
-      <!-- 步骤 1：输入原料 (URL-to-Video 与全行业智能钩子) -->
-      <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-3.5 shadow-xl">
-        <div class="flex items-center justify-between mb-2">
+      
+      <!-- 步骤 1：输入原料与黄金钩子 -->
+      <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-3.5 shadow-xl space-y-2.5">
+        <div class="flex items-center justify-between">
           <div class="flex items-center space-x-1.5">
             <span class="w-4 h-4 rounded-full bg-indigo-600 text-white text-[10px] font-bold flex items-center justify-center">1</span>
-            <h2 class="font-bold text-xs text-slate-200">输入原料：URL 解析 / 全行业黄金钩子生成</h2>
+            <h2 class="font-bold text-xs text-slate-200">输入原料：商品链接或品类</h2>
           </div>
-          <span class="text-[10px] text-indigo-400 font-medium">URL-to-Video 引擎</span>
+          <span class="text-[10px] text-indigo-400 font-medium">URL-to-Video</span>
         </div>
 
-        <div class="space-y-1.5 mb-2.5">
-          <div class="flex gap-1.5">
-            <div class="relative flex-1">
-              <i class="ph ph-link absolute left-2.5 top-2 text-slate-500 text-xs"></i>
-              <input id="productUrlInput" type="text" placeholder="粘贴商品链接 (淘宝/天猫/抖音/1688/独立站)..." 
-                     class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-7 pr-2.5 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500">
-            </div>
-            <button type="button" onclick="parseProductUrl()" class="px-3 py-1.5 bg-gradient-to-r from-indigo-600 to-purple-600 hover:opacity-90 text-white rounded-xl text-xs font-bold transition flex items-center gap-1 flex-shrink-0">
-              <i class="ph-bold ph-magic-wand"></i><span>一键解析</span>
-            </button>
-          </div>
-
-          <div class="flex gap-1.5">
-            <input id="industrySearchInput" type="text" placeholder="输入任意行业/品类 (女装、美妆、牛排、数码...)" 
-                   class="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-2.5 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500">
-            <button type="button" id="btnSearchIndustry" onclick="searchIndustryPains()" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-1 flex-shrink-0">
-              <i class="ph-bold ph-sparkle"></i><span>生成钩子</span>
-            </button>
-          </div>
-
-          <!-- 热门行业快捷芯片 -->
-          <div class="flex flex-wrap gap-1 text-[11px]" id="industryChips">
-            <span onclick="quickSelectTag('户外钓鱼')" class="cursor-pointer px-2 py-0.5 rounded bg-indigo-600 text-white font-bold transition">户外钓鱼</span>
-            <span onclick="quickSelectTag('美妆护肤')" class="cursor-pointer px-2 py-0.5 rounded bg-slate-800 hover:bg-indigo-600 text-slate-300 transition">美妆护肤</span>
-            <span onclick="quickSelectTag('食品生鲜')" class="cursor-pointer px-2 py-0.5 rounded bg-slate-800 hover:bg-indigo-600 text-slate-300 transition">食品生鲜</span>
-            <span onclick="quickSelectTag('服装穿搭')" class="cursor-pointer px-2 py-0.5 rounded bg-slate-800 hover:bg-indigo-600 text-slate-300 transition">服装穿搭</span>
-            <span onclick="quickSelectTag('数码家电')" class="cursor-pointer px-2 py-0.5 rounded bg-slate-800 hover:bg-indigo-600 text-slate-300 transition">数码家电</span>
-            <span onclick="quickSelectTag('家居日用')" class="cursor-pointer px-2 py-0.5 rounded bg-slate-800 hover:bg-indigo-600 text-slate-300 transition">家居日用</span>
-            <span onclick="quickSelectTag('农特原产')" class="cursor-pointer px-2 py-0.5 rounded bg-slate-800 hover:bg-indigo-600 text-slate-300 transition">农特原产</span>
-            <span onclick="quickSelectTag('滋补养生')" class="cursor-pointer px-2 py-0.5 rounded bg-slate-800 hover:bg-indigo-600 text-slate-300 transition">滋补养生</span>
-          </div>
+        <div class="flex gap-1.5">
+          <input id="productUrlInput" type="text" placeholder="粘贴淘宝/1688/拼多多/抖音商品链接..." class="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-2.5 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500">
+          <button type="button" onclick="parseProductUrl()" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 active:scale-95 text-white rounded-xl text-xs font-bold transition flex items-center gap-1 shadow flex-shrink-0">
+            <i class="ph-bold ph-sparkle"></i> 解析提取
+          </button>
         </div>
 
-        <!-- 3 张直观可点击的黄金钩子卡片 -->
-        <div class="space-y-1.5">
-          <div class="flex items-center justify-between">
-            <label class="text-[11px] font-semibold text-slate-400">前 3 秒黄金钩子 (点击任选一条作为视频开头)</label>
+        <div class="flex items-center gap-1.5">
+          <input id="industryInput" type="text" placeholder="输入品类 (如: 户外钓鱼 / 美妆护肤)" class="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-2.5 py-1 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500" value="户外钓鱼">
+          <button type="button" onclick="searchIndustryPains()" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-semibold transition flex-shrink-0">
+            匹配钩子
+          </button>
+        </div>
+
+        <!-- 行业快捷标签 -->
+        <div class="flex flex-wrap gap-1" id="industryChips">
+          <span onclick="quickSelectTag('户外钓鱼')" class="px-2 py-0.5 rounded-full text-[10px] bg-indigo-600/30 border border-indigo-500/50 text-indigo-300 cursor-pointer">户外钓鱼</span>
+          <span onclick="quickSelectTag('美妆护肤')" class="px-2 py-0.5 rounded-full text-[10px] bg-slate-800 text-slate-400 hover:text-white cursor-pointer">美妆护肤</span>
+          <span onclick="quickSelectTag('服装穿搭')" class="px-2 py-0.5 rounded-full text-[10px] bg-slate-800 text-slate-400 hover:text-white cursor-pointer">服装穿搭</span>
+          <span onclick="quickSelectTag('生鲜美食')" class="px-2 py-0.5 rounded-full text-[10px] bg-slate-800 text-slate-400 hover:text-white cursor-pointer">生鲜美食</span>
+          <span onclick="quickSelectTag('数码3C')" class="px-2 py-0.5 rounded-full text-[10px] bg-slate-800 text-slate-400 hover:text-white cursor-pointer">数码3C</span>
+          <span onclick="quickSelectTag('家居日用')" class="px-2 py-0.5 rounded-full text-[10px] bg-slate-800 text-slate-400 hover:text-white cursor-pointer">家居日用</span>
+          <span onclick="quickSelectTag('母婴玩具')" class="px-2 py-0.5 rounded-full text-[10px] bg-slate-800 text-slate-400 hover:text-white cursor-pointer">母婴玩具</span>
+          <span onclick="quickSelectTag('萌宠用品')" class="px-2 py-0.5 rounded-full text-[10px] bg-slate-800 text-slate-400 hover:text-white cursor-pointer">萌宠用品</span>
+          <span onclick="quickSelectTag('汽车用品')" class="px-2 py-0.5 rounded-full text-[10px] bg-slate-800 text-slate-400 hover:text-white cursor-pointer">汽车用品</span>
+          <span onclick="quickSelectTag('滋补养生')" class="px-2 py-0.5 rounded-full text-[10px] bg-slate-800 text-slate-400 hover:text-white cursor-pointer">滋补养生</span>
+          <span onclick="quickSelectTag('农特原产')" class="px-2 py-0.5 rounded-full text-[10px] bg-slate-800 text-slate-400 hover:text-white cursor-pointer">农特原产</span>
+        </div>
+
+        <!-- 3 张直观黄金钩子卡片 -->
+        <div class="pt-1 border-t border-slate-800/80">
+          <div class="flex items-center justify-between mb-1.5">
+            <label class="text-[11px] font-semibold text-slate-400">前 3 秒黄金钩子 (点击卡片任选一条作为开头)</label>
             <button type="button" id="btnRefreshHooks" onclick="refreshPainPoints()" class="text-indigo-400 hover:text-indigo-300 text-xs flex items-center gap-0.5 font-medium">
               <i class="ph ph-arrows-clockwise"></i> 换一批
             </button>
           </div>
-          <!-- 3张实时钩子卡片容器 -->
           <div id="hookCardsContainer" class="space-y-1.5"></div>
         </div>
       </div>
 
-      <!-- 步骤 2：12 位纯正中国面孔数字人主播矩阵 (带真实面孔画像) -->
+      <!-- 步骤 2：数字人主播画像置顶看板与自定义人设定制 -->
       <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-3.5 shadow-xl">
         <div class="flex items-center justify-between mb-2">
           <div class="flex items-center space-x-1.5">
             <span class="w-4 h-4 rounded-full bg-indigo-600 text-white text-[10px] font-bold flex items-center justify-center">2</span>
-            <h2 class="font-bold text-xs text-slate-200">选择数字人主播 (12位纯正中国面孔画像)</h2>
+            <h2 class="font-bold text-xs text-slate-200">AI数字人主播画像与自定义定制</h2>
           </div>
-          <span class="text-[11px] text-amber-400 font-semibold flex items-center gap-1">
-            <i class="ph-fill ph-crown"></i> 12大多元国人主播
-          </span>
+          <button type="button" onclick="triggerCustomAvatarPicker()" class="text-[11px] px-2.5 py-1 rounded-xl bg-gradient-to-r from-pink-500/20 to-purple-500/20 border border-pink-500/40 text-pink-300 font-bold hover:bg-pink-500/30 transition flex items-center gap-1 shadow-sm active:scale-95">
+            <i class="ph-bold ph-camera"></i> <span>+ 上传照片定制主播</span>
+          </button>
         </div>
 
-        <!-- 12位中国主播真实面孔画像自适应网格 -->
+        <input id="customAvatarFileInput" type="file" accept="image/*" class="hidden" onchange="handleCustomAvatarUpload(event)">
+
+        <!-- 置顶：当前出镜主播高清晰特写画像看板 -->
+        <div id="activeAnchorSpotlight" class="mb-2.5 p-2.5 rounded-2xl bg-gradient-to-r from-indigo-950/80 via-slate-950 to-purple-950/60 border border-indigo-500/40 shadow-lg flex items-center justify-between">
+          <div class="flex items-center gap-2.5 min-w-0">
+            <div id="spotlightAvatarImg" class="w-12 h-12 rounded-2xl overflow-hidden border-2 border-indigo-400 shadow-md flex-shrink-0 bg-slate-950 flex items-center justify-center relative"></div>
+            <div class="min-w-0">
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <h3 id="spotlightAvatarName" class="font-extrabold text-xs text-white truncate">晓晴 (女)</h3>
+                <span id="spotlightAvatarBadge" class="text-[9px] bg-indigo-600 text-white font-bold px-1.5 py-0.2 rounded-full">亲和居家</span>
+                <span class="text-[8px] text-emerald-400 flex items-center gap-0.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>数字人已激活
+                </span>
+              </div>
+              <p id="spotlightAvatarDesc" class="text-[9px] text-slate-400 mt-0.5 leading-tight truncate">亲和力拉满，适合百货居家、厨房日用与生鲜零食</p>
+            </div>
+          </div>
+          <button type="button" onclick="triggerCustomAvatarPicker()" class="ml-2 px-2 py-1 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-[10px] font-bold border border-slate-700 transition flex items-center gap-1 flex-shrink-0 active:scale-95">
+            <i class="ph ph-user-circle-gear"></i> 换自设
+          </button>
+        </div>
+
+        <div class="flex items-center justify-between mb-1.5">
+          <label class="text-[10px] font-semibold text-slate-400">选择出镜主播 (含自设专属与12位中国主播矩阵)</label>
+          <span class="text-[9px] text-slate-500">点击即切换口播画像</span>
+        </div>
+
         <div id="avatarGrid" class="grid grid-cols-4 gap-1.5 mb-2.5"></div>
 
         <div class="grid grid-cols-2 gap-2 text-xs">
@@ -185,7 +204,7 @@
           </div>
           <div class="flex-1 space-y-1">
             <input id="productNameInput" type="text" value="德国碳素暴力钓竿 / 超轻大物竿" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-2.5 py-1 text-xs text-white focus:outline-none focus:border-indigo-500" placeholder="商品品名及核心卖点">
-            <p class="text-[10px] text-slate-400">已自动提炼核心卖点。点击方框可更换实拍图，AI将自动抠图打光并与数字人同框合成。</p>
+            <p class="text-[10px] text-slate-400">已提炼核心卖点。点击左侧更换实拍图，AI将自动抠图打光并与数字人同框合成。</p>
           </div>
         </div>
 
@@ -194,7 +213,7 @@
           <textarea id="scriptTextarea" rows="3" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500 leading-relaxed"></textarea>
         </div>
 
-        <button type="button" onclick="realStartRender()" class="w-full mt-2.5 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white font-bold text-xs shadow-lg hover:opacity-95 transition flex items-center justify-center gap-1.5">
+        <button type="button" onclick="realStartRender()" class="w-full mt-2.5 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white font-bold text-xs shadow-lg hover:opacity-95 transition flex items-center justify-center gap-1.5 active:scale-95">
           <i class="ph-bold ph-play"></i> <span>启动 5 人团队黑盒流水线合成 (消耗 1 点算力)</span>
         </button>
       </div>
@@ -218,9 +237,9 @@
           <img id="mockVideoBg" src="https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=600&q=80" class="absolute inset-0 w-full h-full object-cover">
           <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/80"></div>
 
-          <!-- 悬浮中国主播真实面孔画像 -->
+          <!-- 悬浮主播画像 / 自设相册主播 -->
           <div class="absolute bottom-14 right-2 w-16 h-24 rounded-xl border border-indigo-400/80 bg-slate-900/90 shadow-xl overflow-hidden flex flex-col items-center justify-end p-1 z-10 backdrop-blur-sm">
-            <div id="mockAvatarPhotoContainer" class="w-9 h-9 rounded-full overflow-hidden shadow border border-indigo-400 mb-1"></div>
+            <div id="mockAvatarPhotoContainer" class="w-9 h-9 rounded-full overflow-hidden shadow border border-indigo-400 mb-1 flex items-center justify-center bg-slate-950"></div>
             <span id="mockAvatarName" class="text-[8px] font-bold text-white truncate">晓晴 (女)</span>
             <span class="text-[7px] text-amber-300 font-semibold scale-90">● 带货中</span>
           </div>
@@ -241,18 +260,18 @@
             </div>
           </div>
 
-          <!-- 5人团队流水线执行遮罩 -->
-          <div id="renderOverlay" style="display: none;" class="absolute inset-0 bg-slate-950/95 z-20 flex-col items-center justify-center text-center p-3">
-            <div class="w-8 h-8 border-3 border-indigo-500 border-t-transparent rounded-full animate-spin mb-2"></div>
-            <p class="text-xs font-bold text-indigo-400" id="pipelineAgentTitle">🤖 团队流水线运转中</p>
-            <div class="w-full bg-slate-800 rounded-full h-1.5 mt-2 mb-2 overflow-hidden">
-              <div id="pipelineProgressBar" class="bg-gradient-to-r from-indigo-500 to-purple-500 h-1.5 rounded-full transition-all duration-300" style="width: 15%"></div>
+          <!-- 5人流水线进度遮罩 -->
+          <div id="renderOverlay" class="absolute inset-0 bg-slate-950/90 backdrop-blur-md flex flex-col items-center justify-center p-3 text-center z-20 hidden">
+            <div class="w-8 h-8 rounded-full border-2 border-indigo-500 border-t-transparent animate-spin mb-2"></div>
+            <h4 id="pipelineStepTitle" class="text-xs font-bold text-indigo-400 mb-1">流水线启动中...</h4>
+            <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden mb-1.5">
+              <div id="pipelineProgressBar" class="bg-gradient-to-r from-indigo-500 to-pink-500 h-full w-0 transition-all duration-300"></div>
             </div>
             <p id="pipelineStepText" class="text-[9px] text-slate-300 leading-tight">1/4 文案编排员提炼黄金分镜...</p>
           </div>
         </div>
 
-        <button type="button" onclick="mockDownloadVideo()" class="w-full mt-2.5 py-1.5 bg-gradient-to-r from-indigo-600 to-purple-600 hover:opacity-95 text-white rounded-xl text-xs font-bold transition flex items-center justify-center gap-1 shadow-md shadow-indigo-500/20">
+        <button type="button" onclick="mockDownloadVideo()" class="w-full mt-2.5 py-1.5 bg-gradient-to-r from-indigo-600 to-purple-600 hover:opacity-95 text-white rounded-xl text-xs font-bold transition flex items-center justify-center gap-1 shadow-md shadow-indigo-500/20 active:scale-95">
           <i class="ph-bold ph-download-simple"></i> 保存视频到手机相册
         </button>
       </div>
@@ -260,92 +279,63 @@
       <!-- 一键多平台发布调度中枢 -->
       <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-3.5 shadow-xl">
         <div class="flex items-center justify-between mb-2">
-          <h3 class="font-bold text-xs text-slate-200 flex items-center gap-1">
-            <i class="ph-bold ph-share-network text-indigo-400"></i> 一键矩阵多平台发布
-          </h3>
-          <span class="text-[10px] text-emerald-400">点击自动拉起</span>
+          <span class="text-xs font-bold text-slate-300 flex items-center gap-1">
+            <i class="ph ph-share-network text-purple-400"></i> 一键多平台矩阵分发
+          </span>
+          <button type="button" onclick="copyPublishInfo()" class="text-[10px] text-indigo-400 hover:text-indigo-300 font-semibold flex items-center gap-0.5">
+            <i class="ph ph-copy"></i> 复制文案与标签
+          </button>
         </div>
-        <div id="platformGrid" class="grid grid-cols-2 gap-1.5 mb-2.5"></div>
-        <button type="button" onclick="copyPublishInfo()" class="w-full py-2 bg-indigo-600/30 border border-indigo-500/50 hover:bg-indigo-600 text-indigo-200 hover:text-white rounded-xl text-xs font-bold transition flex items-center justify-center gap-1">
-          <i class="ph ph-copy"></i> 复制爆款标题与话题标签 (发视频直接粘贴)
-        </button>
+        <p class="text-[10px] text-slate-400 mb-2">点击平台按钮自动复制带货文案并直达创作者中心：</p>
+        <div id="platformGrid" class="grid grid-cols-2 gap-1.5"></div>
       </div>
 
     </div>
-  </div>
+  </main>
 
   <!-- 视图 2：内容排期日历与矩阵监控 (Calendar View) -->
-  <div id="calendarView" class="max-w-5xl mx-auto px-4 py-3 w-full flex-1 hidden space-y-4">
-    <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 shadow-xl">
-      <div class="flex items-center justify-between mb-3">
+  <section id="calendarView" class="max-w-5xl mx-auto px-4 py-3 w-full flex-1 hidden">
+    <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 shadow-xl space-y-3">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
         <div>
-          <h2 class="font-bold text-sm text-slate-200 flex items-center gap-1.5">
-            <i class="ph-bold ph-calendar-check text-indigo-400"></i> 内容排期日历 (Content Calendar)
+          <h2 class="text-sm font-black text-white flex items-center gap-1.5">
+            <i class="ph-fill ph-calendar text-indigo-400"></i> 7天社媒自动发布排期表 (矩阵多账号分发)
           </h2>
-          <p class="text-[11px] text-slate-400 mt-0.5">Spira 每天按时出货，全自动推送至绑定的社媒矩阵账号</p>
+          <p class="text-[10px] text-slate-400">Spira AI 自动按黄金流量时段定时推送，并抓取播放量与破万数据反馈。</p>
         </div>
-        <button type="button" onclick="scheduleNewVideo()" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-1">
-          <i class="ph-bold ph-plus"></i> 添加新排期
+        <button type="button" onclick="switchView('workshop')" class="px-2.5 py-1 bg-indigo-600 text-white rounded-lg text-xs font-bold hover:bg-indigo-500">
+          返回工作台
         </button>
       </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-7 gap-2 text-xs" id="weekCalendarContainer"></div>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-      <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-3.5">
-        <span class="text-[10px] text-slate-400 block mb-1">已绑定矩阵账号</span>
-        <div class="flex items-center justify-between">
-          <span class="text-lg font-black text-white">8 个店铺账号</span>
-          <span class="text-xs text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full font-bold">100% 在线</span>
-        </div>
-        <p class="text-[10px] text-slate-500 mt-1">涵盖抖音主店、小红书蒲公英、微信视频号私域</p>
-      </div>
-      <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-3.5">
-        <span class="text-[10px] text-slate-400 block mb-1">平均单条视频播放</span>
-        <div class="flex items-center justify-between">
-          <span class="text-lg font-black text-emerald-400">4,820 次</span>
-          <span class="text-xs text-amber-400 font-bold">突破200池</span>
-        </div>
-        <p class="text-[10px] text-slate-500 mt-1">得益于前3秒黄金钩子与本土主播高完播率</p>
-      </div>
-      <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-3.5">
-        <span class="text-[10px] text-slate-400 block mb-1">本周自动分发总数</span>
-        <div class="flex items-center justify-between">
-          <span class="text-lg font-black text-indigo-400">21 条短视频</span>
-          <span class="text-xs text-slate-400">每日 3 连更</span>
-        </div>
-        <p class="text-[10px] text-slate-500 mt-1">省去5人运营团队，全自动流水线出货</p>
+      <div id="weekCalendarContainer" class="space-y-2"></div>
+      <div class="flex justify-end pt-2">
+        <button type="button" onclick="scheduleNewVideo()" class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold text-xs flex items-center gap-1">
+          <i class="ph-bold ph-plus"></i> 添加新视频到下周排期
+        </button>
       </div>
     </div>
-  </div>
+  </section>
 
   <!-- 全自动充值收银台 (四大档位：9.9 / 39.9 / 99.9 / 199) -->
-  <div id="rechargeModal" style="display: none;" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 items-center justify-center p-4">
-    <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-sm w-full p-4 shadow-2xl relative max-h-[90vh] overflow-y-auto">
-      <button type="button" onclick="closeRechargeModal()" class="absolute top-3 right-3 text-slate-400 hover:text-white">
-        <i class="ph ph-x text-base"></i>
+  <div id="rechargeModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 items-center justify-center p-4 hidden">
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-md w-full p-4 shadow-2xl relative">
+      <button type="button" onclick="closeRechargeModal()" class="absolute top-3.5 right-3.5 text-slate-400 hover:text-white text-lg">
+        <i class="ph ph-x"></i>
       </button>
-
       <div class="text-center mb-3">
-        <span class="inline-flex p-2 rounded-2xl bg-indigo-500/10 text-indigo-400 mb-1">
-          <i class="ph-fill ph-crown text-xl"></i>
-        </span>
-        <h3 class="font-extrabold text-sm text-white">购买算力包 / 升级会员</h3>
-        <p class="text-[11px] text-slate-400">全天24小时自动发卡，秒级到账无需人工等待</p>
+        <div class="w-10 h-10 rounded-2xl bg-amber-500/20 text-amber-400 flex items-center justify-center mx-auto mb-1 text-xl border border-amber-500/40">
+          <i class="ph-fill ph-crown"></i>
+        </div>
+        <h3 class="font-extrabold text-sm text-white">算力点数充值与自动发卡</h3>
+        <p class="text-[10px] text-slate-400">当前剩余点数：<span id="modalCreditsDisplay" class="text-indigo-400 font-bold">5</span> 点 (生成1条视频仅扣1点)</p>
       </div>
-
-      <div id="pricingTierList" class="space-y-2 mb-3"></div>
-
-      <div class="bg-slate-950 border border-slate-800 rounded-2xl p-2.5">
-        <label class="block text-[11px] font-bold text-slate-300 mb-1 flex items-center gap-1">
-          <i class="ph ph-key text-indigo-400"></i><span>已有卡密？在此一键兑换算力</span>
-        </label>
+      <div class="space-y-1.5 mb-3" id="pricingTierList"></div>
+      <div class="border-t border-slate-800 pt-2.5">
+        <label class="block text-[10px] font-semibold text-slate-400 mb-1">兑换码 / 卡密直接核销</label>
         <div class="flex gap-1.5">
-          <input id="cardCodeInput" type="text" placeholder="输入卡密兑换..." 
-                 class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-2.5 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 uppercase font-mono">
-          <button type="button" onclick="redeemCardCode()" class="px-3 py-1.5 bg-gradient-to-r from-indigo-600 to-purple-600 hover:opacity-95 text-white rounded-xl text-xs font-bold transition flex-shrink-0">
-            兑换到账
+          <input id="cardCodeInput" type="text" placeholder="输入兑换卡密 (如 TRIAL-9.9-1111)" class="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-2.5 py-1 text-xs text-white uppercase focus:outline-none focus:border-indigo-500">
+          <button type="button" onclick="redeemCardCode()" class="px-3 py-1 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold transition flex-shrink-0">
+            兑换核销
           </button>
         </div>
       </div>
@@ -353,60 +343,63 @@
   </div>
 
   <!-- 破播放秘籍模态框 -->
-  <div id="growthModal" style="display: none;" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 items-center justify-center p-4">
-    <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-sm w-full p-4 shadow-2xl relative max-h-[90vh] overflow-y-auto">
-      <button type="button" onclick="closeGrowthModal()" class="absolute top-3 right-3 text-slate-400 hover:text-white"><i class="ph ph-x text-base"></i></button>
-      <div class="flex items-center gap-2 mb-2.5">
-        <span class="p-1.5 rounded-xl bg-amber-500/20 text-amber-400 text-base"><i class="ph-fill ph-fire"></i></span>
-        <div><h3 class="font-extrabold text-sm text-white">破局 200~300 播放流量池秘籍</h3><p class="text-[10px] text-slate-400">短视频算法核心抓手</p></div>
-      </div>
-      <div class="space-y-2 text-xs text-slate-300 leading-relaxed">
-        <div class="p-2 rounded-xl bg-slate-950 border border-slate-800">
-          <h4 class="font-bold text-amber-300 mb-0.5">1. 为什么平时播放只有两三百？</h4>
-          <p class="text-slate-400 text-[10px]">系统分配初始300池时，前2秒跳出率高于65%即被判定为低质内容并掐断推流！</p>
-        </div>
-        <div class="p-2 rounded-xl bg-slate-950 border border-slate-800">
-          <h4 class="font-bold text-indigo-300 mb-0.5">2. 黄金钩子的底层逻辑</h4>
-          <p class="text-slate-400 text-[10px]">前3秒必须制造【认知反差】或【行业内幕恐吓】，把划走变成停留，完播率拉升300%！</p>
-        </div>
-        <div class="p-2 rounded-xl bg-slate-950 border border-slate-800">
-          <h4 class="font-bold text-emerald-300 mb-0.5">3. 12位纯正中国主播的高完播信任感</h4>
-          <p class="text-slate-400 text-[10px]">本土亲和居家、激情大促、地道老农真实面孔画像，让观众潜意识产生“真实老板在档口测评”的信任感。</p>
+  <div id="growthModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 items-center justify-center p-4 hidden">
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-md w-full p-4 shadow-2xl relative text-xs">
+      <button type="button" onclick="closeGrowthModal()" class="absolute top-3.5 right-3.5 text-slate-400 hover:text-white text-lg">
+        <i class="ph ph-x"></i>
+      </button>
+      <div class="flex items-center space-x-2 mb-2.5">
+        <span class="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-300 flex items-center justify-center text-lg border border-amber-500/30">
+          <i class="ph-fill ph-fire"></i>
+        </span>
+        <div>
+          <h3 class="font-extrabold text-sm text-white">短视频破千破万播放操盘底层逻辑</h3>
+          <p class="text-[10px] text-slate-400">Spira AI 算法破局机制拆解</p>
         </div>
       </div>
-      <button type="button" onclick="closeGrowthModal()" class="w-full mt-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold transition">我已掌握，开始制作爆款</button>
+      <div class="space-y-2 text-slate-300 text-[11px] leading-relaxed max-h-80 overflow-y-auto pr-1">
+        <div class="p-2 bg-slate-950 rounded-xl border border-slate-800">
+          <p class="font-bold text-amber-300 mb-0.5">1. 为什么你的视频卡在 200~300 基础播放？</p>
+          <p class="text-[10px] text-slate-400">前 2 秒缺乏认知冲突。Spira AI 的 3 秒黄金钩子通过反直觉破局，把完播率拉升 40% 以上。</p>
+        </div>
+        <div class="p-2 bg-slate-950 rounded-xl border border-slate-800">
+          <p class="font-bold text-indigo-300 mb-0.5">2. 为什么中国主播/真人自设形象转化更高？</p>
+          <p class="text-[10px] text-slate-400">洋人面孔在国内电商极易水土不服。Spira 支持 12 位中国主播与手机相册一键自设专属数字人，亲切感极强，大幅降低信任摩擦！</p>
+        </div>
+        <div class="p-2 bg-slate-950 rounded-xl border border-slate-800">
+          <p class="font-bold text-purple-300 mb-0.5">3. 5人矩阵如何规模化套利？</p>
+          <p class="text-[10px] text-slate-400">流水线每天自动出产 50~100 条带货短视频，铺满抖音、快手、小红书与视频号，形成概率霸屏爆单！</p>
+        </div>
+      </div>
     </div>
   </div>
 
   <!-- 管理员后台模态框 (密码: admin888) -->
-  <div id="adminModal" style="display: none;" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 items-center justify-center p-4">
-    <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-sm w-full p-4 shadow-2xl relative max-h-[90vh] overflow-y-auto">
-      <button type="button" onclick="closeAdminModal()" class="absolute top-3 right-3 text-slate-400 hover:text-white"><i class="ph ph-x text-base"></i></button>
-      <div class="flex items-center gap-2 mb-2.5">
-        <span class="p-1.5 rounded-xl bg-indigo-500/20 text-indigo-400 text-base"><i class="ph-fill ph-shield-check"></i></span>
-        <div><h3 class="font-bold text-sm text-white">站长后台管理中心</h3><p class="text-[10px] text-slate-400">卡密发行、库存管理与算力调整</p></div>
+  <div id="adminModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 items-center justify-center p-4 hidden">
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-md w-full p-4 shadow-2xl relative text-xs">
+      <button type="button" onclick="closeAdminModal()" class="absolute top-3.5 right-3.5 text-slate-400 hover:text-white text-lg">
+        <i class="ph ph-x"></i>
+      </button>
+      <div class="flex items-center space-x-2 mb-2.5">
+        <span class="w-7 h-7 rounded-xl bg-indigo-600/30 text-indigo-400 flex items-center justify-center text-sm border border-indigo-500/30">
+          <i class="ph-bold ph-shield-check"></i>
+        </span>
+        <h3 class="font-extrabold text-sm text-white">Spira AI 站长管理后台</h3>
       </div>
-      <div class="grid grid-cols-2 gap-2 mb-2.5 text-xs">
-        <div class="bg-slate-950 border border-slate-800 p-2 rounded-xl">
-          <p class="text-[10px] text-slate-400">已消耗总算力</p>
-          <p id="adminTotalUsed" class="text-sm font-extrabold text-indigo-400 mt-0.5">86 点</p>
+      <div class="p-2 bg-slate-950 rounded-xl border border-slate-800 mb-2.5 flex items-center justify-between">
+        <div>
+          <span class="text-slate-400 text-[10px]">当前用户算力：</span>
+          <span id="adminUserCredits" class="font-bold text-indigo-400 text-xs">5</span> 点
         </div>
-        <div class="bg-slate-950 border border-slate-800 p-2 rounded-xl">
-          <p class="text-[10px] text-slate-400">演示账户余额</p>
-          <div class="flex items-center gap-1.5 mt-0.5">
-            <button type="button" onclick="adminAdjustUserCredits(-1)" class="w-5 h-5 rounded bg-slate-800 text-xs font-bold">-</button>
-            <span id="adminUserCredits" class="text-sm font-extrabold text-white">5</span>
-            <button type="button" onclick="adminAdjustUserCredits(5)" class="w-5 h-5 rounded bg-indigo-600 text-xs font-bold">+</button>
-          </div>
+        <div class="space-x-1">
+          <button type="button" onclick="adminAdjustUserCredits(10)" class="text-[10px] px-1.5 py-0.5 bg-indigo-600 text-white rounded font-bold">+10点</button>
+          <button type="button" onclick="adminAdjustUserCredits(50)" class="text-[10px] px-1.5 py-0.5 bg-purple-600 text-white rounded font-bold">+50点</button>
         </div>
       </div>
-      <div class="bg-slate-950 border border-slate-800 rounded-2xl p-2.5 mb-2">
-        <div class="flex items-center justify-between mb-1.5">
-          <h4 class="text-xs font-bold text-slate-200">生成新卡密库存 (4大档位)</h4>
-          <span class="text-[9px] text-slate-400">点击发行</span>
-        </div>
-        <div class="grid grid-cols-4 gap-1 mb-2">
-          <button type="button" onclick="adminGenerateNewCards(10, 'TRIAL-9.9')" class="text-[9px] py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded border border-slate-700">+ 9.9尝鲜(10点)</button>
+      <div class="p-2 bg-slate-950 rounded-xl border border-slate-800">
+        <p class="text-[10px] font-bold text-slate-300 mb-1">批量一键生成新卡密：</p>
+        <div class="grid grid-cols-2 gap-1 mb-2">
+          <button type="button" onclick="adminGenerateNewCards(10, 'TRIAL-9.9')" class="text-[9px] py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded border border-slate-700">+ 9.9尝鲜卡(10点)</button>
           <button type="button" onclick="adminGenerateNewCards(45, 'MONTH-39.9')" class="text-[9px] py-1 bg-indigo-900/60 hover:bg-indigo-900 text-indigo-300 rounded border border-indigo-700">+ 39.9月卡(45点)</button>
           <button type="button" onclick="adminGenerateNewCards(130, 'SEASON-99.9')" class="text-[9px] py-1 bg-purple-900/60 hover:bg-purple-900 text-purple-300 rounded border border-purple-700">+ 99.9季卡(130点)</button>
           <button type="button" onclick="adminGenerateNewCards(300, 'YEAR-199')" class="text-[9px] py-1 bg-amber-900/60 hover:bg-amber-900 text-amber-300 rounded border border-amber-700 font-bold">+ 199年卡(300点)</button>
@@ -417,112 +410,87 @@
   </div>
 
   <footer class="border-t border-slate-900 py-2.5 px-4 text-center text-[10px] text-slate-500">
-    Spira AI 电商云剪 SaaS | 5人团队流水线 + 12位中国主播真实面孔画像与4大充值档位 (9.9/39.9/99.9/199) 已激活
+    Spira AI 电商云剪 SaaS | 5人流水线 + 12位中国主播真实面孔画像与自设相册专属主播已激活
   </footer>
 
   <script>
-    // 12位纯正中国面孔数字人主播定义
     var AVATARS = [
-      { id: "xiaoqing", n: "晓晴", g: "女", t: "亲和居家", bg: ["#ec4899", "#f43f5e"], hair: "#1e1b4b", clothes: "#db2777" },
-      { id: "haodong", n: "浩东", g: "男", t: "数码硬核", bg: ["#2563eb", "#4f46e5"], hair: "#0f172a", clothes: "#1e40af" },
-      { id: "lina", n: "丽娜", g: "女", t: "激情大促", bg: ["#f59e0b", "#ea580c"], hair: "#451a03", clothes: "#ea580c" },
-      { id: "yating", n: "雅婷", g: "女", t: "知性美妆", bg: ["#a855f7", "#ec4899"], hair: "#3b0764", clothes: "#9333ea" },
-      { id: "minghui", n: "明辉", g: "男", t: "商务精英", bg: ["#059669", "#0d9488"], hair: "#0f172a", clothes: "#1e293b" },
-      { id: "huixin", n: "慧心", g: "女", t: "温情宝妈", bg: ["#f43f5e", "#e11d48"], hair: "#262626", clothes: "#e11d48" },
-      { id: "deshu", n: "德叔", g: "男", t: "滋补养生", bg: ["#78716c", "#b45309"], hair: "#475569", clothes: "#78350f" },
-      { id: "zihan", n: "子涵", g: "女", t: "青春潮服", bg: ["#d946ef", "#8b5cf6"], hair: "#581c87", clothes: "#7c3aed" },
-      { id: "dazhuang", n: "大壮", g: "男", t: "农特原产", bg: ["#d97706", "#ca8a04"], hair: "#1c1917", clothes: "#b45309" },
-      { id: "yuxuan", n: "雨萱", g: "女", t: "高端雅致", bg: ["#0284c7", "#6366f1"], hair: "#1e1b4b", clothes: "#3b82f6" },
-      { id: "jiahao", n: "嘉豪", g: "男", t: "科技极客", bg: ["#0d9488", "#10b981"], hair: "#042f2e", clothes: "#059669" },
-      { id: "miaoyin", n: "妙音", g: "女", t: "国风非遗", bg: ["#dc2626", "#d97706"], hair: "#171717", clothes: "#b91c1c" }
+      { id: "xiaoqing", n: "晓晴", g: "女", t: "亲和居家", desc: "亲和力拉满，适合百货居家、厨房日用与生鲜零食", bg: ["#ec4899", "#f43f5e"], hair: "#1e1b4b", clothes: "#db2777" },
+      { id: "haodong", n: "浩东", g: "男", t: "数码硬核", desc: "极客科技风，擅长拆解参数、手机配件与户外装备", bg: ["#2563eb", "#4f46e5"], hair: "#0f172a", clothes: "#1e40af" },
+      { id: "lina", n: "丽娜", g: "女", t: "激情大促", desc: "快节奏逼单压迫感强，秒杀清仓爆品带货专属", bg: ["#f59e0b", "#ea580c"], hair: "#451a03", clothes: "#ea580c" },
+      { id: "yating", n: "雅婷", g: "女", t: "知性美妆", desc: "优雅知性温和，护肤彩妆、个护与高客单美学好物", bg: ["#a855f7", "#ec4899"], hair: "#3b0764", clothes: "#9333ea" },
+      { id: "minghui", n: "明辉", g: "男", t: "商务精英", desc: "严谨沉稳信赖感强，男装箱包、商务办公与轻奢好物", bg: ["#059669", "#0d9488"], hair: "#0f172a", clothes: "#1e293b" },
+      { id: "huixin", n: "慧心", g: "女", t: "温情宝妈", desc: "温暖接地气真实感强，母婴童装、辅食与家庭健康", bg: ["#f43f5e", "#e11d48"], hair: "#262626", clothes: "#e11d48" },
+      { id: "deshu", n: "德叔", g: "男", t: "滋补养生", desc: "老行家背书权威感，中老年滋补、茗茶与传统特产", bg: ["#78716c", "#b45309"], hair: "#475569", clothes: "#78350f" },
+      { id: "zihan", n: "子涵", g: "女", t: "青春潮服", desc: "Z世代活力潮流，网红穿搭、首饰箱包与年轻潮物", bg: ["#d946ef", "#8b5cf6"], hair: "#581c87", clothes: "#7c3aed" },
+      { id: "dazhuang", n: "大壮", g: "男", t: "农特原产", desc: "质朴憨厚真诚实在，农特生鲜、产地直发与户外农具", bg: ["#d97706", "#ca8a04"], hair: "#1c1917", clothes: "#b45309" },
+      { id: "yuxuan", n: "雨萱", g: "女", t: "高端雅致", desc: "小资轻奢松弛感，香氛珠宝、轻奢定制与生活格调", bg: ["#0284c7", "#6366f1"], hair: "#1e1b4b", clothes: "#3b82f6" },
+      { id: "jiahao", n: "嘉豪", g: "男", t: "科技极客", desc: "智能硬件潮玩达人，车品数码、AI工具与电竞外设", bg: ["#0d9488", "#10b981"], hair: "#042f2e", clothes: "#059669" },
+      { id: "miaoyin", n: "妙音", g: "女", t: "国风非遗", desc: "新中式温婉古韵，文创汉服、国潮茶具与传统工艺", bg: ["#dc2626", "#d97706"], hair: "#171717", clothes: "#b91c1c" }
     ];
 
-    // 生成纯矢量清晰中国主播真实面孔画像 (0依赖，国内100%秒开)
-    function renderAvatarSvg(av) {
-      var b1 = av.bg[0], b2 = av.bg[1];
-      var hairColor = av.hair;
-      var skin = "#fed7aa";
-      var clothes = av.clothes;
-      var extra = "";
+    var customAvatar = null;
+    try {
+      var savedCustom = localStorage.getItem('spira_custom_avatar');
+      if (savedCustom) customAvatar = JSON.parse(savedCustom);
+    } catch(e) {}
 
+    function renderAvatarSvg(av) {
+      var b1 = av.bg[0], b2 = av.bg[1], extra = "";
       if (av.id === "haodong") {
-        extra = '<rect x="33" y="37" width="14" height="10" rx="2" fill="none" stroke="#0f172a" stroke-width="2"/>' +
-                '<rect x="53" y="37" width="14" height="10" rx="2" fill="none" stroke="#0f172a" stroke-width="2"/>' +
-                '<line x1="47" y1="42" x2="53" y2="42" stroke="#0f172a" stroke-width="2"/>';
+        extra = '<rect x="33" y="37" width="14" height="10" rx="2" fill="none" stroke="#0f172a" stroke-width="2"/><rect x="53" y="37" width="14" height="10" rx="2" fill="none" stroke="#0f172a" stroke-width="2"/><line x1="47" y1="42" x2="53" y2="42" stroke="#0f172a" stroke-width="2"/>';
       } else if (av.id === "minghui") {
         extra = '<polygon points="50,68 53,92 47,92" fill="#dc2626"/>';
       } else if (av.id === "deshu") {
         extra = '<path d="M 44 54 Q 50 58 56 54" stroke="#64748b" stroke-width="1.5" stroke-dasharray="1,1" fill="none"/>';
       } else if (av.id === "jiahao") {
-        extra = '<path d="M 26 44 C 26 22, 74 22, 74 44" fill="none" stroke="#10b981" stroke-width="4"/>' +
-                '<rect x="23" y="38" width="6" height="14" rx="2" fill="#047857"/>' +
-                '<rect x="71" y="38" width="6" height="14" rx="2" fill="#047857"/>';
+        extra = '<path d="M 26 44 C 26 22, 74 22, 74 44" fill="none" stroke="#10b981" stroke-width="4"/><rect x="23" y="38" width="6" height="14" rx="2" fill="#047857"/><rect x="71" y="38" width="6" height="14" rx="2" fill="#047857"/>';
       } else if (av.id === "miaoyin") {
-        extra = '<circle cx="50" cy="18" r="8" fill="' + hairColor + '"/>' +
-                '<line x1="38" y1="14" x2="64" y2="22" stroke="#fbbf24" stroke-width="2.5" stroke-linecap="round"/>' +
-                '<circle cx="63" cy="22" r="3" fill="#ef4444"/>';
+        extra = '<circle cx="50" cy="18" r="8" fill="' + av.hair + '"/><line x1="38" y1="14" x2="64" y2="22" stroke="#fbbf24" stroke-width="2.5"/><circle cx="63" cy="22" r="3" fill="#ef4444"/>';
       } else if (av.g === "女") {
-        extra = '<circle cx="28" cy="48" r="2.5" fill="#fef08a"/>' +
-                '<circle cx="72" cy="48" r="2.5" fill="#fef08a"/>' +
-                '<circle cx="36" cy="46" r="3.5" fill="#f43f5e" opacity="0.4"/>' +
-                '<circle cx="64" cy="46" r="3.5" fill="#f43f5e" opacity="0.4"/>';
+        extra = '<circle cx="28" cy="48" r="2.5" fill="#fef08a"/><circle cx="72" cy="48" r="2.5" fill="#fef08a"/><circle cx="36" cy="46" r="3.5" fill="#f43f5e" opacity="0.4"/><circle cx="64" cy="46" r="3.5" fill="#f43f5e" opacity="0.4"/>';
       }
 
-      var hair = "";
-      if (av.g === "女") {
-        hair = '<path d="M 28 46 C 26 24, 74 24, 72 46 C 74 62, 70 70, 68 76 C 62 62, 60 52, 60 46 C 40 46, 38 62, 32 76 C 30 70, 26 62, 28 46 Z" fill="' + hairColor + '"/>' +
-               '<path d="M 32 38 Q 50 24 68 38 Q 50 32 32 38 Z" fill="' + hairColor + '"/>';
-      } else {
-        hair = '<path d="M 30 40 C 28 22, 72 22, 70 40 Q 50 28 30 40 Z" fill="' + hairColor + '"/>';
-      }
+      var hair = av.g === "女"
+        ? '<path d="M 28 46 C 26 24, 74 24, 72 46 C 74 62, 70 70, 68 76 C 62 62, 60 52, 60 46 C 40 46, 38 62, 32 76 C 30 70, 26 62, 28 46 Z" fill="' + av.hair + '"/><path d="M 32 38 Q 50 24 68 38 Q 50 32 32 38 Z" fill="' + av.hair + '"/>'
+        : '<path d="M 30 40 C 28 22, 72 22, 70 40 Q 50 28 30 40 Z" fill="' + av.hair + '"/>';
 
       return '<svg viewBox="0 0 100 100" class="w-full h-full rounded-full" xmlns="http://www.w3.org/2000/svg">' +
-        '<defs><linearGradient id="bg-' + av.id + '" x1="0%" y1="0%" x2="100%" y2="100%">' +
-        '<stop offset="0%" stop-color="' + b1 + '"/><stop offset="100%" stop-color="' + b2 + '"/>' +
-        '</linearGradient></defs>' +
-        '<circle cx="50" cy="50" r="50" fill="url(#bg-' + av.id + ')"/>' +
-        '<path d="M 20 95 C 20 72, 35 66, 50 66 C 65 66, 80 72, 80 95 Z" fill="' + clothes + '"/>' +
-        '<rect x="44" y="52" width="12" height="16" fill="' + skin + '" rx="3"/>' +
-        hair +
-        '<ellipse cx="50" cy="44" rx="20" ry="22" fill="' + skin + '"/>' +
-        '<circle cx="43" cy="42" r="2.5" fill="#0f172a"/>' +
-        '<circle cx="57" cy="42" r="2.5" fill="#0f172a"/>' +
-        '<path d="M 45 52 Q 50 56 55 52" stroke="#dc2626" stroke-width="2" fill="none" stroke-linecap="round"/>' +
-        extra +
-        '</svg>';
+        '<defs><linearGradient id="bg-' + av.id + '" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="' + b1 + '"/><stop offset="100%" stop-color="' + b2 + '"/></linearGradient></defs>' +
+        '<circle cx="50" cy="50" r="50" fill="url(#bg-' + av.id + ')' + '"/>' +
+        '<path d="M 20 95 C 20 72, 35 66, 50 66 C 65 66, 80 72, 80 95 Z" fill="' + av.clothes + '"/>' +
+        '<rect x="44" y="52" width="12" height="16" fill="#fed7aa" rx="3"/>' + hair +
+        '<ellipse cx="50" cy="44" rx="20" ry="22" fill="#fed7aa"/><circle cx="43" cy="42" r="2.5" fill="#0f172a"/><circle cx="57" cy="42" r="2.5" fill="#0f172a"/><path d="M 45 52 Q 50 56 55 52" stroke="#dc2626" stroke-width="2" fill="none" stroke-linecap="round"/>' + extra + '</svg>';
     }
 
     var PRICING_TIERS = [
-      { id: 'flagship_199', points: 300, price: '199.0', name: '尊享年度旗舰卡 (300条短视频)', desc: '折合仅 0.66 元/条 · 解锁全部12位高阶主播', badge: '👑 旗舰顶配 · 年度首选', border: 'border-2 border-amber-500/80 bg-gradient-to-r from-amber-950/30 to-slate-900', textColor: 'text-amber-300', boxBg: 'bg-gradient-to-tr from-amber-500 to-yellow-400 text-slate-950' },
+      { id: 'flagship_199', points: 300, price: '199.0', name: '尊享年度旗舰卡 (300条短视频)', desc: '折合仅 0.66 元/条 · 解锁全部12位高阶主播与自设人设', badge: '👑 旗舰顶配 · 年度首选', border: 'border-2 border-amber-500/80 bg-gradient-to-r from-amber-950/30 to-slate-900', textColor: 'text-amber-300', boxBg: 'bg-gradient-to-tr from-amber-500 to-yellow-400 text-slate-950' },
       { id: 'quarterly_99_9', points: 130, price: '99.9', name: '矩阵爆单季卡 (130条视频)', desc: '折合 0.76 元/条 · 适合多店铺矩阵铺量', border: 'border border-purple-500/80 bg-purple-950/20', textColor: 'text-purple-300', boxBg: 'bg-purple-600 text-white' },
       { id: 'monthly_39_9', points: 45, price: '39.9', name: '专业带货月卡 (45条短视频)', desc: '折合 0.88 元/条 · 极速优先队列', badge: '店主最爱', border: 'border border-indigo-500 bg-indigo-950/20', textColor: 'text-indigo-400', boxBg: 'bg-indigo-600 text-white' },
       { id: 'trial_9_9', points: 10, price: '9.9', name: '新店尝鲜包 (10条视频)', desc: '自动发卡 · 扫码即出兑换码', border: 'border border-slate-800 bg-slate-950', textColor: 'text-indigo-400', boxBg: 'bg-slate-800 text-slate-300' }
     ];
 
     var PLATFORMS = [
-      { id: 'douyin', name: '抖音/巨量百应', desc: '自动带货话题', icon: '抖', color: 'bg-pink-500/20 text-pink-400', url: 'https://creator.douyin.com/' },
-      { id: 'xhs', name: '小红书蒲公英', desc: '种草图文+视频', icon: '红', color: 'bg-red-500/20 text-red-400', url: 'https://creator.xiaohongshu.com/' },
-      { id: 'kuaishou', name: '快手小店', desc: '下沉高转化', icon: '快', color: 'bg-orange-500/20 text-orange-400', url: 'https://cp.kuaishou.com/' },
-      { id: 'weixin', name: '微信视频号', desc: '私域高客单', icon: '微', color: 'bg-emerald-500/20 text-emerald-400', url: 'https://channels.weixin.qq.com/' }
+      { id: 'douyin', name: '抖音创作者平台', icon: '抖', color: 'bg-black text-pink-500 border border-pink-500/50', desc: '一键复制文案 ➜ 直达发布', url: 'https://creator.douyin.com/' },
+      { id: 'xhs', name: '小红书创作者中心', icon: '红', color: 'bg-red-600 text-white', desc: '自动带 #爆款标签 ➜ 发布', url: 'https://creator.xiaohongshu.com/' },
+      { id: 'kuaishou', name: '快手创作者服务平台', icon: '快', color: 'bg-orange-500 text-white', desc: '智能带货挂载 ➜ 定时分发', url: 'https://cp.kuaishou.com/' },
+      { id: 'weixin', name: '微信视频号助手', icon: '微', color: 'bg-emerald-600 text-white', desc: '私域闭环转化 ➜ 一键上传', url: 'https://channels.weixin.qq.com/' }
     ];
 
     var SCHEDULE_DATA = [
-      { day: '周一', time: '12:00', title: '爆款暴力实测测评', platform: '抖音/快手', status: '已自动发布', views: '4,280' },
-      { day: '周二', time: '18:30', title: '源头工厂拆解用料真相', platform: '视频号/小红书', status: '已自动发布', views: '3,890' },
-      { day: '周三', time: '20:00', title: '行家避坑内幕揭秘', platform: '全平台矩阵', status: '已定时 待发布', views: '--' },
-      { day: '周四', time: '12:00', title: '高性价比旗舰挑战', platform: '抖音/小红书', status: '排期中', views: '--' },
-      { day: '周五', time: '19:00', title: '周末大促首发福利款', platform: '全平台矩阵', status: '排期中', views: '--' },
-      { day: '周六', time: '10:00', title: '现场极限压力实测', platform: '快手/视频号', status: '排期中', views: '--' },
-      { day: '周日', time: '20:30', title: '粉丝秒杀专场倒计时', platform: '抖音官方号', status: '排期中', views: '--' }
+      { day: '周一 (今日)', time: '18:30 黄金晚高峰', title: '德国碳素暴力钓竿 / 实测大物弯弓拉满', platform: '抖音 + 视频号', status: '待渲染', views: '--' },
+      { day: '周二', time: '12:15 午休刷屏期', title: '极速纳米速干防晒衣 / 冰感暴晒不闷热', platform: '小红书 + 抖音', status: '已排期', views: '--' },
+      { day: '周三', time: '20:00 晚间冲量期', title: '熬夜熬出黄褐脸？成分党实测原厂精华', platform: '快手 + 视频号', status: '已排期', views: '--' },
+      { day: '周四', time: '19:40 晚高峰', title: '半夜嘴馋低卡解馋肉干 / 工厂源头实拍', platform: '抖音矩阵', status: '已排期', views: '--' },
+      { day: '周五', time: '21:00 周末爆发期', title: '数码硬核测评！高负荷24小时不掉电', platform: '全平台矩阵', status: '已排期', views: '--' },
+      { day: '周六', time: '15:30 下午茶时段', title: '家务省力神器！3分钟让家大一倍', platform: '小红书 + 视频号', status: '已排期', views: '--' },
+      { day: '周日', time: '19:00 大促冲刺', title: '源头果园直发现摘特级鲜果测糖度', platform: '快手 + 抖音', status: '已排期', views: '--' }
     ];
 
-    var currentCredits = parseInt(localStorage.getItem('spira_user_credits') || '5');
-    var totalUsedCredits = parseInt(localStorage.getItem('spira_total_used') || '86');
-    var validCards = JSON.parse(localStorage.getItem('spira_valid_cards') || JSON.stringify({
-      "YEAR-199-8888": 300,
-      "SEASON-99.9-7777": 130,
-      "MONTH-39.9-6666": 45,
-      "TRIAL-9.9-1111": 10
+    var currentCredits = parseInt(localStorage.getItem('spira_credits') || "5", 10);
+    var totalUsedCredits = parseInt(localStorage.getItem('spira_used_credits') || "0", 10);
+    var validCards = JSON.parse(localStorage.getItem('spira_cards') || JSON.stringify({
+      "YEAR-199-8888": 300, "SEASON-99.9-6666": 130, "MONTH-39.9-3333": 45, "TRIAL-9.9-1111": 10
     }));
 
     var currentAvatar = AVATARS[0];
@@ -531,34 +499,29 @@
     var currentSelectedHook = "";
 
     function saveState() {
-      localStorage.setItem('spira_user_credits', currentCredits);
-      localStorage.setItem('spira_total_used', totalUsedCredits);
-      localStorage.setItem('spira_valid_cards', JSON.stringify(validCards));
+      try {
+        localStorage.setItem('spira_credits', currentCredits);
+        localStorage.setItem('spira_used_credits', totalUsedCredits);
+        localStorage.setItem('spira_cards', JSON.stringify(validCards));
+      } catch(e) {}
       var disp = document.getElementById('userCreditsDisplay');
       if (disp) disp.innerText = currentCredits;
+      var mDisp = document.getElementById('modalCreditsDisplay');
+      if (mDisp) mDisp.innerText = currentCredits;
       var adminCred = document.getElementById('adminUserCredits');
       if (adminCred) adminCred.innerText = currentCredits;
-      var adminUsed = document.getElementById('adminTotalUsed');
-      if (adminUsed) adminUsed.innerText = totalUsedCredits + ' 点';
     }
 
     function switchView(view) {
       var wView = document.getElementById('workshopView');
       var cView = document.getElementById('calendarView');
-      var btnW = document.getElementById('tabBtnWorkshop');
-      var btnC = document.getElementById('tabBtnCalendar');
-
       if (view === 'calendar') {
-        wView.classList.add('hidden');
-        cView.classList.remove('hidden');
-        btnC.className = "px-2.5 py-0.5 rounded-full bg-indigo-600 text-white font-bold";
-        btnW.className = "px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 hover:text-white";
+        if (wView) wView.classList.add('hidden');
+        if (cView) cView.classList.remove('hidden');
         renderCalendar();
       } else {
-        cView.classList.add('hidden');
-        wView.classList.remove('hidden');
-        btnW.className = "px-2.5 py-0.5 rounded-full bg-indigo-600 text-white font-bold";
-        btnC.className = "px-2.5 py-0.5 rounded-full bg-slate-800 text-slate-300 hover:text-white";
+        if (cView) cView.classList.add('hidden');
+        if (wView) wView.classList.remove('hidden');
       }
     }
 
@@ -566,24 +529,20 @@
       var container = document.getElementById('weekCalendarContainer');
       if (!container) return;
       container.innerHTML = '';
-      SCHEDULE_DATA.forEach(function(s) {
-        var isDone = s.status.indexOf('已自动发布') !== -1;
+      SCHEDULE_DATA.forEach(function(item) {
+        var isDone = item.status === '已发布';
         var card = document.createElement('div');
-        card.className = "p-2 rounded-xl border " + (isDone ? 'border-emerald-500/40 bg-emerald-950/20' : 'border-slate-800 bg-slate-950') + " flex flex-col justify-between";
-        card.innerHTML = '<div><div class="flex items-center justify-between text-[10px] text-slate-400 mb-1"><span class="font-bold text-white">' + s.day + '</span><span>' + s.time + '</span></div><p class="font-bold text-[11px] text-slate-200 line-clamp-2 leading-tight">' + s.title + '</p><p class="text-[9px] text-indigo-400 mt-1">' + s.platform + '</p></div><div class="mt-2 pt-1 border-t border-slate-800/80 flex items-center justify-between text-[9px]"><span class="' + (isDone ? 'text-emerald-400 font-semibold' : 'text-slate-500') + '">' + s.status + '</span><span class="text-amber-300 font-bold">' + (s.views !== '--' ? s.views + ' 播' : '') + '</span></div>';
+        card.className = "flex items-center justify-between p-2.5 rounded-xl border " + (isDone ? 'border-emerald-500/40 bg-emerald-950/20' : 'border-slate-800 bg-slate-950');
+        card.innerHTML = '<div class="flex items-center space-x-2.5"><div><span class="text-[10px] font-bold text-slate-400 block">' + item.day + ' · ' + item.time + '</span><span class="text-xs font-bold text-white">' + item.title + '</span><span class="text-[9px] text-indigo-400 block">' + item.platform + '</span></div></div><div class="text-right"><span class="px-2 py-0.5 rounded-full text-[9px] font-bold ' + (isDone ? 'bg-emerald-500/20 text-emerald-400' : 'bg-indigo-600/20 text-indigo-300') + '">' + item.status + '</span><span class="text-[9px] text-slate-400 block mt-0.5">播放预估：' + (isDone ? item.views : '5,000+') + '</span></div>';
         container.appendChild(card);
       });
     }
 
     function scheduleNewVideo() {
-      var title = document.getElementById('mockHookBigText').innerText;
+      var title = prompt("请输入要加入排期日历的视频标题/商品:", "爆款新品短视频 · 黄金晚高峰矩阵发货");
+      if (!title) return;
       SCHEDULE_DATA.push({
-        day: '下周一',
-        time: '18:00',
-        title: title,
-        platform: '全矩阵自动推送',
-        status: '已排期',
-        views: '--'
+        day: '下周一 (新单)', time: '19:30 黄金高峰', title: title, platform: '全矩阵自动推送', status: '已排期', views: '--'
       });
       renderCalendar();
       showToast("✅ 已将视频添加至 Spira 矩阵出货排期日历！");
@@ -592,10 +551,7 @@
     function parseProductUrl() {
       var urlInput = document.getElementById('productUrlInput');
       var url = urlInput ? urlInput.value.trim() : '';
-      if (!url) {
-        alert("请先粘贴商品链接（如淘宝/天猫/1688/抖音商品页）！");
-        return;
-      }
+      if (!url) { alert("请先粘贴商品链接（如淘宝/天猫/1688/抖音商品页）！"); return; }
       showToast("🔍 正在通过大模型提取链接商品卖点...");
       setTimeout(function() {
         document.getElementById('productNameInput').value = "极速纳米速干防晒衣 (UPF50+ 冰感透气)";
@@ -604,17 +560,94 @@
       }, 700);
     }
 
-    // 渲染12位中国主播真实面孔画像网格
+    function renderAvatarElement(av) {
+      if (av.isCustom && av.imgData) {
+        return '<img src="' + av.imgData + '" class="w-full h-full object-cover rounded-full" alt="' + av.n + '">';
+      }
+      return renderAvatarSvg(av);
+    }
+
+    function triggerCustomAvatarPicker() {
+      var input = document.getElementById('customAvatarFileInput');
+      if (input) input.click();
+    }
+
+    function handleCustomAvatarUpload(event) {
+      var file = event.target.files && event.target.files[0];
+      if (!file) return;
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        var img = new Image();
+        img.onload = function() {
+          var canvas = document.createElement('canvas');
+          var maxDim = 320, w = img.width, h = img.height;
+          if (w > h) {
+            if (w > maxDim) { h = Math.round(h * maxDim / w); w = maxDim; }
+          } else {
+            if (h > maxDim) { w = Math.round(w * maxDim / h); h = maxDim; }
+          }
+          canvas.width = w; canvas.height = h;
+          var ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, w, h);
+          var compressedDataUrl = canvas.toDataURL('image/jpeg', 0.85);
+
+          var defaultName = (customAvatar && customAvatar.n) ? customAvatar.n : "我的专属主播";
+          var inputName = prompt("请输入您的专属主播昵称 (例如: 老板娘 / 小雅 / 浩哥):", defaultName);
+          if (!inputName || !inputName.trim()) inputName = defaultName;
+
+          customAvatar = {
+            id: "custom",
+            n: inputName.trim(),
+            g: "自设",
+            t: "相册专属形象",
+            desc: "用户手机相册自拍/实拍定制，独家面孔同框出镜带货",
+            isCustom: true,
+            imgData: compressedDataUrl
+          };
+          try {
+            localStorage.setItem('spira_custom_avatar', JSON.stringify(customAvatar));
+          } catch(err) { console.warn(err); }
+          selectAvatar(customAvatar);
+          showToast("🎉 专属主播【" + customAvatar.n + "】已生成并设为出镜主播！");
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+      event.target.value = '';
+    }
+
     function renderAvatarGrid() {
       var container = document.getElementById('avatarGrid');
       if (!container) return;
       container.innerHTML = '';
+
+      if (customAvatar && customAvatar.imgData) {
+        var isCustomSel = currentAvatar.isCustom && currentAvatar.id === customAvatar.id;
+        var customCard = document.createElement('div');
+        customCard.className = "border " + (isCustomSel ? 'border-2 border-pink-500 bg-pink-950/30 shadow-lg shadow-pink-500/20' : 'border-pink-500/40 bg-pink-950/10') + " rounded-xl p-1 cursor-pointer text-center transition relative";
+        customCard.onclick = function() { selectAvatar(customAvatar); };
+        customCard.innerHTML = '<div class="w-9 h-9 rounded-full mx-auto overflow-hidden mb-1 border-2 border-pink-400 shadow relative">' +
+          '<img src="' + customAvatar.imgData + '" class="w-full h-full object-cover">' +
+          '</div><p class="text-[10px] font-bold text-pink-300 truncate">⭐ ' + customAvatar.n + '</p>' +
+          '<p class="text-[8px] text-pink-400/80 truncate">自设专属</p>' +
+          (isCustomSel ? '<span class="absolute top-0.5 right-0.5 text-pink-400 text-[9px]"><i class="ph-fill ph-check-circle"></i></span>' : '');
+        container.appendChild(customCard);
+      } else {
+        var uploadCard = document.createElement('div');
+        uploadCard.className = "border border-dashed border-pink-500/50 hover:border-pink-400 bg-pink-950/15 rounded-xl p-1 cursor-pointer text-center transition flex flex-col items-center justify-center active:scale-95";
+        uploadCard.onclick = triggerCustomAvatarPicker;
+        uploadCard.innerHTML = '<div class="w-9 h-9 rounded-full mx-auto bg-gradient-to-tr from-pink-500/20 to-purple-500/20 text-pink-300 flex items-center justify-center mb-1 text-sm font-bold shadow border border-pink-500/30">' +
+          '<i class="ph-bold ph-plus"></i>' +
+          '</div><p class="text-[10px] font-bold text-pink-300 truncate">+ 上传自拍</p>' +
+          '<p class="text-[8px] text-pink-400/70 truncate">设计主播</p>';
+        container.appendChild(uploadCard);
+      }
+
       AVATARS.forEach(function(av) {
-        var isSel = av.n === currentAvatar.n;
+        var isSel = !currentAvatar.isCustom && av.n === currentAvatar.n;
         var card = document.createElement('div');
-        card.className = "border " + (isSel ? 'border-2 border-indigo-500 bg-indigo-950/20' : 'border-slate-800 bg-slate-950') + " rounded-xl p-1 cursor-pointer text-center transition relative";
+        card.className = "border " + (isSel ? 'border-2 border-indigo-500 bg-indigo-950/20 shadow-lg shadow-indigo-500/20' : 'border-slate-800 bg-slate-950') + " rounded-xl p-1 cursor-pointer text-center transition relative";
         card.onclick = function() { selectAvatar(av); };
-        
         card.innerHTML = '<div class="w-9 h-9 rounded-full mx-auto overflow-hidden mb-1 border border-slate-700 shadow relative">' +
           renderAvatarSvg(av) +
           '</div><p class="text-[10px] font-bold text-slate-200 truncate">' + av.n + ' (' + av.g + ')</p><p class="text-[8px] text-slate-400 truncate">' + av.t + '</p>' +
@@ -626,11 +659,25 @@
     function selectAvatar(av) {
       currentAvatar = av;
       renderAvatarGrid();
+
+      var spotImg = document.getElementById('spotlightAvatarImg');
+      if (spotImg) spotImg.innerHTML = renderAvatarElement(av);
+      var spotName = document.getElementById('spotlightAvatarName');
+      if (spotName) spotName.innerText = av.n + " (" + (av.g || '定制') + ")";
+      var spotBadge = document.getElementById('spotlightAvatarBadge');
+      if (spotBadge) {
+        spotBadge.innerText = av.t;
+        spotBadge.className = "text-[9px] font-bold px-1.5 py-0.2 rounded-full " + (av.isCustom ? "bg-pink-600 text-white" : "bg-indigo-600 text-white");
+      }
+      var spotDesc = document.getElementById('spotlightAvatarDesc');
+      if (spotDesc) spotDesc.innerText = av.desc || (av.t + " · 电商带货专属口播面孔");
+
       var mockContainer = document.getElementById('mockAvatarPhotoContainer');
-      if (mockContainer) mockContainer.innerHTML = renderAvatarSvg(av);
+      if (mockContainer) mockContainer.innerHTML = renderAvatarElement(av);
       var nameEl = document.getElementById('mockAvatarName');
-      if (nameEl) nameEl.innerText = av.n + " (" + av.g + ")";
-      showToast("👤 已切换主播画像：【" + av.n + "】 (" + av.t + ")");
+      if (nameEl) nameEl.innerText = av.n + " (" + (av.g || '定制') + ")";
+
+      showToast("👤 已激活出镜主播：【" + av.n + "】 (" + av.t + ")");
     }
 
     function renderPricingTiers() {
@@ -654,35 +701,34 @@
       PLATFORMS.forEach(function(p) {
         var btn = document.createElement('button');
         btn.type = "button";
-        btn.className = "p-2 rounded-xl bg-slate-950 border border-slate-800 hover:border-indigo-500 text-left transition group";
+        btn.className = "p-2 rounded-xl bg-slate-950 border border-slate-800 hover:border-indigo-500 text-left transition group active:scale-95";
         btn.onclick = function() { publishToPlatform(p.id, p.url); };
         btn.innerHTML = '<div class="flex items-center gap-1.5"><span class="w-5 h-5 rounded ' + p.color + ' flex items-center justify-center text-[11px] font-black">' + p.icon + '</span><div><p class="text-[11px] font-bold text-slate-200 group-hover:text-indigo-400">' + p.name + '</p><p class="text-[8px] text-slate-500">' + p.desc + '</p></div></div>';
         container.appendChild(btn);
       });
     }
 
-    // 智能行业分类引擎
     function getIndustryCategory(name) {
-      var n = (name || '').toLowerCase();
-      if (/美妆|护肤|彩妆|口红|面膜|面霜|精华|粉底|眼霜|卸妆|防晒|洗面奶|香水|发型/.test(n)) return 'beauty';
-      if (/服装|穿搭|女装|男装|衣服|裙|裤|内衣|外套|西装|毛衣|鞋|包|饰品|帽子|防晒衣/.test(n)) return 'fashion';
-      if (/食品|生鲜|零食|美食|水果|肉|牛排|海鲜|大米|特产|零嘴|小吃|卤味|火锅|面包|蛋糕|茶|咖啡|饮料/.test(n)) return 'food';
-      if (/数码|家电|手机|电脑|平板|耳机|音响|智能|充电|相机|3c|手表|键盘|鼠标|投影仪/.test(n)) return 'tech';
-      if (/家居|日用|百货|收纳|清洁|拖把|洗洁精|垃圾桶|床品|四件套|毛巾|纸巾|厨具|锅|餐具/.test(n)) return 'home';
-      if (/母婴|宝宝|玩具|童装|童鞋|奶粉|纸尿裤|婴儿|推车|孕妇/.test(n)) return 'baby';
-      if (/宠物|猫|狗|猫粮|狗粮|猫砂|宠物用品|逗猫/.test(n)) return 'pet';
-      if (/车|汽车|汽配|行车记录|车用|机油|坐垫|脚垫|洗车/.test(n)) return 'auto';
-      if (/滋补|养生|保健|燕窝|人参|西洋参|枸杞|阿胶|鹿茸|中药|养生茶/.test(n)) return 'health';
-      if (/农特|原产|产地|果园|老农|农家|土特产|现摘|源头工厂/.test(n)) return 'farm';
-      if (/钓鱼|渔具|鱼竿|钓竿|鱼线|鱼饵|浮漂|野钓|黑坑/.test(n)) return 'fishing';
+      var n = name.toLowerCase();
+      if (/钓|鱼|竿|饵|钩/.test(n)) return 'fishing';
+      if (/美妆|护肤|面霜|口红|遮瑕|粉底|彩妆/.test(n)) return 'beauty';
+      if (/衣服|女装|男装|裙|裤|内衣|穿搭|防晒衣/.test(n)) return 'fashion';
+      if (/吃|零食|水果|肉|干|茶|饮|生鲜|蛋糕/.test(n)) return 'food';
+      if (/手机|耳机|数码|充电|电脑|3c|科技|线/.test(n)) return 'tech';
+      if (/家居|锅|清洁|拖把|纸巾|杯|日用|收纳/.test(n)) return 'home';
+      if (/母婴|娃|玩具|童装|奶瓶|辅食/.test(n)) return 'baby';
+      if (/猫|狗|宠|猫砂|粮|罐头/.test(n)) return 'pet';
+      if (/车|行车记录|清洗|汽|座垫/.test(n)) return 'auto';
+      if (/参|草|膏|养生|滋补|枸杞|老中/.test(n)) return 'health';
+      if (/特产|果园|农|蜜|土特产/.test(n)) return 'farm';
       return 'general';
     }
 
-    // 动态爆款黄金钩子库
     function generateDynamicAIHooks(industryName) {
       var item = industryName || "这款产品";
       var cat = getIndustryCategory(item);
       var p = {
+        fishing: ["大鱼咬钩直接弯成满月！实测【" + item + "】承重极限到底有多顶？", "连续三天断竿空军白受罪，换上这根【" + item + "】野钓爆护翻盘！", "抛投半小时手腕酸得抬不起？那是你没用过超轻【" + item + "】！"],
         beauty: ["卡粉起皮还斑驳脱妆？今天冒着得罪柜姐的风险，实测被问爆的【" + item + "】！", "别再去专柜花大几百交智商税了！成分党实测源头工厂【" + item + "】用料！", "暗沉发黄熬夜脸有救了！连续用7天，这款【" + item + "】到底灵不灵？"],
         fashion: ["微胖小个子穿什么都显壮？上身实测视觉显瘦十斤的【" + item + "】！", "起球缩水变形？撕开大牌同款，看清源头工厂【" + item + "】真实版型面料！", "去实体店买【" + item + "】动不动被宰几百？档口老板教你一眼识破内幕！"],
         food: ["科技与狠活防腐剂？现场切开实测源头正宗【" + item + "】的纯正原味！", "半夜嘴馋又怕长胖变负担？吃货亲测这款低卡又解馋的【" + item + "】！", "咬下去第一口爆浆满口留香！回购榜第一的【" + item + "】到底有多绝？"],
@@ -693,158 +739,123 @@
         auto: ["刚买的车异味熏得头晕？实测车规级环保无味【" + item + "】！", "去4S店被宰大几百？老司机教你网上几十块搞定原厂级【" + item + "】！", "卡扣断裂打滑移位？暴力实测高贴合耐磨【" + item + "】到底有多稳！"],
         health: ["天天熬夜脸色蜡黄浑身乏力？老中医教你每天用【" + item + "】温和滋补！", "硫磺熏蒸发霉碎渣？带你看清真正道地无添加【" + item + "】鉴别法！", "保温杯里别只泡枸杞了！懂行养生人常喝的【" + item + "】好在哪？"],
         farm: ["超市放一周哪有新鲜？果园现摘直发农家【" + item + "】现场测糖度！", "冒着被中间商威胁风险！农户一手原生态【" + item + "】送到你家！", "打蜡泡水催熟膨大剂？教你一眼认出正宗天然【" + item + "】！"],
-        fishing: ["大鱼咬钩直接弯成满月！实测【" + item + "】承重极限到底有多顶？", "连续三天断竿空军白受罪，换上这根【" + item + "】野钓爆护翻盘！", "抛投半小时手腕酸得抬不起？那是你没用过超轻【" + item + "】！"],
         general: ["市面上同类产品动不动翻车踩雷？今天现场暴力实测【" + item + "】！", "别再去实体店交智商税了！源头直发【" + item + "】看清真实用料！", "为什么很多行家和老手都在偷偷用？拆开【" + item + "】带你看清真相！"]
       };
       var cur = p[cat] || p.general;
       return [
         cur,
-        [
-          "为什么很多行家老手都在偷偷用？拆开这款【" + item + "】看清真相！",
-          "百元以内挑战千元级做工！这款【" + item + "】真的能扛住暴力实测吗？",
-          "冒着得罪同行的风险！今天教你闭眼选【" + item + "】不踩雷不被割韭菜！"
-        ],
-        [
-          "解决困扰无数人的使用痛点！用过就回不去的【" + item + "】现场测评！",
-          "天天被问从哪买的？实测一个月，这款【" + item + "】真实体验大公开！",
-          "工厂首发直接击穿底价！点击视频左下方小黄车，假一赔十现货秒发！"
-        ]
+        ["为什么很多行家老手都在偷偷用？拆开这款【" + item + "】看清真相！", "百元以内挑战千元级做工！这款【" + item + "】真的能扛住暴力实测吗？", "冒着得罪同行的风险！今天教你闭眼选【" + item + "】不踩雷不被割韭菜！"],
+        ["解决困扰无数人的使用痛点！用过就回不去的【" + item + "】现场测评！", "天天被问从哪买的？实测一个月，这款【" + item + "】真实体验大公开！", "工厂首发直接击穿底价！点击视频左下方小黄车，假一赔十现货秒发！"]
       ];
     }
 
-    // 渲染 3 张直观大卡片，彻底取代失灵的隐藏下拉框
-    function renderHookCards(hookList) {
+    function renderHookCards(hooksList) {
       var container = document.getElementById('hookCardsContainer');
       if (!container) return;
       container.innerHTML = '';
-      
-      var angleLabels = ["⚡ 认知反差型 (前2秒防划走)", "⚠️ 痛点避坑型 (深度引发焦虑)", "🔥 极限实测型 (源头高转化)"];
+      var angleLabels = ["【痛点逆袭型】", "【认知冲突型】", "【行家揭秘型】"];
 
-      hookList.forEach(function(hookText, idx) {
-        var isSelected = (hookText === currentSelectedHook) || (idx === 0 && !currentSelectedHook);
+      hooksList.forEach(function(hookText, idx) {
+        var isSelected = (currentSelectedHook === hookText) || (idx === 0 && !currentSelectedHook);
         if (isSelected) currentSelectedHook = hookText;
 
         var card = document.createElement('div');
-        card.className = "p-2.5 rounded-xl border cursor-pointer transition flex items-start gap-2 " + 
-          (isSelected ? "border-2 border-indigo-500 bg-indigo-950/30 shadow-md shadow-indigo-500/10" : "border-slate-800 bg-slate-950 hover:border-slate-700");
-        
-        card.onclick = function() {
-          currentSelectedHook = hookText;
-          renderHookCards(hookList);
-          applyPainPoint(hookText);
-          showToast("🔥 已选择钩子 " + (idx + 1) + "！成片与脚本已实时更新！");
-        };
+        card.className = "p-2 rounded-xl border cursor-pointer transition text-left relative flex items-start space-x-2 active:scale-95 " +
+          (isSelected ? "border-amber-400 bg-amber-950/20 shadow-md shadow-amber-500/10" : "border-slate-800 bg-slate-950 hover:border-slate-700");
+        card.onclick = function() { applyPainPoint(hookText); };
 
-        card.innerHTML = '<span class="px-1.5 py-0.5 rounded text-[9px] font-bold flex-shrink-0 ' + (isSelected ? 'bg-indigo-600 text-white' : 'bg-slate-800 text-slate-400') + '">钩子 ' + (idx + 1) + '</span>' +
-          '<div class="flex-1"><span class="text-[9px] text-amber-400 font-semibold block mb-0.5">' + angleLabels[idx] + '</span><p class="text-xs font-bold ' + (isSelected ? 'text-white' : 'text-slate-300') + ' leading-snug">' + hookText + '</p></div>' +
-          (isSelected ? '<i class="ph-fill ph-check-circle text-indigo-400 text-base flex-shrink-0"></i>' : '');
-
+        card.innerHTML = '<div class="w-4 h-4 rounded-full ' + (isSelected ? 'bg-amber-400 text-slate-950' : 'bg-slate-800 text-slate-400') + ' flex items-center justify-center text-[10px] font-black flex-shrink-0 mt-0.5">' +
+          (idx + 1) + '</div><div class="flex-1 min-w-0"><div class="flex items-center space-x-1.5"><span class="text-[9px] font-bold ' + (isSelected ? 'text-amber-300' : 'text-slate-400') + '">' + (angleLabels[idx] || '爆款破局') + '</span>' +
+          (isSelected ? '<span class="text-[8px] bg-amber-400 text-slate-950 font-bold px-1 rounded">当前生效</span>' : '') +
+          '</div><p class="text-xs font-semibold ' + (isSelected ? 'text-white' : 'text-slate-300') + ' leading-relaxed mt-0.5">' + hookText + '</p></div>';
         container.appendChild(card);
       });
     }
 
-    function updateHookSelect(industry) {
-      currentIndustry = industry || "户外钓鱼";
-      var hookGroups = generateDynamicAIHooks(currentIndustry);
+    function updateHookSelect(industryName) {
+      var hookGroups = generateDynamicAIHooks(industryName);
       var currentGroup = hookGroups[hookBatchIndex % hookGroups.length];
-      
-      // 渲染 3 张大卡片
       renderHookCards(currentGroup);
-      applyPainPoint(currentGroup[0]);
-
-      // 芯片激活状态切换
-      var chips = document.querySelectorAll('#industryChips span');
-      chips.forEach(function(chip) {
-        if (chip.innerText.trim() === currentIndustry) {
-          chip.className = "cursor-pointer px-2 py-0.5 rounded bg-indigo-600 text-white font-bold transition";
-        } else {
-          chip.className = "cursor-pointer px-2 py-0.5 rounded bg-slate-800 hover:bg-indigo-600 text-slate-300 transition";
-        }
-      });
+      if (currentGroup && currentGroup.length > 0) {
+        applyPainPoint(currentGroup[0]);
+      }
     }
 
     function applyPainPoint(hookText) {
+      if (!hookText) return;
       currentSelectedHook = hookText;
       var hookBig = document.getElementById('mockHookBigText');
       if (hookBig) hookBig.innerText = hookText;
       realGenerateScript(hookText);
+      var hookGroups = generateDynamicAIHooks(currentIndustry);
+      var currentGroup = hookGroups[hookBatchIndex % hookGroups.length];
+      renderHookCards(currentGroup);
+      showToast("🎯 已选取黄金钩子，成片预览与分镜脚本已自动同步！");
     }
 
     function refreshPainPoints() {
       hookBatchIndex++;
       updateHookSelect(currentIndustry);
-      var refreshBtn = document.getElementById('btnRefreshHooks');
-      if (refreshBtn) {
-        var orig = refreshBtn.innerHTML;
-        refreshBtn.innerHTML = '<i class="ph ph-arrows-clockwise animate-spin"></i> 正在换一批...';
-        setTimeout(function() { refreshBtn.innerHTML = orig; }, 400);
-      }
-      showToast("🔄 已为您轮换全新角度黄金钩子！");
+      showToast("🔄 已切换下一批爆款钩子角度！");
     }
 
     function searchIndustryPains() {
-      var input = document.getElementById('industrySearchInput');
+      var input = document.getElementById('industryInput');
       var val = input ? input.value.trim() : '';
-      if (!val) {
-        val = currentIndustry || "户外钓鱼";
-        if (input) input.value = val;
-      }
-
-      var btn = document.getElementById('btnSearchIndustry');
-      if (btn) {
-        var orig = btn.innerHTML;
-        btn.innerHTML = '<i class="ph-bold ph-sparkle animate-spin"></i><span>生成中...</span>';
-        setTimeout(function() { btn.innerHTML = orig; }, 350);
-      }
-
-      autoSyncSampleProduct(val);
+      if (!val) { alert("请输入行业或产品品名！"); return; }
+      currentIndustry = val;
+      hookBatchIndex = 0;
       updateHookSelect(val);
-      showToast("✅ 已智能生成 3 套【" + val + "】专属爆款黄金钩子！");
+      autoSyncSampleProduct(val);
+      showToast("⚡ 已为【" + val + "】匹配定制黄金钩子！");
     }
 
-    function quickSelectTag(tag) {
-      var input = document.getElementById('industrySearchInput');
-      if (input) input.value = tag;
-      autoSyncSampleProduct(tag);
-      updateHookSelect(tag);
-      showToast("✅ 已切换行业并生成【" + tag + "】爆款钩子！");
+    function quickSelectTag(tagName) {
+      var input = document.getElementById('industryInput');
+      if (input) input.value = tagName;
+      currentIndustry = tagName;
+      hookBatchIndex = 0;
+      updateHookSelect(tagName);
+      autoSyncSampleProduct(tagName);
+      showToast("⚡ 已载入【" + tagName + "】爆款知识库！");
     }
 
-    function autoSyncSampleProduct(industry) {
+    function autoSyncSampleProduct(catName) {
       var prodInput = document.getElementById('productNameInput');
       if (!prodInput) return;
-      var cat = getIndustryCategory(industry);
+      var cat = getIndustryCategory(catName);
       var samples = {
-        beauty: "赋活多肽抗皱紧致修护精华乳",
-        fashion: "极速纳米速干防晒衣 (UPF50+ 冰感透气)",
-        food: "正宗安格斯原切雪花厚切牛排",
-        tech: "ANC双麦主动降噪极客蓝牙耳机",
-        home: "高强度加厚收纳箱 (3秒折叠大容量)",
-        baby: "食品级婴儿学饮吸管杯 (耐摔防胀气)",
-        pet: "全肉高蛋白原味主食冻干鸡肉粒",
-        auto: "专车专用全包围耐磨环保汽车脚垫",
-        health: "长白山原产红参阿胶滋补固元膏",
-        farm: "高山果园现采新鲜红富士大苹果",
         fishing: "德国碳素暴力钓竿 / 超轻大物竿",
-        general: "源头直发轻奢热销爆款好物"
+        beauty: "特润修护多肽紧致面霜 / 熬夜焕肤霜",
+        fashion: "极速纳米速干防晒衣 (UPF50+ 冰感透气)",
+        food: "低卡高蛋白原切牛肉干 (0糖低脂解馋)",
+        tech: "氮化镓65W极速三合一快充头 (智能控温)",
+        home: "多功能纳米免手洗平板拖把 (死角无残留)",
+        baby: "医护级食品接触硅胶婴儿辅食碗勺套装",
+        pet: "全价鲜肉烘焙猫粮 (90%真肉含量 无谷)",
+        auto: "车规级纳米太阳能车载香薰 (主动除味净化)",
+        health: "长白山正宗五年野生人参滋补蜜片",
+        farm: "高山果园现摘特级红富士苹果 (顺丰冷链直发)"
       };
-      if (samples[cat]) {
-        prodInput.value = samples[cat];
-      }
+      prodInput.value = samples[cat] || (catName + " · 源头严选好物");
     }
 
-    function realGenerateScript(hook) {
-      var hookText = hook || currentSelectedHook || "点击选择黄金钩子";
+    function realGenerateScript(hookText) {
       var prodInput = document.getElementById('productNameInput');
-      var prod = prodInput ? prodInput.value : '热销爆款好物';
-      var script = "【0-3秒黄金爆破】" + hookText + "\\n\\n【3-15秒痛点反击】以前用同类产品动不动就翻车踩雷。今天这款【" + prod + "】，源头工匠严选纯正材料，抗压防断，拿在手里又轻又韧，质感直接拉满！\\n\\n【15-30秒逼单转化】今天工厂首发福利，官方补贴直接破价！点击视频左下方小黄车，假一赔十，现货秒发！";
+      var prod = prodInput ? prodInput.value.trim() : "这款产品";
+      var script = "【0-3秒黄金破局】 " + (hookText || "为什么很多懂行的人都在用？") + "\\n" +
+                   "【4-15秒痛点反击】 普通市面产品偷工减料动不动翻车，而我们这款【" + prod + "】全部采用源头高标准严选工艺，暴力实测直接拉满！\\n" +
+                   "【16-30秒逼单促单】 工厂首发击穿底价，假一赔十现货直发，点击左下角小黄车立即抢购！";
       var txtArea = document.getElementById('scriptTextarea');
       if (txtArea) txtArea.value = script;
       var subText = document.getElementById('mockSubtitleText');
-      if (subText) subText.innerText = hookText;
+      if (subText) subText.innerText = (hookText || "今天冒着得罪同行的风险，带大家看清真相...");
     }
 
-    function refreshGeneratedScript() { realGenerateScript(); }
+    function refreshGeneratedScript() {
+      realGenerateScript(currentSelectedHook);
+      showToast("✨ 5人团队文案编排员已重新生成最新分镜脚本！");
+    }
 
     function triggerImagePicker() {
       var f = document.getElementById('productFileInput');
@@ -852,37 +863,38 @@
     }
 
     function handleImageUpload(e) {
-      var file = e.target.files[0];
-      if (file) {
-        var reader = new FileReader();
-        reader.onload = function(event) {
-          document.getElementById('productImagePreview').src = event.target.result;
-          document.getElementById('mockVideoBg').src = event.target.result;
-          showToast("📷 商品实拍图更换成功！已自动抠图同框。");
-        };
-        reader.readAsDataURL(file);
-      }
+      var file = e.target.files && e.target.files[0];
+      if (!file) return;
+      var reader = new FileReader();
+      reader.onload = function(evt) {
+        var prev = document.getElementById('productImagePreview');
+        if (prev) prev.src = evt.target.result;
+        var bg = document.getElementById('mockVideoBg');
+        if (bg) bg.src = evt.target.result;
+        showToast("🖼️ 商品实拍图已更新！AI已自动完成抠图与打光同框。");
+      };
+      reader.readAsDataURL(file);
     }
 
     function realStartRender() {
       if (currentCredits <= 0) {
-        alert("⚠️ 算力余额不足！请点击右上角【充值】购买算力包。");
+        showToast("⚠️ 您的算力点数不足！请点击右上角【充值】获取点数。");
         openRechargeModal();
         return;
       }
-      currentCredits -= 1;
-      totalUsedCredits += 1;
+      currentCredits--;
+      totalUsedCredits++;
       saveState();
 
       var overlay = document.getElementById('renderOverlay');
       var badge = document.getElementById('renderStatusBadge');
-      var title = document.getElementById('pipelineAgentTitle');
+      var title = document.getElementById('pipelineStepTitle');
       var bar = document.getElementById('pipelineProgressBar');
       var text = document.getElementById('pipelineStepText');
 
       if (overlay) overlay.style.display = 'flex';
       if (badge) {
-        badge.innerText = "流水线运转中";
+        badge.innerText = "流水线执行中...";
         badge.className = "text-[10px] bg-indigo-500/20 text-indigo-400 px-2 py-0.5 rounded-full font-medium animate-pulse";
       }
 
@@ -909,20 +921,16 @@
           }
           showToast("🎉 5人团队自动化流水线已完成成片渲染！已挂载至排期日历。");
         }
-      }, 800);
+      }, 700);
     }
 
-    // 真正生成并下载成片海报/视频文件到手机相册
     function mockDownloadVideo() {
       showToast("⏳ 正在为您的手机打包 1080P 高清视频成片并推送到相册...");
-      
       try {
         var canvas = document.createElement('canvas');
-        canvas.width = 720;
-        canvas.height = 1280;
+        canvas.width = 720; canvas.height = 1280;
         var ctx = canvas.getContext('2d');
 
-        // 背景深色渐变
         var grad = ctx.createLinearGradient(0, 0, 0, 1280);
         grad.addColorStop(0, '#1e1b4b');
         grad.addColorStop(0.4, '#090d16');
@@ -930,37 +938,35 @@
         ctx.fillStyle = grad;
         ctx.fillRect(0, 0, 720, 1280);
 
-        // 顶部品牌与1080P标识
         ctx.fillStyle = 'rgba(255,255,255,0.6)';
         ctx.font = 'bold 22px sans-serif';
         ctx.textAlign = 'left';
         ctx.fillText('Spira AI 智能云剪 1080P · 爆款带货短视频', 40, 60);
 
-        // 黄金钩子大字报
         ctx.fillStyle = '#f59e0b';
         ctx.fillRect(40, 90, 640, 130);
         ctx.fillStyle = '#020617';
         ctx.font = 'bold 30px sans-serif';
         ctx.textAlign = 'center';
-        var hook = document.getElementById('mockHookBigText').innerText;
+        var hookEl = document.getElementById('mockHookBigText');
+        var hook = hookEl ? hookEl.innerText : '爆款带货视频黄金破局';
         ctx.fillText(hook.slice(0, 17), 360, 145);
         ctx.fillText(hook.slice(17, 34), 360, 190);
 
-        // 主播信息卡
         ctx.fillStyle = '#1e293b';
         ctx.fillRect(440, 900, 240, 320);
-        ctx.strokeStyle = '#6366f1';
+        ctx.strokeStyle = currentAvatar.isCustom ? '#ec4899' : '#6366f1';
         ctx.lineWidth = 4;
         ctx.strokeRect(440, 900, 240, 320);
 
         ctx.fillStyle = '#ffffff';
-        ctx.font = 'bold 26px sans-serif';
-        ctx.fillText(currentAvatar.n + ' (' + currentAvatar.g + ')', 560, 1170);
-        ctx.fillStyle = '#fbbf24';
-        ctx.font = '20px sans-serif';
-        ctx.fillText('● 带货讲解中', 560, 1205);
+        ctx.font = 'bold 24px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(currentAvatar.n + ' (' + (currentAvatar.g || '定制') + ')', 560, 1170);
+        ctx.fillStyle = currentAvatar.isCustom ? '#f472b6' : '#fbbf24';
+        ctx.font = '18px sans-serif';
+        ctx.fillText('● ' + (currentAvatar.isCustom ? '自设数字人带货' : 'AI数字人带货中'), 560, 1205);
 
-        // 字幕
         ctx.fillStyle = 'rgba(0,0,0,0.85)';
         ctx.fillRect(40, 1110, 380, 110);
         ctx.fillStyle = '#ffffff';
@@ -969,34 +975,61 @@
         ctx.fillText('今天冒着得罪同行的风险...', 60, 1155);
         ctx.fillText('带大家看清真相，现货秒发！', 60, 1195);
 
-        canvas.toBlob(function(blob) {
-          var url = URL.createObjectURL(blob);
-          var a = document.createElement('a');
-          a.href = url;
-          a.download = 'Spira_爆款短视频成片_' + Date.now() + '.png';
-          document.body.appendChild(a);
-          a.click();
-          setTimeout(function() {
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-          }, 400);
-          showToast("🎉 视频成片已成功下载到手机！请在手机相册/文件下载中查看。");
-        }, 'image/png');
+        function triggerDownloadBlob() {
+          canvas.toBlob(function(blob) {
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = 'Spira_爆款短视频成片_' + Date.now() + '.png';
+            document.body.appendChild(a);
+            a.click();
+            setTimeout(function() {
+              document.body.removeChild(a);
+              URL.revokeObjectURL(url);
+            }, 400);
+            showToast("🎉 视频成片已成功下载到手机！请在手机相册中查看。");
+          }, 'image/png');
+        }
+
+        if (currentAvatar.isCustom && currentAvatar.imgData) {
+          var avatarImg = new Image();
+          avatarImg.onload = function() {
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(560, 1020, 65, 0, Math.PI * 2);
+            ctx.closePath();
+            ctx.clip();
+            ctx.drawImage(avatarImg, 495, 955, 130, 130);
+            ctx.restore();
+            triggerDownloadBlob();
+          };
+          avatarImg.onerror = function() { triggerDownloadBlob(); };
+          avatarImg.src = currentAvatar.imgData;
+        } else {
+          ctx.save();
+          ctx.beginPath();
+          ctx.arc(560, 1020, 65, 0, Math.PI * 2);
+          ctx.fillStyle = '#6366f1';
+          ctx.fill();
+          ctx.fillStyle = '#ffffff';
+          ctx.font = 'bold 36px sans-serif';
+          ctx.textAlign = 'center';
+          ctx.fillText(currentAvatar.n.slice(0, 1), 560, 1032);
+          ctx.restore();
+          triggerDownloadBlob();
+        }
       } catch (e) {
-        showToast("🎉 视频生成完成！已触发下载到手机。");
+        showToast("🎉 视频成片生成完成！已触发下载到手机。");
       }
     }
 
-    // 真正拉起对应平台发布入口并复制文案
     function publishToPlatform(platform, platformUrl) {
       var names = { douyin: '抖音', xhs: '小红书', kuaishou: '快手', weixin: '微信视频号' };
       copyPublishInfo();
       showToast("🚀 已复制爆款文案！正在打开【" + (names[platform] || platform) + "】平台...");
-      if (platformUrl) {
-        setTimeout(function() {
-          window.open(platformUrl, '_blank');
-        }, 500);
-      }
+      setTimeout(function() {
+        if (platformUrl) window.open(platformUrl, '_blank');
+      }, 500);
     }
 
     function copyPublishInfo() {
@@ -1004,84 +1037,92 @@
       var hook = hookEl ? hookEl.innerText : '';
       var prodEl = document.getElementById('productNameInput');
       var prod = prodEl ? prodEl.value : '';
-      var text = hook + "\\n#" + currentIndustry + " #" + prod + " #好物推荐 #爆款视频 #源头工厂";
+      var text = "🔥 " + hook + "\\n\\n【核心卖点】" + prod + "\\n\\n#带货视频 #爆款推荐 #好物分享 #工厂源头 #SpiraAI";
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(text).then(function() {
-          showToast("📋 爆款标题与话题标签已复制到剪贴板！可以直接粘贴发布。");
+          showToast("📋 带货文案与标签已成功复制到剪贴板！");
         }).catch(function() {
-          prompt("请手动复制发布文案：", text);
+          fallbackCopyText(text);
         });
       } else {
-        prompt("请手动复制发布文案：", text);
+        fallbackCopyText(text);
       }
+    }
+
+    function fallbackCopyText(text) {
+      var textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.style.position = "fixed";
+      textarea.style.opacity = "0";
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand("copy");
+        showToast("📋 带货文案已复制到剪贴板！");
+      } catch (err) {
+        console.warn(err);
+      }
+      document.body.removeChild(textarea);
     }
 
     function openRechargeModal() {
       var m = document.getElementById('rechargeModal');
-      if (m) m.style.display = 'flex';
+      if (m) { m.classList.remove('hidden'); m.classList.add('flex'); }
+      saveState();
     }
     function closeRechargeModal() {
       var m = document.getElementById('rechargeModal');
-      if (m) m.style.display = 'none';
+      if (m) { m.classList.remove('flex'); m.classList.add('hidden'); }
     }
-
     function openGrowthModal() {
       var m = document.getElementById('growthModal');
-      if (m) m.style.display = 'flex';
+      if (m) { m.classList.remove('hidden'); m.classList.add('flex'); }
     }
     function closeGrowthModal() {
       var m = document.getElementById('growthModal');
-      if (m) m.style.display = 'none';
+      if (m) { m.classList.remove('flex'); m.classList.add('hidden'); }
     }
 
-    function mockAutoBuy(type, points) {
-      var prefix = "TRIAL-";
-      if (type === 'flagship_199') prefix = "YEAR-";
-      else if (type === 'quarterly_99_9') prefix = "SEASON-";
-      else if (type === 'monthly_39_9') prefix = "MONTH-";
-
-      var randomCode = prefix + Math.floor(1000 + Math.random() * 9000);
+    function mockAutoBuy(tierId, points) {
+      var prefix = tierId.toUpperCase();
+      var randomCode = prefix + '-' + Math.floor(1000 + Math.random() * 9000);
       validCards[randomCode] = points;
       saveState();
-
-      setTimeout(function() {
-        var inp = document.getElementById('cardCodeInput');
-        if (inp) inp.value = randomCode;
-        showToast("🔔 自动发卡成功！卡密【" + randomCode + "】已填入，点击兑换即可！");
-      }, 300);
+      var inp = document.getElementById('cardCodeInput');
+      if (inp) inp.value = randomCode;
+      showToast("💳 自动模拟下单支付成功！已为您自动填入兑换码【" + randomCode + "】，点击核销即可入账。");
     }
 
     function redeemCardCode() {
       var input = document.getElementById('cardCodeInput');
       var code = input ? input.value.trim().toUpperCase() : '';
-      if (!code) { alert('请输入卡密！'); return; }
+      if (!code) { alert("请输入有效的充值兑换卡密！"); return; }
       if (validCards[code]) {
         var add = validCards[code];
         currentCredits += add;
         delete validCards[code];
         saveState();
-        input.value = '';
+        if (input) input.value = '';
+        showToast("🎉 卡密核销成功！已到账 +" + add + " 点算力，当前剩余 " + currentCredits + " 点！");
         closeRechargeModal();
-        showToast("🎉 恭喜！卡密核销成功！已自动到账 +" + add + " 点算力！");
       } else {
-        alert('❌ 无效的卡密或该卡密已被使用！');
+        alert("❌ 无效或已被核销的卡密！");
       }
     }
 
     function openAdminLogin() {
-      var pwd = prompt("请输入管理员后台密码：", "");
+      var pwd = prompt("请输入管理员密码:", "");
       if (pwd === "admin888") {
-        renderCards();
         var m = document.getElementById('adminModal');
-        if (m) m.style.display = 'flex';
+        if (m) { m.classList.remove('hidden'); m.classList.add('flex'); }
+        renderCards();
       } else if (pwd !== null) {
-        alert("❌ 密码错误！默认管理密码为：admin888");
+        alert("❌ 密码错误！默认密码为：admin888");
       }
     }
-
     function closeAdminModal() {
       var m = document.getElementById('adminModal');
-      if (m) m.style.display = 'none';
+      if (m) { m.classList.remove('flex'); m.classList.add('hidden'); }
     }
 
     var logoClickCount = 0;
@@ -1099,25 +1140,27 @@
       list.innerHTML = '';
       var keys = Object.keys(validCards);
       if (keys.length === 0) {
-        list.innerHTML = '<div class="text-slate-500 py-2 text-center text-xs">暂无待核销卡密，请点击上方按钮生成</div>';
+        list.innerHTML = '<div class="text-slate-500 py-1 text-center text-[10px]">库存暂无未兑换卡密</div>';
         return;
       }
       keys.forEach(function(k) {
         var div = document.createElement('div');
         div.className = "flex justify-between items-center bg-slate-900 border border-slate-800 p-1.5 rounded";
-        div.innerHTML = '<div><span class="text-indigo-400 font-bold">' + k + '</span><span class="text-slate-400 ml-1.5">(' + validCards[k] + '点)</span></div><button type="button" onclick="adminDeleteCard(\\\'' + k + '\\\')" class="text-red-400 hover:text-red-300 text-xs px-1">删除</button>';
+        div.innerHTML = '<div><span class="text-indigo-400 font-bold">' + k + '</span><span class="text-slate-400 ml-1.5">(' + validCards[k] + '点)</span></div><button type="button" class="text-red-400 text-xs px-1">删除</button>';
+        var delBtn = div.querySelector('button');
+        if (delBtn) { (function(key){ delBtn.onclick = function() { adminDeleteCard(key); }; })(k); }
         list.appendChild(div);
       });
     }
 
     function adminGenerateNewCards(points, prefix) {
       for (var i = 0; i < 3; i++) {
-        var c = prefix + "-" + Math.floor(1000 + Math.random() * 9000);
+        var c = prefix + '-' + Math.floor(1000 + Math.random() * 9000);
         validCards[c] = points;
       }
       saveState();
       renderCards();
-      showToast("✅ 成功生成 3 张新卡密（每张 " + points + " 点算力）！已加入库存。");
+      showToast("✅ 已成功批量生成 3 张新卡密 (每张 " + points + " 点)！");
     }
 
     function adminDeleteCard(k) {
@@ -1129,6 +1172,7 @@
     function adminAdjustUserCredits(delta) {
       currentCredits = Math.max(0, currentCredits + delta);
       saveState();
+      showToast("🔧 管理员已调整算力点数：" + (delta > 0 ? "+" + delta : delta) + " 点");
     }
 
     function showToast(msg) {
@@ -1148,18 +1192,22 @@
       }, 2200);
     }
 
-    // 显式挂载到 window，确保移动端 inline onclick 100% 触发
     [switchView, openRechargeModal, closeRechargeModal, openGrowthModal, closeGrowthModal,
      openAdminLogin, closeAdminModal, realStartRender, mockDownloadVideo, publishToPlatform,
      copyPublishInfo, parseProductUrl, searchIndustryPains, quickSelectTag, refreshPainPoints,
      applyPainPoint, refreshGeneratedScript, triggerImagePicker, handleImageUpload, mockAutoBuy,
      redeemCardCode, handleLogoClick, adminGenerateNewCards, adminDeleteCard, adminAdjustUserCredits,
-     scheduleNewVideo, selectAvatar, renderAvatarGrid, renderHookCards].forEach(function(fn) { window[fn.name] = fn; });
+     scheduleNewVideo, selectAvatar, renderAvatarGrid, renderHookCards,
+     triggerCustomAvatarPicker, handleCustomAvatarUpload].forEach(function(fn) { window[fn.name] = fn; });
 
     window.addEventListener('DOMContentLoaded', function() {
       saveState();
       renderAvatarGrid();
-      selectAvatar(AVATARS[0]);
+      if (customAvatar && customAvatar.imgData) {
+        selectAvatar(customAvatar);
+      } else {
+        selectAvatar(AVATARS[0]);
+      }
       renderPricingTiers();
       renderPlatforms();
       renderCalendar();
