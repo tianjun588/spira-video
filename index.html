@@ -178,10 +178,19 @@
   </main>
 
   <!-- 工作台主视图 -->
-  <main id="workshopView" class="max-w-5xl mx-auto px-4 mt-3 w-full grid grid-cols-1 lg:grid-cols-12 gap-3.5">
+    <!-- 移动端专属快捷双栏切换 -->
+  <div class="lg:hidden max-w-xs mx-auto mt-2 px-4 w-full">
+    <div class="flex items-center justify-center p-1 bg-black/60 backdrop-blur-md rounded-2xl border border-white/[0.08] shadow-lg">
+      <button type="button" onclick="setMobileTab('steps')" id="mTabSteps" class="flex-1 py-1 rounded-xl text-xs font-bold transition bg-indigo-600 text-white shadow">⚙️ 参数编排</button>
+      <button type="button" onclick="setMobileTab('stage')" id="mTabStage" class="flex-1 py-1 rounded-xl text-xs font-bold transition text-slate-400 hover:text-white">📱 9:16 成片舞台</button>
+    </div>
+  </div>
+
+  <!-- 工作台主视图 -->
+  <main id="workshopView" class="max-w-5xl mx-auto px-4 mt-2.5 w-full grid grid-cols-1 lg:grid-cols-12 gap-3.5">
     
     <!-- 左侧：输入与流水线控制 (7 cols) -->
-    <div class="lg:col-span-7 space-y-3">
+    <div id="colWorkflowSteps" class="lg:col-span-7 space-y-3 block">
       
       <!-- 步骤 1：商品链接与黄金钩子库 -->
       <div class="glass-card rounded-2xl p-3.5 shadow-xl">
@@ -287,7 +296,7 @@
           <div>
             <label class="block text-[10px] font-semibold text-slate-400 mb-0.5">算法节奏与完播增强</label>
             <select class="w-full bg-black/50 border border-white/[0.08] rounded-xl px-2 py-1.5 text-xs text-slate-300 focus:outline-none focus:border-indigo-500 transition">
-              <option>1.25x 黄金快节奏 (算法防划走)</option>
+              <option>1.25x 黄金快节奏 (算法防流失)</option>
               <option>1.0x 标准直播间带货语速</option>
               <option>1.35x 极速倒计时秒杀逼单</option>
             </select>
@@ -353,7 +362,7 @@
     </div>
 
     <!-- 右侧：iPhone 16 Pro 钛金属旗舰短视频舞台 (5 cols) -->
-    <div class="lg:col-span-5 space-y-3">
+    <div id="colPhoneStage" class="lg:col-span-5 space-y-3 hidden lg:block">
       
       <!-- 旗舰机身容器 -->
       <div class="glass-card rounded-3xl p-4 shadow-2xl flex flex-col items-center relative">
@@ -380,7 +389,7 @@
             <div class="relative z-20 pt-7 px-3 flex items-center justify-between">
               <div class="flex items-center gap-1 bg-black/50 backdrop-blur-md px-1.5 py-0.5 rounded-full border border-white/10">
                 <span class="text-amber-400 text-[8px] font-bold"><i class="ph-fill ph-fire"></i> 热榜 #1</span>
-                <span class="text-slate-300 text-[8px]">户外垂钓精选</span>
+                <span class="text-slate-300 text-[8px]" id="stageHotRankTag">户外垂钓精选</span>
               </div>
               <span class="text-[8px] text-white/80 bg-red-600/70 px-1 rounded-sm font-bold">LIVE 3.8w</span>
             </div>
@@ -437,13 +446,13 @@
 
             <!-- 底部：带货商品小黄车与动态字幕 -->
             <div class="relative z-20 p-2 space-y-1">
-              <!-- 抖音同款黄色小黄车 -->
-              <div class="bg-gradient-to-r from-amber-400 to-yellow-500 rounded-lg p-1 text-slate-950 flex items-center justify-between shadow-md">
-                <div class="flex items-center gap-1 min-w-0">
-                  <span class="bg-slate-950 text-amber-400 rounded p-0.5 text-[8px] font-black"><i class="ph-fill ph-shopping-bag"></i></span>
-                  <span class="text-[8px] font-black truncate" id="stageCartProductTitle">德国碳素暴力钓竿 (秒杀爆款)</span>
+              <!-- 抖音同款黄色小黄车 (优化间距防文本遮挡) -->
+              <div class="bg-gradient-to-r from-amber-400 to-yellow-500 rounded-lg px-2 py-1 text-slate-950 flex items-center justify-between shadow-md gap-1.5">
+                <div class="flex items-center gap-1 min-w-0 flex-1">
+                  <span class="bg-slate-950 text-amber-400 rounded p-0.5 text-[8px] font-black flex-shrink-0"><i class="ph-fill ph-shopping-bag"></i></span>
+                  <span class="text-[8px] font-black truncate block" id="stageCartProductTitle">德国碳素暴力钓竿</span>
                 </div>
-                <span class="text-[8px] font-black bg-red-600 text-white px-1 rounded flex-shrink-0">抢</span>
+                <span class="text-[8px] font-black bg-red-600 text-white px-1.5 py-0.5 rounded flex-shrink-0 shadow-sm leading-none">抢</span>
               </div>
 
               <!-- 动态跑马字幕 -->
@@ -476,14 +485,17 @@
         </div>
 
         <!-- 舞台控制栏 -->
-        <div class="w-full mt-3 flex items-center gap-2">
-          <button type="button" onclick="toggleVideoPlayback()" class="flex-1 py-1.5 rounded-xl bg-indigo-600/30 hover:bg-indigo-600/50 border border-indigo-500/40 text-indigo-300 text-xs font-bold transition flex items-center justify-center gap-1 active:scale-95">
-            <i id="btnPlayTextIcon" class="ph-bold ph-play"></i> <span id="btnPlayText">模拟播放短视频</span>
+        <div class="w-full mt-3 grid grid-cols-2 gap-2">
+          <button type="button" onclick="toggleVideoPlayback()" class="py-2 rounded-xl bg-indigo-600/30 hover:bg-indigo-600/50 border border-indigo-500/40 text-indigo-300 text-xs font-bold transition flex items-center justify-center gap-1 active:scale-95">
+            <i id="btnPlayTextIcon" class="ph-bold ph-play"></i> <span id="btnPlayText">模拟播放视频</span>
           </button>
-          <button type="button" onclick="mockDownloadVideo()" class="flex-1 py-1.5 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] border border-white/[0.08] text-slate-200 text-xs font-bold transition flex items-center justify-center gap-1 active:scale-95">
-            <i class="ph-bold ph-download-simple"></i> <span>保存 1080P 成片</span>
+          <button type="button" onclick="mockDownloadVideo()" class="py-2 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-xs font-bold transition flex items-center justify-center gap-1 active:scale-95 shadow">
+            <i class="ph-bold ph-download-simple"></i> <span>导出 1080P 成片</span>
           </button>
         </div>
+        <button type="button" onclick="copyPublishContent()" class="w-full mt-1.5 py-1.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] text-amber-300 text-xs font-bold transition flex items-center justify-center gap-1 active:scale-95">
+          <i class="ph-bold ph-copy"></i> <span>一键复制带货文案与标签 (直达各平台发布)</span>
+        </button>
 
         <div class="w-full mt-2 grid grid-cols-4 gap-1 text-[9px] text-center">
           <a href="https://creator.douyin.com/" target="_blank" class="py-1 rounded bg-black/40 border border-white/[0.05] hover:border-pink-500 text-slate-300 hover:text-white transition">直通抖音</a>
@@ -1433,7 +1445,23 @@
       var pName = samples[cat] || (catName + " · 源头严选好物");
       prodInput.value = pName;
       var cartTitle = document.getElementById('stageCartProductTitle');
-      if (cartTitle) cartTitle.innerText = pName.slice(0, 16) + " (限时抢购)";
+      if (cartTitle) cartTitle.innerText = pName.slice(0, 10);
+
+      var rankMap = {
+        fishing: "户外垂钓热销榜",
+        beauty: "美妆护肤热卖榜",
+        fashion: "潮流服饰榜首",
+        food: "生鲜美食飙升榜",
+        tech: "智能数码狂欢榜",
+        home: "品质百货畅销榜",
+        baby: "母婴育儿热销榜",
+        pet: "宠物用品畅销榜",
+        auto: "车品自驾热卖榜",
+        health: "传统滋补严选榜",
+        farm: "源头农特直发榜"
+      };
+      var rankTag = document.getElementById('stageHotRankTag');
+      if (rankTag) rankTag.innerText = rankMap[cat] || (catName + "热卖榜");
     }
 
     // 核心：真实调用商业大模型生成脚本
@@ -1643,7 +1671,7 @@
               btn.disabled = false;
               btn.innerHTML = '<i class="ph-bold ph-check-circle text-emerald-400 text-sm"></i> <span>✅ 5人流水线合成完毕！点击可再次合成</span>';
             }
-            showToast("🎉 5人流水线成片已渲染完毕！请在弹窗中下载或查看预览。");
+            showToast("🎉 5人流水线成片已渲染完毕！请在弹窗中下载或查看预览。"); setMobileTab("stage");
           }
         }, 550);
 
@@ -1665,60 +1693,96 @@
 
     // 1080P 高清成片合成与下载（支持相册自设/真实主播绘制）
     function mockDownloadVideo() {
-      showToast("⏳ 正在为您的手机打包 1080P 高清视频成片并推送到相册...");
+      showToast("⏳ 正在为您的手机打包 1080P 高清成片分镜海报...");
       try {
         var canvas = document.createElement('canvas');
         canvas.width = 720; canvas.height = 1280;
         var ctx = canvas.getContext('2d');
 
+        // 背景深色渐变
         var grad = ctx.createLinearGradient(0, 0, 0, 1280);
-        grad.addColorStop(0, '#0a0d18');
-        grad.addColorStop(0.3, '#020617');
+        grad.addColorStop(0, '#060814');
+        grad.addColorStop(0.3, '#0f172a');
+        grad.addColorStop(0.7, '#020617');
         grad.addColorStop(1, '#000000');
         ctx.fillStyle = grad;
         ctx.fillRect(0, 0, 720, 1280);
 
-        ctx.fillStyle = 'rgba(255,255,255,0.7)';
+        // 顶部品牌栏与平台标识
+        ctx.fillStyle = 'rgba(255,255,255,0.85)';
         ctx.font = 'bold 22px sans-serif';
         ctx.textAlign = 'left';
-        ctx.fillText('Spira AI Studio 1080P · 爆款电商带货短视频', 40, 60);
+        ctx.fillText('Spira AI Studio · 1080P 商业带货成片分镜', 40, 55);
+
+        // 抖音热榜标签
+        ctx.fillStyle = '#ef4444';
+        ctx.fillRect(40, 75, 170, 36);
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 18px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('🔥 爆款热榜 No.1', 125, 100);
 
         // 黄金钩子吸睛标牌
         ctx.fillStyle = '#f59e0b';
-        ctx.fillRect(40, 90, 640, 130);
+        ctx.fillRect(40, 130, 640, 130);
         ctx.fillStyle = '#020617';
         ctx.font = 'bold 30px sans-serif';
         ctx.textAlign = 'center';
         var hookEl = document.getElementById('mockHookBigText');
         var hook = hookEl ? hookEl.innerText : '爆款带货视频黄金破局';
-        ctx.fillText(hook.slice(0, 17), 360, 145);
-        ctx.fillText(hook.slice(17, 34), 360, 190);
+        ctx.fillText(hook.slice(0, 17), 360, 185);
+        ctx.fillText(hook.slice(17, 34), 360, 230);
 
-        // 数字人出镜信息框
-        ctx.fillStyle = '#0f172a';
-        ctx.fillRect(440, 900, 240, 320);
+        // 中部商品核心视觉区装饰
+        ctx.fillStyle = '#1e293b';
+        ctx.fillRect(80, 300, 560, 520);
+        ctx.strokeStyle = 'rgba(99,102,241,0.5)';
+        ctx.lineWidth = 3;
+        ctx.strokeRect(80, 300, 560, 520);
+
+        // 商品品名大字
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 32px sans-serif';
+        ctx.textAlign = 'center';
+        var pName = (document.getElementById('productNameInput') || {}).value || "热销爆款";
+        ctx.fillText(pName.slice(0, 16), 360, 780);
+
+        // 数字人出镜信息框 (右下角)
+        ctx.fillStyle = 'rgba(15,23,42,0.95)';
+        ctx.fillRect(430, 890, 250, 330);
         ctx.strokeStyle = currentAvatar.isCustom ? '#ec4899' : '#6366f1';
         ctx.lineWidth = 4;
-        ctx.strokeRect(440, 900, 240, 320);
+        ctx.strokeRect(430, 890, 250, 330);
 
         ctx.fillStyle = '#ffffff';
-        ctx.font = 'bold 24px sans-serif';
+        ctx.font = 'bold 22px sans-serif';
         ctx.textAlign = 'center';
-        ctx.fillText(currentAvatar.n + ' (' + (currentAvatar.g || '定制') + ')', 560, 1170);
-        ctx.fillStyle = currentAvatar.isCustom ? '#f472b6' : '#fbbf24';
-        ctx.font = '18px sans-serif';
-        ctx.fillText('● ' + (currentAvatar.isCustom ? '自设数字人带货' : 'AI数字人带货中'), 560, 1205);
+        ctx.fillText(currentAvatar.n + ' (' + (currentAvatar.g || '定制') + ')', 555, 1165);
+        ctx.fillStyle = currentAvatar.isCustom ? '#f472b6' : '#38bdf8';
+        ctx.font = '16px sans-serif';
+        ctx.fillText('● ' + (currentAvatar.isCustom ? '自设真人数字人' : 'AI写实主播'), 555, 1195);
 
-        // 跑马文字与字幕
-        ctx.fillStyle = 'rgba(0,0,0,0.88)';
-        ctx.fillRect(40, 1110, 380, 110);
-        ctx.fillStyle = '#ffffff';
-        ctx.font = 'bold 24px sans-serif';
+        // 左下角台词字幕与小黄车
+        ctx.fillStyle = 'rgba(0,0,0,0.85)';
+        ctx.fillRect(40, 1070, 370, 150);
+        ctx.strokeStyle = 'rgba(255,255,255,0.15)';
+        ctx.lineWidth = 2;
+        ctx.strokeRect(40, 1070, 370, 150);
+
+        ctx.fillStyle = '#fbbf24';
+        ctx.fillRect(55, 1085, 340, 36);
+        ctx.fillStyle = '#0f172a';
+        ctx.font = 'bold 18px sans-serif';
         ctx.textAlign = 'left';
-        ctx.fillText('今天冒着得罪同行的风险...', 60, 1155);
+        ctx.fillText('🛒 抖音商城爆款小黄车 | 查看同款', 70, 1110);
+
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 20px sans-serif';
+        ctx.textAlign = 'left';
+        ctx.fillText('今天冒着得罪同行的风险...', 60, 1160);
         ctx.fillText('带大家看清真相，现货秒发！', 60, 1195);
 
-        function triggerDownloadBlob() {
+        function finalizeAndShowPoster() {
           var dataUrl = canvas.toDataURL('image/png');
           try {
             var link = document.createElement('a');
@@ -1727,9 +1791,9 @@
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
-            showToast("✅ 已成功触发 1080P 成片海报下载！");
+            showToast("✅ 已成功下载 1080P 成片海报！");
           } catch(err) {
-            console.warn("直接下载被浏览器安全限制，开启长按弹窗", err);
+            console.warn("直接触发下载被拦截，唤起长按弹窗", err);
           }
 
           var previewImg = document.getElementById('savedImagePreview');
@@ -1741,27 +1805,50 @@
           }
         }
 
-        // 绘制商品图和主播头像
-        var prodImg = new Image();
-        prodImg.crossOrigin = "anonymous";
-        prodImg.onload = function() {
-          ctx.drawImage(prodImg, 120, 280, 480, 480);
+        // 异步加载并绘制数字人主播形象（支持自定义照片或SVG矢量图转绘制）
+        function drawAvatarOnPoster(cb) {
+          var avImg = new Image();
+          avImg.onload = function() {
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(555, 1010, 85, 0, Math.PI * 2);
+            ctx.closePath();
+            ctx.clip();
+            ctx.drawImage(avImg, 470, 925, 170, 170);
+            ctx.restore();
+            cb();
+          };
+          avImg.onerror = function() {
+            cb();
+          };
           if (currentAvatar.isCustom && currentAvatar.imgData) {
-            var customImg = new Image();
-            customImg.onload = function() {
-              ctx.drawImage(customImg, 450, 910, 220, 230);
-              triggerDownloadBlob();
-            };
-            customImg.src = currentAvatar.imgData;
+            avImg.src = currentAvatar.imgData;
           } else {
-            triggerDownloadBlob();
+            var svgStr = renderAvatarSvg(currentAvatar);
+            var svgBlob = new Blob([svgStr], { type: 'image/svg+xml;charset=utf-8' });
+            avImg.src = URL.createObjectURL(svgBlob);
           }
-        };
-        prodImg.onerror = function() {
-          triggerDownloadBlob();
-        };
-        var stageBg = document.getElementById('stageProductBg');
-        prodImg.src = stageBg ? stageBg.src : document.getElementById('productImagePreview').src;
+        }
+
+        // 异步加载并绘制商品实拍图
+        function drawProductOnPoster(cb) {
+          var prodImg = new Image();
+          prodImg.onload = function() {
+            ctx.drawImage(prodImg, 140, 320, 440, 420);
+            cb();
+          };
+          prodImg.onerror = function() {
+            cb();
+          };
+          var stageBg = document.getElementById('stageProductBg');
+          prodImg.src = stageBg ? stageBg.src : (document.getElementById('productImagePreview') || {}).src;
+        }
+
+        drawProductOnPoster(function() {
+          drawAvatarOnPoster(function() {
+            finalizeAndShowPoster();
+          });
+        });
 
       } catch(e) {
         console.error("生成成片失败:", e);
@@ -1769,7 +1856,58 @@
       }
     }
 
-    function showToast(msg) {
+    // 复制带货文案与标签
+    function copyPublishContent() {
+      var prod = (document.getElementById('productNameInput') || {}).value || "爆款商品";
+      var script = (document.getElementById('scriptTextarea') || {}).value || "";
+      var hook = currentSelectedHook || "为什么懂行的人都在用？实测告诉你真相！";
+      var textToCopy = "🔥【Spira AI 爆款电商带货短视频】\n" +
+                       "商品：" + prod + "\n" +
+                       "出镜主播：" + currentAvatar.n + " (" + (currentAvatar.t || "带货主播") + ")\n" +
+                       "黄金破局钩子：" + hook + "\n\n" +
+                       "【多模态分镜脚本】\n" + script + "\n\n" +
+                       "#好物推荐 #抖音商城好物节 #爆款测评 #源头好货 #开箱实测";
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(textToCopy).then(function() {
+          showToast("📋 带货脚本与发布标签已复制到剪贴板！");
+        }).catch(function() {
+          legacyCopy(textToCopy);
+        });
+      } else {
+        legacyCopy(textToCopy);
+      }
+    }
+
+    function legacyCopy(str) {
+      var ta = document.createElement("textarea");
+      ta.value = str;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      document.body.removeChild(ta);
+      showToast("📋 带货脚本与发布标签已复制！可直接粘贴发布！");
+    }
+
+    // 移动端快捷标签切换
+    function setMobileTab(tab) {
+      var colSteps = document.getElementById('colWorkflowSteps');
+      var colStage = document.getElementById('colPhoneStage');
+      var btnSteps = document.getElementById('mTabSteps');
+      var btnStage = document.getElementById('mTabStage');
+
+      if (tab === 'stage') {
+        if (colSteps) colSteps.className = "lg:col-span-7 space-y-3 hidden lg:block";
+        if (colStage) colStage.className = "lg:col-span-5 space-y-3 block";
+        if (btnStage) { btnStage.className = "flex-1 py-1 rounded-xl text-xs font-bold transition bg-indigo-600 text-white shadow"; }
+        if (btnSteps) { btnSteps.className = "flex-1 py-1 rounded-xl text-xs font-bold transition text-slate-400 hover:text-white"; }
+      } else {
+        if (colSteps) colSteps.className = "lg:col-span-7 space-y-3 block";
+        if (colStage) colStage.className = "lg:col-span-5 space-y-3 hidden lg:block";
+        if (btnSteps) { btnSteps.className = "flex-1 py-1 rounded-xl text-xs font-bold transition bg-indigo-600 text-white shadow"; }
+        if (btnStage) { btnStage.className = "flex-1 py-1 rounded-xl text-xs font-bold transition text-slate-400 hover:text-white"; }
+      }
+    }
+function showToast(msg) {
       var toast = document.createElement('div');
       toast.className = "fixed top-14 left-1/2 -translate-x-1/2 z-50 bg-[#0f172a]/95 text-white text-xs font-bold px-4 py-2 rounded-2xl shadow-2xl border border-indigo-500/40 backdrop-blur-xl flex items-center gap-1.5 transition-all duration-300";
       toast.innerHTML = msg;
