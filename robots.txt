@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://tianjun588.github.io/spira-video/sitemap.xml
